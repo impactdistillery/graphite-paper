@@ -4,7 +4,7 @@ with open("readme.md", "r") as fh:
         long_description = fh.read()
 
 setup(
-    name='graphite_paper',
+    name='graphite-paper',
     version='0.0.2',
     description='Graphite Paper',
     long_description=long_description,
