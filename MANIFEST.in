@@ -1,0 +1,4 @@
+include graphite_paper/jinja2/*.html
+include graphite_paper/jinja2/horst/*.html
+include graphite_paper/jinja2/horst/render/*.html
+include graphite_paper/jinja2/horst/plugins/*.html
