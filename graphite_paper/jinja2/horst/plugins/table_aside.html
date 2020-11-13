@@ -1,0 +1,13 @@
+{% if caption %}
+<aside class="ms-aside-caption">
+  <p>{{ caption }}</p>
+</aside>
+{% endif %}
+{% if description %}
+<aside class="ms-aside-description">
+  <p>{{ description | safe }}</p>
+</aside>
+{% endif %}
+<aside class="ms-aside-download">
+  <p><a href="{{ file }}">Download</a></p>
+</aside>

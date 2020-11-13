@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Article">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% include "horst/meta.html" %}
+    {% if meta.styles %}
+      <link rel="stylesheet" href="{{ meta.styles }}">
+    {% else %}
+      <link rel="stylesheet" href="{{ static("css/bootstrap-horst.css") }}">
+    {% endif %}
+  </head>
+  <body>
+
+    {% include "nav.html" %}
+    {% include "horst/frame.html" %}
+
+    <script src="{{ static("js/jquery.min.js") }}"></script>
+    <script src="{{ static("js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ static("js/jquery.actual.min.js") }}"></script>
+    <script src="{{ static("js/horst.js") }}"></script>
+    <script src="{{ static("js/youtube.js") }}"></script>
+    <script src="{{ static("js/confetti.js") }}"></script>
+    {% if meta.scripts %}
+      <script src="{{ meta.scripts }}"></script>
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!-- Place this data between the <head> tags of your website -->
+<title>{{ meta.title }}</title>
+<meta name="description" content="{{ meta.subtitle }}" />
+<meta name="author" content="{{ meta.author_info }}">
+
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="{{ meta.title }}">
+<meta itemprop="description" content="{{ meta.subtitle }}">
+<meta itemprop="image" content="{{ meta.social_image_url }}">
+
+<!-- Twitter Card data -->
+<meta name="twitter:title" content="{{ meta.title }}">
+<meta name="twitter:description" content="{{ meta.subtitle }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@author_handle">
+<!-- Twitter Summary card images must be at least 120x120px -->
+<meta name="twitter:image" content="{{ meta.social_image_url }}">
+
+<!-- Open Graph data -->
+<meta property="og:title" content="{{ meta.title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ meta.short_url }}" />
+<meta property="og:image" content="{{ meta.social_image_url }}" />
+<meta property="og:description" content="{{ meta.subtitle }}" /> 
+<meta property="og:site_name" content="{{ meta.brand }}" />
+
+<!--
+<meta name="twitter:site" content="@publisher_handle">
+<meta property="fb:admins" content="Facebook numeric ID" />
+-->

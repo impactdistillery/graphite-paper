@@ -1,0 +1,49 @@
+<section class="container ms-article-top">
+  <div class="ms-row ms-row-single">
+    <div class="ms-col-content">
+      <h2>{{ lang.get("abstract") }}</h2>
+    </div>
+  </div>
+  <div class="ms-row">
+    <div class="ms-col-content">
+      {{ meta.get("abstract_md") | safe }}
+        <p class="ms-buttons-article">
+            <a class="ms-button ms-button-toc"><i></i> {{ lang.get('toc_long', 'Table of content') }}</a>
+            <a href="#read-full-article" class="ms-button ms-button-read-on"> {{ lang.get('read_on', 'Continue reading full article') }} <i></i></a>
+        </p>
+    </div>
+    <div class="ms-col-marginal">
+      <div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
+        <div class="btn-group mr-auto" role="group" aria-label="Download">
+          <a href="{{ meta.get('pdf_url') }}" class="ms-button ms-button-download"><i></i> {{ lang.get("download") }}</a>
+        </div>
+        {% include "horst/share.html" %}
+      </div>
+      <aside>
+        <p><strong>{{ lang.get("date_publication") }}:</strong> {{ meta.get("date_publication") }}</p>
+          {% if DEBUG %}
+          <p><strong>DOI: </strong> {{ meta.get("doi") }}</p>
+          {% endif %}
+      </aside>
+      <aside>
+        <p><img alt="{{ meta.get('author_info') }}" src="{{ meta.get('logo_url') }}"></p>
+      </aside>
+      <aside>
+        <h3>{{ lang.get("keywords") }}</h3>
+        <p>{{ meta.get("keywords") }}</p>
+      </aside>
+      <aside>
+        <h3>{{ lang.get("cite_as") }}</h3>
+        <p>{{ meta.get("cite_as") }}</p>
+      </aside>
+      {% if meta.get("contact_email", None) %}
+      <aside>
+        <h3>{{ lang.get("questions") }}</h3>
+        <p><i class="mdi mdi-email-outline"></i>&nbsp; {{ lang.get("write_mail") }} <a href="mailto:{{ meta.get("contact_email") }}"> {{ meta.get("contact_email") }}</a></p>
+      </aside>
+      {% endif %}
+      <a id="read-full-article"></a>
+    </div>
+
+  </div>
+</section>

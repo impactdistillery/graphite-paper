@@ -1,0 +1,41 @@
+<nav class="ms-tabs">
+  <div class="container">
+
+    <a class="ms-trigger-toc button d-flex d-lg-none">
+      {{ lang.get('toc', 'Table of content') }}
+    </a>
+
+    <div class="dropdown d-xs-block d-lg-none">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ tabs[0].get("title") }}
+      </button>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" role="tablist">
+        <div class="nav nav-pills" role="tablist">
+          {% for tab in tabs %}
+          <a class="dropdown-item tab-item {% if tab.active %}active{% endif %}" id="{{ tab.slug }}-tab" data-toggle="tab" href="#{{ tab.slug }}" role="tab" aria-controls="{{ tab.slug }}" {% if tab.active %}aria-expanded="true"{% endif%}>
+            {{ tab.get("title") }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav nav-tabs d-none d-lg-flex" id="masterTab" role="tablist">
+      {% for tab in tabs %}
+      <li class="nav-item">
+        <a class="nav-link tab-item {% if tab.active %}active{% endif%}" id="{{ tab.slug }}-tab" data-toggle="tab" href="#{{ tab.slug }}" role="tab" aria-controls="{{ tab.slug }}" {% if tab.active %}aria-expanded="true"{% endif%}>
+          {{ tab.get("title") }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+<div class="tab-content" id="masterTabContent">
+  {% for tab in tabs %}
+  <div class="tab-pane fade{% if tab.active %} active show{% endif%}" id="{{ tab.slug }}" role="tabpanel" aria-labelledby="{{ tab.slug }}-tab" {% if tab.active %}aria-expanded="true"{% endif%}>
+    {% include "horst/tab_content.html" %}
+  </div>
+  {% endfor %}
+</div>

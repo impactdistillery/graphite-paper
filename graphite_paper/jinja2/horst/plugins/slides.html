@@ -1,0 +1,15 @@
+<div id="{{ partial_id }}carouselExampleIndicators" class="slides-norm-height carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+  {% for i, slide in slides %}
+    <li data-target="#{{ partial_id }}carouselExampleIndicators"
+        data-slide-to="{{ i - 1 }}"{% if i == 1 %} class="active"{% endif %}></li>
+  {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+  {% for i, slide in slides %}
+    <div class="carousel-item {% if i == 1 %}active{% endif %}">
+      {{ slide }}
+    </div>
+  {% endfor %}
+  </div>
+</div>

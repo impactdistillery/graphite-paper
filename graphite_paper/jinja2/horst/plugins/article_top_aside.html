@@ -1,0 +1,18 @@
+<aside>
+  <p><strong>{{ lang.get("date_publication") }}:</strong> {{ meta.get("date_publication") }}</p>
+  {% if meta.doi %}
+  <p><strong>DOI: </strong> {{ meta.("doi") }}</p>
+  {% endif %}
+</aside>
+{% if meta.keywords %}
+<aside>
+  <h3>{{ lang.get("keywords") }}</h3>
+  <p>{{ meta.get("keywords") }}</p>
+</aside>
+{% endif %}
+{% if meta.cite_as %}
+<aside>
+  <h3>{{ lang.get("cite_as") }}</h3>
+  <p>{{ meta.get("cite_as") }}</p>
+</aside>
+{% endif %}

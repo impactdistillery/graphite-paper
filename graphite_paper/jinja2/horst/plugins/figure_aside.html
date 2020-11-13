@@ -1,0 +1,67 @@
+{% if caption %}
+<aside class="ms-aside-caption">
+  <p><strong>{{ caption }}</strong>
+      {% if description %}
+        <br>{{ description | safe }}
+      {% endif %}
+  </p>
+</aside>
+{% endif %}
+
+{% if dataUrl %}
+<aside class="ms-aside-download">
+  <p><a href="{{ dataUrl }}">
+    {{ lang.get("downloadData", "Download the data") }}
+  </a></p>
+</aside>
+{% endif %}
+
+{% if author or licence %}
+<aside class="ms-aside-licence">
+  <p>{{ author }}{% if author and licence %} | {% endif %}{{ licence }}</p>
+</aside>
+{% endif %}
+
+<div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
+  <div class="btn-group mr-auto" role="group" aria-label="Download">
+	<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{ partial_id }}Modal">
+      <i class="mdi mdi-fullscreen"></i>
+	</button>
+    <a class="btn btn-secondary" href="{{ share_file }}"><i class="mdi mdi-download"></i></a>
+  </div>
+  <div class="btn-group" role="group" aria-label="Share">
+    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <a href="{{ get_share_domain('facebook', share_domain_full + share_file) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-facebook"></i>
+    </a>
+    <a href="{{ get_share_domain('twitter', share_domain + share_file) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-twitter"></i>
+    </a>
+    <a href="{{ get_share_domain('linkedin', share_domain_full + share_file, title=caption, description=description) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-linkedin"></i>
+    </a>
+  </div>
+</div>
+
+<div class="modal fade" id="{{ partial_id }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ partial_id }}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ caption }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% if file.endswith("svg") %}
+        <object data="{{ file }}" type="image/svg+xml" class="img-fluid"></object>
+        {% else %}
+        <img class="img-fluid" src="{{ file }}" alt="{{ alt }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

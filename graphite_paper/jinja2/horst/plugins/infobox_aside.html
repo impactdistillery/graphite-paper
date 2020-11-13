@@ -1,0 +1,21 @@
+{% if title %}
+<aside class="ms-aside-caption">
+  <p><strong>{{ title }}</strong>
+    {% if description %}
+    <br>{{ description | safe }}
+    {% endif %}
+  </p>
+</aside>
+{% endif %}
+
+{% for l in link %}
+<aside class="ms-aside-link">
+  <p><a href="{{ l }}">{{ l }}</a></p>
+</aside>
+{% endfor %}
+
+{% if note %}
+<aside class="ms-aside-note">
+  <p>{{ note | safe }}</p>
+</aside>
+{% endif %}

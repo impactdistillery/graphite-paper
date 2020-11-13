@@ -1,0 +1,46 @@
+{% if scale == "cat" %}
+
+<table>
+    <thead> 
+        <tr>
+            <th>Index</th>
+            <th>Value</th>
+            <th>Label</th>
+            <th>Frequencies</th>
+            <th>Missings</th>
+        </tr>
+    </thead> 
+    <tbody>
+{% for value in uni.get("values") %}
+        <tr>  
+            <td></td>
+            <td>{{ value }}</td>
+            <td>{{ uni.get("labels") }}</td>
+            <td>{{ uni.get("frequencies") }}</td>
+            <td>{{ uni.get("missings") }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+<table>
+    <tr>
+        <td>{{ statistics.get("names") }}</td>
+        <td>{{ statistics.get("values") }}</td>
+    </tr>
+</table>
+
+{% endif %}
+
+
+{% if scale == "num" %}
+
+{{ uni }}
+
+{% endif %}
+
+{% if scale == "str" %}
+
+{{ uni }}
+
+{% endif %}

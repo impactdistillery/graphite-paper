@@ -1,0 +1,36 @@
+{% if quoteOriginal %}
+<div class="tab-content" id="{{ id }}myTabContent">
+  <div class="tab-pane fade show active" id="{{ id }}quote" role="tabpanel"
+       aria-labelledby="{{ id }}quote-tab">
+    <blockquote class="blockquote">
+      <p>{{ lang.get("quote_open") | safe }}{{ quote }}{{ lang.get("quote_close") | safe }}</p>
+    </blockquote>
+  </div>
+  <div class="tab-pane fade" id="{{ id }}quoteOriginal" role="tabpanel"
+       aria-labelledby="{{ id }}quoteOriginal-tab">
+    <blockquote class="blockquote">
+      <p>{{ lang.get("quote_open") | safe }}{{ quoteOriginal }}{{ lang.get("quote_close") | safe }}</p>
+    </blockquote>
+  </div>
+</div>
+<ul class="nav nav-tabs" id="{{ id }}myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="{{ id }}quote-tab" data-toggle="tab"
+       href="#{{ id }}quote" role="tab" aria-controls="{{ id }}quote" aria-expanded="true">
+      Übersetzung
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="{{ id }}quoteOriginal-tab" data-toggle="tab"
+       href="#{{ id }}quoteOriginal" role="tab" aria-controls="{{ id }}quoteOriginal">
+      Originalversion
+    </a>
+  </li>
+</ul>
+{% else %}
+<div>
+  <blockquote class="blockquote">
+    <p>{{ lang.get("quote_open") | safe }}{{ quote }}{{ lang.get("quote_close") | safe }}</p>
+  </blockquote>
+</div>
+{% endif %}
