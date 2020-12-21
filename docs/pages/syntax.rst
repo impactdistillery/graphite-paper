@@ -7,13 +7,37 @@ WORKING FILE:
 https://docs.google.com/spreadsheets/d/1bp6Y3C1jGtIH9GvygYurikihPT6EIarLHO20KirznWM/edit#gid=0
 
 
-First rule
-----------
+Markdown for text
+-----------------
 
 Blank lines divide logical blocks (e.g. paragraphs including asides).
 
-Types of plugins
-----------------
+Example for markdown:
+
+.. code-block:: md
+
+    # Markdown
+
+    This an *bold* example with a bullet list:
+
+    * one
+    * two
+    * three
+
+Further resources on markdown
+
+-  https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+-  https://guides.github.com/features/mastering-markdown/
+-  https://github.github.com/gfm/
+
+
+Graphite specific plugins and markup
+------------------------------------
+
+Inline elements
+^^^^^^^^^^^^^^^
+
+
 
 **(1) Import external markdown file or plugin**
 
@@ -62,24 +86,7 @@ or
 
 --------------
 
-Markdown for text
------------------
 
-Example:
-
-::
-
-    # Markdown
-
-    This an *markdown* example with a bullet list:
-
-    * one
-    * two
-    * three
-
--  https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
--  https://guides.github.com/features/mastering-markdown/
--  https://github.github.com/gfm/
 
 Objects are defined as yaml objects
 -----------------------------------
@@ -118,7 +125,7 @@ markdown (e.g. footnotes or glossary entries) – syntax to be determined.
 Marginal notes concerning the entire paragraph can be separated by three
 dashes. Example:
 
-::
+.. code:: md
 
     This is a paragraph
     :--- NOTE ---:
@@ -128,30 +135,13 @@ dashes. Example:
     :------------:
 
 
-References
-----------
 
-The Reference to a source in the text consists of a slug to the full reference and the text displayed.
-
-Note: To display reference icons without inline citation just leave the last element blank.
-
-::
-
-    This is text [: REFERENCE | AuthorCoauthor2020 | Author, F., Coauthor, S. 2016 :] that goes on.
-
-And in references.yaml
-
-::
-
-  AuthorCoauthor2020:
-      short: "Author, F., Coauthor, S. (2016). Some fancy title, 7(1)."
-      long: ""Author, F., Coauthor, S. (2016). Some fancy title, 7(1). 2053951719897945."
 
 
 Author
 ----------
 
-::
+.. code-block:: yaml
 
     :--- AUTHOR ---:
     file: assets/images/authors/….png

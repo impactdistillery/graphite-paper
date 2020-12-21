@@ -17,8 +17,9 @@ SOCIAL_NETWORKS = dict(
         param="u",
     ),
     twitter=dict(
-        share_domain="https://twitter.com/home?",
-        param="status",
+        share_domain="https://twitter.com/intent/tweet?",
+        param="text",
+        title="title",
     ),
     linkedin=dict(
         share_domain="https://www.linkedin.com/shareArticle?mini=true&",

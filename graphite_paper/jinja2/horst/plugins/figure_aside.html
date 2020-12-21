@@ -30,7 +30,7 @@
     <a class="btn btn-secondary" href="{{ share_file }}"><i class="mdi mdi-download"></i></a>
   </div>
   <div class="btn-group" role="group" aria-label="Share">
-    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <span class="input-group-addon" id="btnGroupAddon">{{ lang.get("share", "SHARE") }}</span>
     <a href="{{ get_share_domain('facebook', share_domain_full + share_file) }}"
        target="_blank" class="btn btn-secondary">
       <i class="mdi mdi-facebook"></i>

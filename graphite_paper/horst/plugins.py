@@ -1,11 +1,17 @@
-import os
+import os, re
 import pprint
 import json
 import yaml
 import markdown
 import pandas as pd
-from .render import RenderThree, RenderTwo, RenderSingle, Figure, FullFigure, Section, Directory, RenderFullWidth, Slides, RenderChapterHeader
+from .render import RenderThree, RenderTwo, RenderSingle, Figure, FullFigure, Section, Directory, RenderFullWidth, Slides, RenderChapterHeader, RenderText
 from .helper import markdown_helper, jinja_template
+from .inlines import InlineController
+
+RE_INLINE = re.compile(r'\[:([^\]]+):\]')
+MD_SITE = re.compile( "\[(.*)\]" )
+MD_URL = re.compile( "\((.*)\)" )
+RE_TD = re.compile( "<td>(.*?)<\/td>" )
 
 class AbstractPlugin:
     """
@@ -164,6 +170,7 @@ class YamlMdPlugin(AbstractPlugin):
         ).render()
 
 
+
 class InfoboxPlugin(YamlMdPlugin):
     
     class Meta:
@@ -177,17 +184,33 @@ class InfoboxPlugin(YamlMdPlugin):
         if not link.__class__ == list:
             link = [link]
         self.data["link"] = link
+        self.data["collapse"] = self.data.get("collapse")
 
     def render(self):
-        content = self.render_template(dict(content=self.content))
+        renderer, html_content = self.modify_markdown_based_html(self.content)
+        content = self.render_template(dict(content=html_content))
         aside = self.render_template(self.data, aside=True)
+        collapse = self.data["collapse"]
+#        collapse = "true"
+
         return Section(
             self.report,
             content,
             aside,
+#            collapse,
             partial_id=self.partial_id,
-            plugin_class=self.Meta.name
+            plugin_class=self.Meta.name + " collapse"
         ).render()
+
+    def modify_markdown_based_html(self, html):
+        html = RE_INLINE.sub(self._inline_replace, html)
+        renderer = RenderText
+        return renderer, html
+
+    def _inline_replace(self, match):
+        data = [ x.strip() for x in match.group(1).split("|")]
+        inline = InlineController.get_inline(data[0])
+        return inline(self.report, data, self).render()
 
 class ArticleTopPlugin(YamlPlugin):
     
@@ -393,7 +416,7 @@ class ListOfReferencesPlugin(ListOfFiguresPlugin):
     def get_entries(self):
         references = self.report.references
         for key, value in references.items():
-            references[key]["html"] = markdown_helper(value.get("long"))
+            references[key]["html"] = markdown_helper(value.get("long")).strip()
         return references
 
 
@@ -432,16 +455,31 @@ class CsvPlugin(YamlPlugin):
         )
         data_frame = pd.read_csv(file_path)
         data = self.data.copy()
+        if "header-row" in self.data:
+            data["header_row"]=self.data["header-row"]
+        else:
+            data["header_row"]=TRUE
+        if "description" in self.data:
+            data["description_html"]=markdown_helper(self.data["description"])
         data["lang"] = self.report.lang
         data["data_frame"] = data_frame
         data["html_table"] = data_frame.to_html(
             classes="table table-hover",
             border=0,
             index=False,
+            justify="left",
+            header=data["header_row"],
+            na_rep=""
         ).replace(
             "<thead>",
             "<thead class=\"thead-inverse\">",
         )
+        if "header-column" in self.data:
+            data["html_table"] = data["html_table"].replace(
+                "<tbody>",
+                "<tbody class=\"tcol-head\">",
+            )
+        data["html_table"] = RE_TD.sub(self.render_cell_markdown, data["html_table"])
         content = self.render_template(data)
         aside = self.render_template(data, aside=True)
         return RenderTwo(
@@ -451,6 +489,12 @@ class CsvPlugin(YamlPlugin):
             partial_id=self.partial_id,
             plugin_class="table",
         ).render()
+
+    def render_cell_markdown(self, match):
+        cell_content = match.group(1)
+        cell_content = markdown_helper(cell_content)
+        return '<td>' + cell_content + '</td>'
+
 
 class HtmlPlugin(AbstractPlugin):
 

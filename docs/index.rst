@@ -12,10 +12,13 @@ Welcome to Graphite Paper's documentation!
    :maxdepth: 1
    :caption: Contents:
 
-   getting-started
+   pages/getting-started
+   pages/syntax
+   pages/components
+   pages/theme-configuration
    Beautiful-Reports/Overall-design
-   Beautiful-Reports/Syntax
    Beautiful-Reports/Implementation-details
+   notebook
 
 
 Indices and tables

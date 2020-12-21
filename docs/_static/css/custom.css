@@ -1,0 +1,156 @@
+
+/*  GENERAL STYLES
+/* ______________________________________________________________ */
+
+/* Removing background from nav */
+.wy-body-for-nav,
+.wy-side-nav-search,
+.wy-menu-vertical li.current,
+.wy-menu-vertical li.current > a,
+.wy-menu-vertical li.on a,
+/* Removing background from rest of page */
+.wy-nav-content-wrap,
+.wy-nav-content{
+    background: transparent;
+}
+
+
+/*  NAVIGATION
+/* ______________________________________________________________ */
+
+.wy-side-nav-search input[type="text"] {
+    border-color: #ccc;
+}
+
+.wy-nav-side {
+    color: #333;
+    background: transparent;
+}
+
+.wy-menu-vertical a {
+    color: #666;
+}
+
+.wy-menu-vertical a:hover {
+    background-color: transparent;
+    color: teal;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical p.caption{
+    color: teal;
+}
+
+.wy-menu-vertical li.current a{
+    border: none;
+}
+
+/*  LOGO
+/* ______________________________________________________________ */
+
+.wy-side-nav-search > a {
+    margin: 1em 0 4em;
+}
+
+.wy-side-nav-search .wy-dropdown > a img.logo,
+.wy-side-nav-search > a img.logo{
+    height: 2.5em;
+}
+
+/*  TYPOGRAPHY
+/* ______________________________________________________________ */
+a {
+    color: teal;
+}
+
+a:visited {
+    color: darkslategray;
+}
+
+/*Color and font headlines*/
+.rst-content .toctree-wrapper > p.caption, h1, h2, h3, h4, h5, h6, legend {
+    font-weight: 500;
+    font-family: Roboto, Arial,sans-serif;
+    color: darkslategray;
+}
+
+h1 {
+    color: #333;
+    margin: 3.5rem 0 2rem;
+    font-size: 2.5em;
+}
+
+h2 {
+    margin-top: 3em;
+}
+
+h3 {
+    font-size: 0.93em;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    padding-bottom: 0.2em;
+    border-bottom: 3px solid #eee;
+}
+
+/*Inline code*/
+.rst-content tt.literal, .rst-content tt.literal, .rst-content code.literal {
+    color: darkslategray;
+}
+
+/*Inline files*/
+
+.rst-content .file.literal {
+    color: black;
+    background: rgba(255,255,255,0.7);
+}
+
+.file.docutils.literal.notranslate::before {
+    content: "\f07c";
+    font-family: "FontAwesome";
+    color: #999;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+
+.rst-content .admonition-example{
+    background: #dfeaef;
+}
+
+.rst-content .admonition-example .admonition-title{
+    background: #608090;
+}
+
+/* Syntax roles */
+
+.rst-content .guilabel.variable,
+.rst-content .guilabel.syntax {
+    margin-right: 0;
+    border-radius: 0;
+    font-weight: 400;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, Courier, monospace;
+    font-size: 12px;
+}
+
+.rst-content .guilabel.syntax {
+    border: 1px solid #ccc;
+    margin-right: -4px;
+    margin-left: -2px;
+    font-weight: 600;
+}
+
+.rst-content .guilabel.variable{
+    background: #eff;
+    border-color: #aba;
+}
+
+.rst-content .guilabel.syntax:first-child,
+.rst-content .guilabel.variable:first-child{
+    margin-left: 0;
+}
+
+/* Adjust syntax highlighting*/
+
+.highlight .nt { color: teal; }
+.highlight .s {  color: midnightblue;

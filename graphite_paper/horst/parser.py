@@ -105,8 +105,21 @@ class Aside:
         self.content = content
 
     def render(self):
+        html_content = markdown_helper(self.content).strip()
+        renderer, html_content = self.modify_markdown_based_html(html_content)
         aside = AsideController.get_aside(self.parser)
-        return aside(self.report, self.content, self.parser).render()
+        return aside(self.report, html_content, self.parser).render()
+#        return aside(self.report, self.content, self.parser).render()
+
+    def modify_markdown_based_html(self, html):
+        html = RE_INLINE.sub(self._inline_replace, html)
+        renderer = RenderText
+        return renderer, html
+
+    def _inline_replace(self, match):
+        data = [ x.strip() for x in match.group(1).split("|")]
+        inline = InlineController.get_inline(data[0])
+        return inline(self.report, data, self).render()
 
 
 class CoreParser:
