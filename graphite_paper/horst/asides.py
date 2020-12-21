@@ -73,8 +73,10 @@ class GlossaryAside(AbstractAside):
         if len(x) == 1:
             x = x[0]
         else:
-            x = "**%s:**%s" % (x[0], ":".join(x[1:]))
-        return markdown_helper(x)
+#            x = "**%s:**%s" % (x[0], ":".join(x[1:]))
+            x = "<strong>%s:</strong>%s" % (x[0], ":".join(x[1:]))
+#        return markdown_helper(x.strip())
+        return x
 
 class MarkdownAside(AbstractAside):
     

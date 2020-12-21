@@ -7,6 +7,9 @@
   <div class="ms-row">
     <div class="ms-col-content">
       {{ meta.get("abstract_md") | safe }}
+
+        <h3>{{ lang.get("keywords") }}</h3>
+        <p>{{ meta.get("keywords") }}</p>
         <p class="ms-buttons-article">
             <a class="ms-button ms-button-toc"><i></i> {{ lang.get('toc_long', 'Table of content') }}</a>
             <a href="#read-full-article" class="ms-button ms-button-read-on"> {{ lang.get('read_on', 'Continue reading full article') }} <i></i></a>
@@ -21,16 +24,16 @@
       </div>
       <aside>
         <p><strong>{{ lang.get("date_publication") }}:</strong> {{ meta.get("date_publication") }}</p>
-          {% if DEBUG %}
-          <p><strong>DOI: </strong> {{ meta.get("doi") }}</p>
+          {% if meta.doi %}
+            <p><strong>DOI: </strong> {{ meta.doi }}</p>
           {% endif %}
       </aside>
       <aside>
+       {% if logo_url %}
         <p><img alt="{{ meta.get('author_info') }}" src="{{ meta.get('logo_url') }}"></p>
-      </aside>
-      <aside>
-        <h3>{{ lang.get("keywords") }}</h3>
-        <p>{{ meta.get("keywords") }}</p>
+        {% else %}
+        <p>{{ meta.get('author_info') }}</p>
+        {% endif %}
       </aside>
       <aside>
         <h3>{{ lang.get("cite_as") }}</h3>
@@ -44,6 +47,5 @@
       {% endif %}
       <a id="read-full-article"></a>
     </div>
-
   </div>
 </section>
