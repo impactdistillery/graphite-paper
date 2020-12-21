@@ -32,7 +32,9 @@ release = '2021'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-   "sphinx_rtd_theme"
+    'sphinx_rtd_theme',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -48,10 +50,26 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-
-html_theme = "sphinx_rtd_theme"
+html_theme = 'sphinx_rtd_theme'
+html_theme_options = {
+    'logo_only': True,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+# -- Additional options -----------------------------------------------------
+
+# Add logo
+html_logo = 'assets/graphite.svg'
+
+# Custom CSS
+html_css_files = [
+    # Add Icon support (Larissa)
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+    'css/custom.css',
+]
+
