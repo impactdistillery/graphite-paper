@@ -1,4 +1,7 @@
-<aside>
+
+ {# ATTENTION!!! TEMPLATE NOT USED, refer to article_top.html #}
+
+ <aside>
   <p><strong>{{ lang.get("date_publication") }}:</strong> {{ meta.get("date_publication") }}</p>
   {% if meta.doi %}
   <p><strong>DOI: </strong> {{ meta.("doi") }}</p>
@@ -13,6 +16,7 @@
 {% if meta.cite_as %}
 <aside>
   <h3>{{ lang.get("cite_as") }}</h3>
-  <p>{{ meta.get("cite_as") }}</p>
+  <p>{{ meta.get("cite_as_md") | safe }}</p>
+  <p>{{ meta.get("cite_as_md") | safe }}</p>
 </aside>
-{% endif %}
+% endif %

@@ -1,19 +1,19 @@
 <section class="container ms-article-top">
   <div class="ms-row ms-row-single">
     <div class="ms-col-content">
-      <h2>{{ lang.get("abstract") }}</h2>
+      <h2>{{ lang.get('abstract', 'Abstract') }}</h2>
     </div>
   </div>
   <div class="ms-row">
     <div class="ms-col-content">
-      {{ meta.get("abstract_md") | safe }}
+      {{ meta.abstract_md | safe }}
 
-        <h3>{{ lang.get("keywords") }}</h3>
-        <p>{{ meta.get("keywords") }}</p>
-        <p class="ms-buttons-article">
-            <a class="ms-button ms-button-toc"><i></i> {{ lang.get('toc_long', 'Table of content') }}</a>
-            <a href="#read-full-article" class="ms-button ms-button-read-on"> {{ lang.get('read_on', 'Continue reading full article') }} <i></i></a>
-        </p>
+      <h3>{{ lang.get('keywords', 'Keywords') }}</h3>
+      <p>{{ meta.keywords }}</p>
+      <p class="ms-buttons-article">
+          <a class="ms-button ms-button-toc"><i></i> {{ lang.get('toc_long', 'Table of content') }}</a>
+          <a href="#read-full-article" class="ms-button ms-button-read-on"> {{ lang.get('read_on', 'Continue reading full article') }} <i></i></a>
+      </p>
     </div>
     <div class="ms-col-marginal">
       <div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
@@ -37,7 +37,7 @@
       </aside>
       <aside>
         <h3>{{ lang.get("cite_as") }}</h3>
-        <p>{{ meta.get("cite_as") }}</p>
+        <p>{{ meta.get("cite_as_md") | safe }}</p>
       </aside>
       {% if meta.get("contact_email", None) %}
       <aside>
