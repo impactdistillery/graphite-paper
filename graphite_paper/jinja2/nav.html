@@ -1,28 +1,77 @@
+{# Navigation to other graphite content sliding in from top – default is overwritten by details in meta.yaml #}
 
-<!-- Navigation to other content sliding in from top -->
 <div id="navContent" style="display: none;">
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <p><b>HEADING</b><br/>
-        Link 1<br/>
-        Link 1</p>
+
+      <div class="col-md-6">
+
+        {% if meta.imprint_md %}
+          <div class="ms-nav-info">
+            {{ meta.imprint_md | safe }}
+          </div>
+        {% else %}
+          <p class="ms-nav-info">
+            This publication was build with the framework Graphite based on python's graphite-papers. The framework enhances users to create publications for a digital environment.
+          </p>
+        {% endif %}
       </div>
+
       <div class="col-md-3">
-        <p><b>HEADING</b><br/>
-        Link 1<br/>
-        Link 1</p>
+        <div class="ms-nav-info">
+          <h3 class="ms-nav-section">{{ lang.get('header_articles', 'Further publications') }}</h3>
+
+          {% if meta.further_publications %}
+            <ul class="ms-nav-subnav">
+              {% for p in meta.further_publications %}
+                <li>
+                  <a href={{ p.url }} target="_blank">{{ p.label }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+
+          {% else %}
+            <ul class="ms-nav-subnav">
+              <li>
+                <a href="https://www.impactdistillery.com/graphite/lrnlab-agile-en/" target="_blank">Agility. A whitepaper by LRN LAB</a>
+              </li>
+              <li>
+                <a href="https://graphite.page/policy-brief-values/" target="_blank">Freedom of Expression in the Digital Public Sphere</a>
+              </li>
+              <li>
+                <a href="https://preview.graphite.page/fair-targeted-ads/" target="_blank">Increasing fairness in targeted advertising</a>
+              </li>
+            </ul>
+          {% endif %}
+        </div>
       </div>
+
       <div class="col-md-3">
-        <p><b>HEADING</b><br/>
-        Link 1<br/>
-        Link 1</p>
+        <div class="ms-nav-info">
+          <h3 class="ms-nav-section">{{ lang.get('header_more', 'More information') }}</h3>
+
+          {% if meta.further_links %}
+            <ul class="ms-nav-subnav">
+              {% for l in meta.further_links %}
+                <li>
+                  <a href={{ l.url }} target="_blank">{{ l.label }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+
+          {% else %}
+            <ul class="ms-nav-subnav">
+              <li>
+                <a href="https://www.impactdistillery.com/graphite" target="_blank">Graphite project website</a>
+              </li>
+              <li>
+                <a href="https://pypi.org/project/graphite-paper" target="_blank">graphite_paper.pypi</a>
+              </li>
+            </ul>
+          {% endif %}
+        </div>
       </div>
-      <div class="col-md-3">
-        <p><b>HEADING</b><br/>
-        Link 1<br/>
-        Link 1</p>
-      </div>
+
     </div>
   </div>
 </div>
@@ -42,4 +91,6 @@
 
   </div>
 </nav>
+
+
 
