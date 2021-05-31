@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 from django.urls import reverse
 from django.test.client import Client
 
-from graphite-paper.horst.helper import svg_remove_wh
+from graphite_paper.horst.helper import svg_remove_wh
 
 class Command(BaseCommand):
     help = "Build static site output"
