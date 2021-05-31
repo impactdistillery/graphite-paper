@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
     def _collectstatic(self):
         print("[INFO] Collect static")
-        call_command("collectstatic", interactive=False, clear=True, verbosity=0)
+        call_command("collectstatic", interactive=False, clear=True, verbosity=1)
 
     def _copy_directory(self, path):
         print("[INFO] Copy %s/" % path)
