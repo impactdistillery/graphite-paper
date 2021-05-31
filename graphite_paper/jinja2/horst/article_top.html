@@ -10,6 +10,7 @@
 
       <h3>{{ lang.get('keywords', 'Keywords') }}</h3>
       <p>{{ meta.keywords }}</p>
+
       <p class="ms-buttons-article">
           <a class="ms-button ms-button-toc"><i></i> {{ lang.get('toc_long', 'Table of content') }}</a>
           <a href="#read-full-article" class="ms-button ms-button-read-on"> {{ lang.get('read_on', 'Continue reading full article') }} <i></i></a>
@@ -18,31 +19,46 @@
     <div class="ms-col-marginal">
       <div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
         <div class="btn-group mr-auto" role="group" aria-label="Download">
-          <a href="{{ meta.get('pdf_url') }}" class="ms-button ms-button-download"><i></i> {{ lang.get("download") }}</a>
+          <a href="{{ meta.pdf_url }}" class="ms-button ms-button-download"><i></i> {{ lang.get("download") }}</a>
         </div>
         {% include "horst/share.html" %}
       </div>
       <aside>
-        <p><strong>{{ lang.get("date_publication") }}:</strong> {{ meta.get("date_publication") }}</p>
-          {% if meta.doi %}
-            <p><strong>DOI: </strong> {{ meta.doi }}</p>
-          {% endif %}
+        {% if meta.date_publication %}
+          <p>
+            <span class="ms-date-publication"><strong>{{ lang.get('date_publication', 'Published') }}:</strong>
+              {{ meta.date_publication }}</span>
+
+            {% if meta.date_submission %}
+              <br><span class="ms-date-submission"><strong>{{ lang.get('date_submission', 'Submitted') }}:</strong>
+                {{ meta.date_submission }}</span>
+            {% endif %}
+            {% if meta.date_last_updated %}
+              <br><span class="ms-date-updated"><strong>{{ lang.get('date_last_updated', 'Last updated') }}:</strong>
+                {{ meta.date_last_updated }}</span>
+            {% endif %}
+          </p>
+        {% endif %}
+
+        {% if meta.doi %}
+          <p><strong>DOI: </strong> {{ meta.doi }}</p>
+        {% endif %}
       </aside>
       <aside>
-       {% if logo_url %}
-        <p><img alt="{{ meta.get('author_info') }}" src="{{ meta.get('logo_url') }}"></p>
+       {% if meta.logo_url %}
+        <p><img alt="{{ meta.author_info }}" src="{{ meta.logo_url }}"></p>
         {% else %}
-        <p>{{ meta.get('author_info') }}</p>
+        <p>{{ meta.author_info }}</p>
         {% endif %}
       </aside>
       <aside>
         <h3>{{ lang.get("cite_as") }}</h3>
-        <p>{{ meta.get("cite_as_md") | safe }}</p>
+        <p>{{ meta.cite_as_md | safe }}</p>
       </aside>
       {% if meta.get("contact_email", None) %}
       <aside>
         <h3>{{ lang.get("questions") }}</h3>
-        <p><i class="mdi mdi-email-outline"></i>&nbsp; {{ lang.get("write_mail") }} <a href="mailto:{{ meta.get("contact_email") }}"> {{ meta.get("contact_email") }}</a></p>
+        <p><i class="mdi mdi-email-outline"></i>&nbsp; {{ lang.get("write_mail") }} <a href="mailto:{{ meta.contact_email }}"> {{ meta.contact_email }}</a></p>
       </aside>
       {% endif %}
       <a id="read-full-article"></a>
