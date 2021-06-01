@@ -51,14 +51,12 @@
           <p><strong>DOI: </strong> {{ meta.doi }}</p>
         {% endif %}
       </aside>
+      {% if meta.logo_url %}
       <aside>
-        {% if meta.logo_url %}
-          <p><img alt="{{ meta.author_info }}" src="{{ meta.logo_url }}"></p>
-        {% else %}
-          <p>{{ meta.author_info }}</p>
-        {% endif %}
+        <p><img alt="{{ meta.author_info }}" src="{{ meta.logo_url }}"></p>
       </aside>
-      {% if meta.cite_as_md %}
+      {% endif %}
+      {% if meta.cite_as %}
         <aside>
           <h3>{{ lang.get('cite_as', 'Cite as') }}</h3>
           {{ meta.cite_as_md | safe }}
