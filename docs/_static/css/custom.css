@@ -84,13 +84,14 @@ h2 {
 }
 
 h3 {
-    font-size: 0.93em;
+    font-size: 1.2em;
     text-transform: uppercase;
     color: #666;
     letter-spacing: 0.02em;
     font-weight: 400;
     padding-bottom: 0.2em;
     border-bottom: 3px solid #eee;
+    margin-top: 2em;
 }
 
 /*Inline code*/

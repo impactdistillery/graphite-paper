@@ -37,7 +37,7 @@ Which will link to the item in the reference list :file:`pages/references.yaml` 
       url: "http://someurl.com"
 
 .. TIP::
-   To display reference icons without inline citation just leave the last element blank.
+   To display reference icons only, simply leave the element after the second | blank.
 
 
 Sidenote
