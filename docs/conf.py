@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'Graphite Paper'
-copyright = '2020, Hebing, M., Wunderlich, L.'
+copyright = '2020, Marcel Hebing & Larissa Wunderlich'
 author = 'Hebing, M., Wunderlich, L.'
 
 # The full version, including alpha/beta/rc tags
@@ -35,6 +35,7 @@ extensions = [
     'sphinx_rtd_theme',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
+    'sphinx_copybutton',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -72,4 +73,10 @@ html_css_files = [
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
     'css/custom.css',
 ]
+
+# Disable smart quotes (-- to dash)
+smartquotes = False
+
+# Exclude bash $ for copying
+copybutton_prompt_text = "$ "
 

@@ -13,7 +13,7 @@ Welcome to Graphite Paper's documentation!
    :caption: Contents:
 
    pages/getting-started
-   pages/syntax
+   pages/create-paper
    pages/components
    pages/theme-configuration
    Beautiful-Reports/Overall-design

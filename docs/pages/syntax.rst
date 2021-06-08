@@ -136,36 +136,3 @@ dashes. Example:
 
 
 
-
-
-Author
-----------
-
-.. code-block:: yaml
-
-    :--- AUTHOR ---:
-    file: assets/images/authors/….png
-    name: Martha Mustermann
-    institution: Brand Inc.
-    website: https://www.impactdistillery.de/graphite
-    linkedinName: sample
-    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    :--------------:
-
-
-Chapter Header
---------------
-::
-
-  # header
-
-or
-
-::
-
-  :----- CHAPTER_HEADER -----:
-  image: "assets/images/find-experts-at-kilta-com-k9pmyStHKXE-unsplash.jpg"
-  title: Introduction
-  subtitle: Design publications with a digital dissemination in mind
-  :--------------------------:
-

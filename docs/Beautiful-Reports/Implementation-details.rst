@@ -1,3 +1,7 @@
+=======================
+ Implementation details
+=======================
+
 Page strucuture
 ---------------
 

@@ -8,12 +8,127 @@
 Components
 **********
 
+.. _Marginal component:
 
-Inline components
-=================
+Marginal component
+==================
+
+.. sidebar:: Enhanced narrative
+
+   Marginal components are displayed next to a paragraph (or above on mobile). They complement the main narrative with key statements or additional information and explanations.
+
+A marginal component follows the paragraph, with **no empty line** between paragraph and marginal component.
+
+There are two types of marginal components:
+
+* Pull quotes/key statements
+* Marginal modules
+
+There must be at least three hyphens following/preceding the colon.
+More hyphens are allowed to increase the readability of the code.
+
+.. HINT::
+    **Collapsing marginals:** If the paragraph is less high than the hight of all corresponding marginals, the marginal components collapse and show on hover unless the paragraph is followed by a paragraph without marginal components.
 
 
-References
+Pull quote
+----------
+
+Key statements in the text, so called pull quotes, can be added to the marginals to catch attention and give readers an idea about the adjacent content.
+
+| :syntax:`:--- KEYSTATEMENT ---:`
+| :variable:`pull quote`
+| :syntax:`:---:`
+
+
+**Example**
+
+.. code:: md
+
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur odio maxime ad itaque earum, aliquam hic neque inventore minima ea doloribus. Voluptatibus illo incidunt, est, consequatur quam quae.
+    :----------- KEYSTATEMENT -----------:
+    Adipisci consectetur odio maxime ad itaque earum.
+    :------------------------------------:
+
+
+.. _Marginal module:
+
+Marginal module
+---------------
+
+.. sidebar:: Smart clusters
+
+   Create your own categorisation of marginals. Define a limited number of modules, pick a comprehensive icon for each and cluster all your additional information according to the chosen categories.
+
+Marginal modules are textblocks preceeded by an icon. Markdown syntax and inline components can be used in marginal modules.
+
+| :syntax:`:---`  :variable:`marginal module slug`  :syntax:`---:`
+| :variable:`marginal module content`
+| :syntax:`:---:`
+
+The modules receive the CSS class :code:`.ms-aside-SLUG`. The icons are taken from the Material icon font and are defined by the theme.
+
+The default graphite theme currently supports the following modules:
+
+.. code:: scss
+
+    //  Define icons for marginal modules
+    //
+    //  module slug   :  Material icon slug
+    //  -----------      ------------------
+    $ms-icons: (
+        link          :  earth,
+        licence       :  copyright,
+        caption       :  information-variant,
+        author        :  account,
+        twitter       :  twitter,
+        linkedin      :  linkedin,
+        glossary      :  book-open-variant,
+        note          :  star,
+        sidenote      :  star,
+        download      :  download,
+        slidedeck     :  chart-pie,
+        reference     :  tooltip-text,
+        translate     :  translate,
+        generalSource :  format-quote-close,
+        institution   :  domain,
+        facebook      :  facebook,
+        youtube       :  youtube-play,
+    );
+
+    // ...
+
+    // Assign icons to classes
+    @each $ms-type, $ms-icon in $ms-icons {
+        .ms-aside-#{$ms-type} p{ @extend .mdi-#{$ms-icon}; }
+    }
+
+
+**Examples**
+
+.. code:: md
+
+    :--- NOTE ---:
+    Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    :------------:
+
+
+.. code:: md
+
+    :--- LINK ---:
+    [NetzDG ( Art. 2)](https://www.gesetze-im-internet.de/netzdg/BJNR335210017.html)
+    :------------:
+
+
+.. _Inline component:
+
+Inline component
+================
+
+
+.. _Reference:
+
+Reference
 ----------
 
 The inline reference to a source in the text consists of a slug to the full reference and the text displayed.
@@ -28,6 +143,9 @@ The inline reference to a source in the text consists of a slug to the full refe
     This is text [: REFERENCE | AuthorCoauthor2020 | Author, F., Coauthor, S. 2016 :] that goes on.
 
 Which will link to the item in the reference list :file:`pages/references.yaml` with the according slug.
+
+.. TODO::
+    add link to reference list documentation
 
 .. code:: yaml
 
@@ -47,7 +165,7 @@ Marginal notes can refer to a particular element in the text by referencing the 
 
 :syntax:`[: SIDENOTE |` :variable:`term` :syntax:`\ :]`
 
-Followed by the marginal element:
+Followed by the :ref:`Marginal module`:
 
 | :syntax:`:--------- SIDENOTE |` :variable:`term` :syntax:`\ ---------:`
 | :variable:`Explanation`
@@ -62,70 +180,101 @@ Followed by the marginal element:
     See [Some link](https://#): Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     :------------:
 
-Glossary
---------
+Glossary item
+-------------
+
+Glossary items can be added to the text. The explanation will show in the marginal column. The term preceeding the first colon will be wrapped in a <strong> tag.
+
+:syntax:`[: GLOSSARY |` :variable:`glossary slug` :syntax:`\ |\ ` :variable:`glossary caption` :syntax:`\ :]`
+
+Followed by the marginal component:
+
+| :syntax:`:--------- GLOSSARY |` :variable:`glossary slug` :syntax:`\ ---------:`
+| :variable:`Term: Explanation`
+| :syntax:`:---------------------------------------------------------------------------:`
+
+**Example:**
 
 .. code:: md
 
-    Alongside human reviewers called "content moderators", platforms use automation and AI to identify and respond to problematic content and behaviour. The benefit of [: GLOSSARY | ACM | algorithmic content moderation (ACM) :] is that it is a fast and globally scalable way to prevent offensive content being uploaded and travelling across the globe within seconds. It can also spare human content moderators some of the tedium of a very repetitive job, as well as the trauma of viewing the most distressing content, such as child abuse imagery.
+    Alongside human reviewers called content moderators, platforms use automation and AI to identify and respond to problematic content and behaviour. The benefit of [: GLOSSARY | ACM | algorithmic content moderation (ACM) :] is that it is a fast and globally scalable way to prevent offensive content being uploaded and travelling across the globe within seconds.
     :--- GLOSSARY | ACM ---:
-    **What is ACM?**
-    Platforms use human reviewers, known as content moderators, to screen posts and accounts for abuse. Because of the large amount of activity that happens on platforms everyday, content moderation is too large a task for human content moderators alone. Platforms therefore use technical automation to identify and sanction violating posts and accounts. ACM refers to "systems that classify user-generated content based on either matching or prediction, leading to a decision and governance outcome (e.g. removal, geoblocking, account takedown)"[: REFERENCE | GorwaKatzenbach2020 | :]. This could be as simple as a bot that deletes posts with a certain keyword in them. However, large platforms routinely and increasingly use complex, advanced technologies, such as machine learning (ML), to undertake tasks in content moderation.
+    ACM: Platforms use human reviewers, known as _content moderators_, to screen posts and accounts for abuse. Because of the large amount of activity that happens on platforms everyday, content moderation is too large a task for human content moderators alone. Platforms therefore use technical automation to identify and sanction violating posts and accounts. ACM refers to "systems that classify user-generated content based on either matching or prediction, leading to a decision and governance outcome (e.g. removal, geoblocking, account takedown)"[: REFERENCE | GorwaKatzenbach2020 | :]. This could be as simple as a bot that deletes posts with a certain keyword in them. However, large platforms routinely and increasingly use complex, advanced technologies, such as machine learning (ML), to undertake tasks in content moderation.
     :---------------------:
 
-Marginal components
+.. HINT::
+    Inline components such as a :ref:`reference` can be used in the marginal of inline components.
+
+.. _Container component:
+
+Container component
 ===================
 
-Pull quotes
------------
+.. sidebar:: Multi-layer information
 
-.. code:: md
+   Strengthen your article by adding additional data layers to your  figures or interactive visualisations. Link to underlaying data sets or more extensive tables when showing a data interpretation. The quote component allows you to complement a translated statement with the original quote and offers more information about the quotee.
 
-    :--- KEYSTATEMENT ---:
-    A dearth of information is not an acceptable status quo, when citizens would be best served understanding the way a platform works in order to make informed decisions on whether and how to engage online
-    :--------------------:
+A container component streches over all columns. The marginal column  contains descriptive information as well as share, full screen and download buttons.
 
+The component must be wraped by empty lines with at least three hyphens following/preceding the colon. More hyphens are allowed to increase the readability of the code. YAML syntax is used within the component.
 
-Marginal note/module
---------------------
-
-.. code:: md
-
-    :--- NOTE ---:
-    IEEE Standard 1028-2008 (defining audits as conducted by third parties)
-    :------------:
-
-
-.. code:: md
-
-    :--- LINK ---:
-    [NetzDG ( Art. 2)](https://www.gesetze-im-internet.de/netzdg/BJNR335210017.html)
-    :------------:
-
------------
-
-Container components
-=====================
+.. _Figure:
 
 Figure
 ------
 
-::
+A figure will show as full-column element. Add alternative information to increase accessability if images are not displayed. Description, author and licence information are not mandatory.
+
+.. TODO::
+    Mandatory items? Link to data?
+
+| :syntax:`:--- FIGURE ---:`
+| :syntax:`file:` :variable:`path to file`
+| :syntax:`alt:` :variable:`alt attribute for image`
+| :syntax:`caption:` :variable:`title of figure`
+| :syntax:`description:` :variable:`description/further information`
+| :syntax:`author:` :variable:`author/rights holder`
+| :syntax:`licence:` :variable:`copyright licence`
+| :syntax:`:---:`
+
+
+**Example:**
+
+.. code:: yaml
 
     :------------------------------- FIGURE --------------------------:
-    file: images/SUM_studienelemente.svg
-    author: Alexander von Humboldt Institut für Internet und Gesellschaft
+    file: images/studienelemente.svg
+    author: Impact Distillery
     licence: CC BY SA 3.0
-    alt: Die Abbildungs zeigt die Visualisierung der Studienelemente. Diese bestehen aus drei World Cafes mit Gruppendiskussionen beim Tech Open Air, einem Roundtable Meeting mit ExpertInnen am HIIG, vier Workshops zu den Kollaborationsphasen Learn, Match und Partner im Digital Spielfeld Hub, einer schriftlichen Befragung und 20 Interviews mit ExpertInnen aus den USA und Deutschland.
+    alt: Die Abbildungs zeigt die Visualisierung der Studienelemente, bestehend aus X, Y und Z.
     caption: Studienelemente
     description: Der Aufbau der Studie im Überblick
     :-----------------------------------------------------------------:
 
+.. seealso::
+
+    For the full-width component refer to :ref:`Full-width figure`.
 
 Video
 -----
 
-::
+The video component allows embedding of YouTube videos.
+
+.. TODO::
+    Mandatory items? Only Youtube? Only load after click by default implemented?
+
+| :syntax:`:--- FIGURE ---:`
+| :syntax:`url:` :variable:`url of YouTube vide in the format https://www.youtube.com/embed/VIDEOID`
+| :syntax:`caption:` :variable:`title of video`
+| :syntax:`description:` :variable:`description/further information`
+| :syntax:`authorDescription:` :variable:`author information`
+| :syntax:`linkedinName:` :variable:`LinkedIn profile handle (w/o url)`
+| :syntax:`twitterName:` :variable:`Twitter profile handle (w/o url)`
+| :syntax:`:---:`
+
+**Example:**
+
+.. code:: yaml
 
     :------------------------- VIDEO --------------------------:
     url: https://www.youtube.com/embed/-qCtxCHBBhw
@@ -136,14 +285,107 @@ Video
     description: "1. Welche Erfahrungen haben Sie in der Zusammenarbeit mit etablierten Unternehmen gemacht?<br>
     2. Wie verläuft die Identifikation und Ansprache interessanter Unternehmen?<br>
     3. Welche Faktoren haben die Zusammenarbeit positiv beeinflusst?<br>
-    4. Warum könnte eine Zusammenarbeit mit etablierten Unternehmen, einer Kooperation mit Großkonzernen vorgezogen werden?
-    "
+    4. Warum könnte eine Zusammenarbeit mit etablierten Unternehmen, einer Kooperation mit Großkonzernen vorgezogen werden?"
     :----------------------------------------------------------:
 
-Slider
+
+Blockquote
+----------
+
+A blockquote shows as full column element. Orginal quotes can be added when translated, author details and social media links are not mandatory.
+
+| :syntax:`:--- QUOTE ---:`
+| :syntax:`quote:` :variable:`quote`
+| :syntax:`quoteOriginal:` :variable:`quote in original language`
+| :syntax:`author:` :variable:`quotee`
+| :syntax:`authorDescription:` :variable:`quotee details, affiliation or short bio`
+| :syntax:`linkedinName:` :variable:`LinkedIn profile handle (w/o url)`
+| :syntax:`twitterName:` :variable:`Twitter profile handle (w/o url)`
+| :syntax:`:---:`
+
+**Example:**
+
+.. code:: yaml
+
+    :------------------------- QUOTE --------------------------:
+    quote: "Wenn du als Startup nicht kooperierst hast du keine Chance."
+    quoteOriginal: "As a small company, you don’t have a chance without collaborating."
+    author: "Gilad Amitai"
+    authorDescription: "Ubimo"
+    linkedinName: giladamitai
+    twitterName: gamitai
+    :----------------------------------------------------------:
+
+
+Table
+-----
+
+Simple Markdown tables are rendered within the text, more complex tables should be visualised with the table component. Header rows and columns are possible, a download button links to the data file.
+
+| :syntax:`:--- CSV ---:`
+| :syntax:`file:` :variable:`path to csv file`
+| :syntax:`caption:` :variable:`caption of table`
+| :syntax:`description:` :variable:`description/further information`
+| :syntax:`header-row:` :variable:`true or false`
+| :syntax:`header-column:` :variable:`true or false`
+| :syntax:`:---:`
+
+**Example:**
+
+.. code:: yaml
+
+    :-------------- CSV ------------------:
+    file: assets/tables/table.csv
+    caption: Lorem ipsum dolor sit amet
+    description: Amet dictum sit amet justo donec enim et leo duis ut diam
+    header-row: true
+    header-column: true
+    :-------------------------------------:
+
+
+Author
 ------
 
-::
+An author component presenting authors, editors or other persona relevant for the publication.
+
+| :syntax:`:--- AUTHOR ---:`
+| :syntax:`file:` :variable:`path to csv file`
+| :syntax:`name:` :variable:`author name`
+| :syntax:`institution:` :variable:`author affiliation or position`
+| :syntax:`website:` :variable:`link to company or personal website`
+| :syntax:`linkedinName:` :variable:`LinkedIn profile handle (w/o url)`
+| :syntax:`twitterName:` :variable:`Twitter profile handle (w/o url)`
+| :syntax:`description:` :variable:`Short bio or person details`
+| :syntax:`:---:`
+
+.. code:: yaml
+
+    :---------------------- AUTHOR ----------------------:
+    file: assets/images/authors/image-of-author.png
+    name: Martha Mustermann
+    institution: Brand Inc.
+    website: https://www.impactdistillery.de/graphite
+    linkedinName: sample
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    :----------------------------------------------------:
+
+
+Carousel
+--------
+
+Multiple container components can be shown as carousel. Slides are seperated by three hypens, component details need to be intended.
+
+| :syntax:`:--- SLIDES ---:`
+| :variable:`container component slug` :syntax:`:`
+|   :variable:`... container component yaml content`
+| :syntax:`---`
+| :variable:`container component slug` :syntax:`:`
+|   :variable:`... container component yaml content`
+| :syntax:`:---:`
+
+**Example:**
+
+.. code:: yaml
 
     :------------------------- SLIDES --------------------------:
     quote:
@@ -169,55 +411,142 @@ Slider
         twitterName: gamitai
     :----------------------------------------------------------:
 
+.. _Full-width component:
 
+Full-width component
+====================
 
-Full-width components
-=====================
-
-Infobox
--------
-
-::
-
-    :---------------------- INFOBOX ---------------------------:
-    title: Lorem ipsum dolor sit amet
-    description: Vertriebspartnerschaft zwischen Loopline Systems und Allfoye
-    note: "<strong>Key-Learnings:</strong><br>
-    Eine Ansprechperson, der die Kooperation aktiv vorantreibt und über Entscheidungskompetenzen verfügt, ist ein Kennzeichen für Commitment.<br>
-    Die persönliche Beziehung ist für den Erfolg der Partnerschaft entscheidend.<br>
-    Wenn es eine kooperative Denkweise im Unternehmen gibt, ist es einfacher, von vornherein interne Schwierigkeiten aus dem Weg zu räumen."
-    link:
-    - http://www.loopline-systems.com
-    - http://www.allfoye.net
-    ---
-    ## Fallbeispiel: Vertriebspartnerschaft zwischen Loopline Systems und Allfoye
-    Loopline Systems ist ein Software-as-a-Service-Startup, das IT-Lösungen im Bereich HR für bessere Feedbackprozesse in Unternehmen anbietet. Allfoye ist eine mittelständische Unternehmensberatung, die Beratungsleistungen zu neuen Geschäftsmodellen und digitaler Transformation bereitstellt. Die beiden Unternehmen arbeiten in einer Vertriebspartnerschaft zusammen, wobei Allfoye die Loopline Systems Software wiederum seinen Kunden zur Verfügung stellt.
-
-    In der anschließenden Match-Phase konnte Allfoye Loopline Systems zu verschiedenen Aspekten beraten, dabei unter anderem bei der Preisgestaltung. Aus Startup-Sicht fand es Nora Heer weiterhin wichtig, schon bereits zu Beginn bestimmte Abmachungen vertraglich festzuhalten. Es folgten noch einige Meetings und gegenseitige Besuche und nach zwei Wochen konnte der Vertrag schließlich unterschrieben werden. Für die Partner-Phase ist eine regelmäßige Überprüfung der gemeinsam definierten Ziele geplant.
-    :----------------------------------------------------------:
-
-Full-width figure
------------------
+Full with components span the full with of the page.
 
 Chapter header
 --------------
 
+Full width chapter headers with headline, subheadline and background image.
+
+| :syntax:`:--- CHAPTER_HEADER ---:`
+| :syntax:`image:` :variable:`url to background image`
+| :syntax:`title:` :variable:`chapter headline`
+| :syntax:`subtitle:` :variable:`chapter subheadline`
+| :syntax:`:---:`
+
+**Example:**
+
 .. code:: yaml
 
     :-------------------- CHAPTER_HEADER --------------------:
-    image: "assets/images/pineapple-supply-co-Q7PclNhVRI0-unsplash.jpg"
+    image: "path/to/background-image.jpg"
     title: Introduction
-    subtitle: Audits should be mandated by law within the four principles of independence, access, publicity, and expertise
+    subtitle: Bibendum ut tristique et egestas quis ipsum suspendisse ultrices
     :---------------------------------------------------------:
 
+Infobox
+-------
 
-:--- CSV ---:
-file: assets/tables/appendix-a.csv
-caption: Laws and Bills with legal provisions on content moderation by social media platforms
-description: "_Law/Bill_: national laws introduced in the last 4 years and bills currently under discussion that introduce regulation on content moderation by social media platforms. \n\n
-There are some cases where the content addressed by the law is not clear, particularly  in relation to fake news.
-\n\n
-_Transparency measures_ in the use of AI and algorithms for content moderation, not for other purposes. Some laws or bills include among the information to be provided by platforms, for example, methods or methodology employed in the detection of irregularity”, which could include information on algorithms and AI, but it is not clear about that.  "
-header-row: true
-header-column: true
-:-----------:
+Collapsable section for case studies, excursus or similar.
+
+| :syntax:`:--- INFOBOX ---:`
+| :syntax:`title:` :variable:`title of infobox`
+| :syntax:`description:` :variable:`description of infobox`
+| :syntax:`note:` :variable:`key learnings or quick summary`
+| :syntax:`link:` :variable:`list of links`
+| :syntax:`---`
+| :variable:`infobox component content (md)`
+| :syntax:`:---:`
+
+**Example:**
+
+.. code:: yaml
+
+    :---------------------- INFOBOX ---------------------------:
+    title: Lorem ipsum dolor sit amet
+    description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    note: "<strong>Key-Learnings:</strong><br>
+    Duis aute irure dolor in reprehen derit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    link:
+    - http://www.loopline-systems.com
+    - http://www.allfoye.net
+    ---
+    ## Headline for the excursus
+    Augue mauris augue neque gravida in fermentum et sollicitudin ac. Scelerisque fermentum dui faucibus in ornare quam. Malesuada fames ac turpis egestas sed. Nisi porta lorem mollis aliquam ut porttitor. Tortor dignissim convallis aenean et tortor at risus viverra. Purus sit amet luctus venenatis lectus magna fringilla. Nulla at volutpat diam ut venenatis tellus in metus.
+
+    Amet commodo nulla [: REFERENCE | Lorem2020 | facilisi :] nullam vehicula. Id velit ut tortor pretium viverra suspendisse potenti. Sed nisi lacus sed viverra. Mi quis hendrerit dolor magna eget est. A diam sollicitudin tempor id eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. At erat pellentesque adipiscing commodo elit at imperdiet.
+    :----------------------------------------------------------:
+
+.. _Full-width figure:
+
+Full-width figure
+-----------------
+
+Component to display figures spaning the full width of the page.
+
+.. TODO::
+    Mandatory items? Link to data? Do all fields work?
+
+| :syntax:`:--- FULL_FIGURE ---:`
+| :syntax:`file:` :variable:`path to file`
+| :syntax:`alt:` :variable:`alt attribute for image`
+| :syntax:`caption:` :variable:`title of figure`
+| :syntax:`description:` :variable:`description/further information`
+| :syntax:`author:` :variable:`author/rights holder`
+| :syntax:`licence:` :variable:`copyright licence`
+| :syntax:`:---:`
+
+
+**Example:**
+
+.. code:: yaml
+
+    :------------ FULL_FIGURE ------------:
+    file: assets/images/figures/some-figure-de.svg
+    alt: Figure visualising something.
+    caption: Duis aute irure dolor in reprehen   derit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    :-------------------------------------:
+
+.. seealso::
+
+    For standard figures see container component :ref:`figure`.
+
+
+Additional plugins
+==================
+
+List of references
+------------------
+
+Prints the list of references defined in :file:`pages/references.yaml`.
+
+| :syntax:`:--- LISTOFREFERENCES ---:`
+| :syntax:`title:` :variable:`Title above list`
+| :syntax:`:---:`
+
+
+List of figures
+---------------
+
+Prints a list of figures.
+
+| :syntax:`:--- LISTOFFIGURES ---:`
+| :syntax:`title:` :variable:`Title above list`
+| :syntax:`:---:`
+
+
+Plugins to test and document:
+
+HTML Plugin
+-----------
+
+Default Plugin
+--------------
+
+YAML Plugin
+-----------
+
+JSON Plugin
+-----------
+
+YamlMd Plugin
+-------------
+
+Variable Plugin
+---------------

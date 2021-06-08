@@ -1,6 +1,7 @@
 .. role:: icon-folder
    :class: fa fa-folder-open
 
+==================
 Theme configuraion
 ==================
 
@@ -15,22 +16,47 @@ Using CSS
 
 The stylesheet, the paper uses is defined in :file:`config/meta.yaml`.
 
-.. code-block:: yaml
+.. code:: yaml
 
     styles:  theme/styles/sample-journal.css
 
 Adjust the stylesheet according to your needs or start with a blank stylesheet.
-You can also overwrite the theme's styles by importing the theme stylesheet with `@import` into a custom.css that is be loaded by :file:`meta.yaml`.
+You can also overwrite the theme's styles by importing the theme stylesheet into a custom stylesheet that is then added to :file:`meta.yaml`.
+
+:icon-folder:`\ ` **theme/styles/custom.css**
+
+.. code:: css
+
+    /*************************************************************+/
+    /*                                                            */
+    /*         Custom styles for graphite publication             */
+    /*                                                            */
+    /*************************************************************+/
+
+    // Import sample journal theme
+    @import 'sample-journal.css';
+
+    // Add your custom styles below
 
 
-Changing SASS
-^^^^^^^^^^^^^
 
-If you want to adapt the theme provided by the sample-jounal, you might want to load all SASS files and build up a custom theme.
+Create you own theme
+--------------------
+
+If you want to create your own theme, you can use the graphite theme starter.
+
+Clone the starter pack:
+
+.. code:: shell
+
+    $ git clone https://github.com/crosssenses/graphite-theme-starter
+
+
 
 .. todo::
 
     - Add SASS structure, list bootstrap version and Icon Version and add watch commands
+    - Create starter from sample journal
 
 
 

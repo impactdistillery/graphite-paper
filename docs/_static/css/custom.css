@@ -56,6 +56,18 @@
     height: 2.5em;
 }
 
+/*  LAYOUT
+/* ______________________________________________________________ */
+
+.rst-content .sidebar{
+    margin-right: -45%;
+}
+
+.rst-content table.docutils td .last, .rst-content table.docutils td .last :last-child {
+    margin-bottom: 0;
+}
+
+
 /*  TYPOGRAPHY
 /* ______________________________________________________________ */
 a {
@@ -154,4 +166,7 @@ h3 {
 /* Adjust syntax highlighting*/
 
 .highlight .nt { color: teal; }
-.highlight .s {  color: midnightblue;
+.highlight .s {  color: midnightblue; }
+
+.rst-content div.highlight-md pre { white-space: pre-wrap;}
+.rst-content div.highlight-yaml pre { white-space: pre-wrap;}
