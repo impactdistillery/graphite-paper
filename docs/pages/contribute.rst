@@ -28,3 +28,14 @@ Fund the authors
 ----------------
 
 You can provide none of the above but you have no clue where to invest your grannies christmas money from last year? We have a piggy bank with graphite’s name on it, drop us a coin!
+
+Contact the team
+----------------
+
+If you want to buy the authors a beer, you can find them here:
+
+Marcel Hebing
+`Email <mailto:mhebing@mstats.io>`_ | `Website <https://www.impactdistillery.com>`_ | `Github <https://github.com/mhebing>`_
+
+Larissa Wunderlich
+`Email <mailto:info@larissawunderlich.de>`_ | `Website <https://www.larissawunderlich.de>`_ | `Github <https://github.com/crosssenses>`_
