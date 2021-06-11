@@ -111,6 +111,7 @@ class Section(RenderTwo):
             pluginClass=self.plugin_class,
             content=self.content,
             aside=self.aside,
+#            collapse=self.collapse,
             partialId=self.partial_id,
         ))
 

@@ -9,7 +9,8 @@ from .asides import AsideController
 
 DEFAULT_TEMPLATE = "<span class=\"ms-inline ms-inline-%s\">%s<i></i></span>"
 
-POPOVER_TEMPLATE_FULL = "<a tabindex=\"0\" data-trigger=\"focus hover\" class=\"ms-inline ms-inline-%s\" data-toggle=\"popover\" data-placement=\"top\" title=\"%s\" data-content=\"%s\">%s<i></i></a>"
+#POPOVER_TEMPLATE_FULL = "<a tabindex=\"0\" data-trigger=\"focus hover\" class=\"ms-inline ms-inline-%s\" data-toggle=\"popover\" data-placement=\"top\" title=\"%s\" data-content=\"%s\" data-html=\"true\">%s<i></i></a>"
+POPOVER_TEMPLATE_FULL = '<a tabindex="0" data-trigger="focus hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="%s" data-content="%s" data-html="true">%s<i></i></a>'
 
 POPOVER_TEMPLATE = "<span class=\"ms-inline ms-inline-%s\">%s<i></i></span>"
 
@@ -129,10 +130,11 @@ class ReferenceInline(AbstractInline):
             self.label = self.data[1]
 
     def render(self):
-        popover_content = self.reference.get("short")
-#        url = self.reference.get("url", "")
-#        if url:
-#            popover_content += "<a class='mdi mdi-earth' href='%s' target='_blank'></a>" % url
+        short_reference = self.reference.get("short") or u''
+        popover_content = markdown_helper(short_reference)
+        url = self.reference.get("url", "")
+        if url:
+            popover_content += "<a class='mdi mdi-earth' href='%s' target='_blank'></a>" % url
         return POPOVER_TEMPLATE_FULL % (
             self.data[0].lower(),
             self.report.lang.get("cited_source", "Cited source"),

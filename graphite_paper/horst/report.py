@@ -67,6 +67,8 @@ class Report:
             if meta_name[-4:] == "yaml":
                 meta.update(yaml.safe_load(file_content))
         meta["abstract_md"] = markdown_helper(meta.get("abstract", ""))
+        meta["cite_as_md"] = markdown_helper(meta.get("cite_as", ""))
+        meta["imprint_md"] = markdown_helper(meta.get("imprint", ""))
         meta["slug"] = "/%s/" % slug if slug != "index" else "/"
         self.meta = meta
     

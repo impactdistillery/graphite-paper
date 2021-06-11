@@ -8,6 +8,15 @@
   </p>
 </aside>
 {% endif %}
+{% if website %}
+<aside class="ms-aside-link">
+  <p>
+    <a href={{ website }} target="_blank">
+       {{ lang.get("visit_website", "Visit website") }}
+    </a>
+  </p>
+</aside>
+{% endif %}
 {% if twitterName %}
 <aside class="ms-aside-twitter">
   <p>

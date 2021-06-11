@@ -4,10 +4,10 @@ import shutil
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test.client import Client
 
-from horst.helper import svg_remove_wh
+from graphite_paper.horst.helper import svg_remove_wh
 
 class Command(BaseCommand):
     help = "Build static site output"
@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
     def _collectstatic(self):
         print("[INFO] Collect static")
-        call_command("collectstatic", interactive=False, clear=True, verbosity=0)
+        call_command("collectstatic", interactive=False, clear=True, verbosity=1)
 
     def _copy_directory(self, path):
         print("[INFO] Copy %s/" % path)

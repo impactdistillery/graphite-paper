@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/Article">
+<html lang="{{ meta.lang }}" itemscope itemtype="http://schema.org/Article">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
   </head>
   <body>
 
-    {% include "nav.html" %}
+    {% include "horst/nav.html" %}
     {% include "horst/frame.html" %}
 
     <script src="{{ static("js/jquery.min.js") }}"></script>
@@ -23,6 +23,23 @@
     <script src="{{ static("js/confetti.js") }}"></script>
     {% if meta.scripts %}
       <script src="{{ meta.scripts }}"></script>
+    {% endif %}
+    {% if meta.matomo_tracking %}
+      <!-- Matomo -->
+      <script type="text/javascript">
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="{{ meta.matomo_url }}";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '{{ meta.matomo_siteId }}']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+      </script>
+      <!-- End Matomo Code -->
     {% endif %}
   </body>
 </html>
