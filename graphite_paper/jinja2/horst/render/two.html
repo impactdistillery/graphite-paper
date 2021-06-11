@@ -1,0 +1,22 @@
+{% if full %}
+</div> <!-- close container -->
+{% if tag %}
+<div class="ms-full ms-full-{{tag}}">
+{% endif %}
+<div class="container-fluid">
+{% endif %}
+<{{ tag if tag else "div" }} class="ms-row ms-row-two ms-plugin {{ pluginClass }}" id="partial_{{ partialId }}">
+  <div class="ms-col-content">
+    {{ content | safe }}
+  </div>
+  <div class="ms-col-marginal">
+    {{ aside | safe }}
+  </div>
+</{{ tag if tag else "div" }}>
+{% if full %}
+</div>
+{% if tag %}
+</div>
+{% endif %}
+<div class="container">
+{% endif %}

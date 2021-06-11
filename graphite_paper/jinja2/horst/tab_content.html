@@ -1,0 +1,9 @@
+{% if tab.include_abstract %}
+  {% include "horst/article_top.html" %}
+{% endif %}
+
+<{{ tab.get("md_container", "div") }}>
+  <div class="container">
+     {{ tab.get("content") | safe }}
+  </div>
+</{{ tab.get("md_container", "div") }}>

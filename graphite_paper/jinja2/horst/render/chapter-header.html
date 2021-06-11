@@ -1,0 +1,29 @@
+</div>
+
+
+  {% if image %}
+
+    <div class="ms-chapter" style="background-image: url({{ image }})">
+      <div class="container-fluid" >
+        <div class="container">
+          <div class="ms-row ms-row-full" id="partial_{{ partialId }}">
+            <div class="ms-col-content">
+              {{ content | safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="ms-chapter">
+      <div class="container">
+        <div class="ms-row ms-row-full" id="partial_{{ partialId }}">
+          <div class="ms-col-content">
+            {{ content | safe }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+<div class="container">

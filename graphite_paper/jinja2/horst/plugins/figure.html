@@ -1,0 +1,25 @@
+<a href="#{{ partial_id }}Modal" type="button" data-toggle="modal" data-target="#{{ partial_id }}Modal">
+{% if file.endswith("svg") %}
+<object data="{{ file }}" type="image/svg+xml" class="img-fluid"></object>
+{% else %}
+<img class="img-fluid" src="{{ file }}" alt="{{ alt }}">
+{% endif %}
+</a>
+
+{% if DEBUG %}
+<hr>
+<a href="#{{ partial_id }}Modal" type="button" data-toggle="modal" data-target="#{{ partial_id }}Modal">
+{% if file.endswith(".svg") %}
+<object data="{{ file }}" type="image/svg+xml" class="img-fluid"></object>
+{% else %}
+<img class="img-fluid" src="{{ file }}" alt="{{ alt }}">
+{% endif %}
+</a>
+<hr/>
+<img class="img-fluid" src="{{ file }}" alt="{{ alt }}">
+<hr/>
+<object data="{{ file }}" type="image/svg+xml" class="img-fluid">
+<!-- Für Browser ohne SVG-Unterstützung -->
+<img src="{{ fallback }}" class="img-fluid" alt="{{ alt }}">
+</object>
+{% endif %}

@@ -1,0 +1,10 @@
+{% if youtube_id %}
+<div class="embed-responsive embed-responsive-16by9" id="video-youtube-{{ youtube_id }}">
+  <div class="youtube" data-id="{{ youtube_id }}">
+  </div>
+</div>
+{% else %}
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="{{ url }}" ></iframe>
+</div>
+{% endif %}

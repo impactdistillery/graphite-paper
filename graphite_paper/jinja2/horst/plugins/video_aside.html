@@ -1,0 +1,59 @@
+{% if caption %}
+<aside class="ms-aside-caption">
+  <p><strong>{{ caption }}</strong>
+    {% if description %}
+    <br>{{ description | safe }}
+    {% endif %}
+  </p>
+</aside>
+{% endif %}
+{% if author %}
+<aside class="ms-aside-author">
+  <p>{{ author }}</p>
+</aside>
+{% endif %}
+
+{% if author %}
+<aside class="ms-aside-author">
+  <p>
+    <strong>{{ author }}</strong>
+    {% if authorDescription %}
+    <br>{{ authorDescription }}
+    {% endif %}
+  </p>
+</aside>
+{% endif %}
+{% if twitterName %}
+<aside class="ms-aside-twitter">
+  <p>
+    <a href="https://twitter.com/{{ twitterName }}" target="_blank">
+       <span class="grey">@&thinsp;</span>{{ twitterName }}
+    </a>
+  </p>
+</aside>
+{% endif %}
+{% if linkedinName %}
+<aside class="ms-aside-linkedin">
+  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank">
+       <span class="grey">in/&thinsp;</span>{{ linkedinName }}
+    </a></p>
+</aside>
+{% endif %}
+
+<div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
+  <div class="btn-group" role="group" aria-label="Share">
+    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <a href="{{ get_share_domain('facebook', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-facebook"></i>
+    </a>
+    <a href="{{ get_share_domain('twitter', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-twitter"></i>
+    </a>
+    <a href="{{ get_share_domain('linkedin', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
+       target="_blank" class="btn btn-secondary">
+      <i class="mdi mdi-linkedin"></i>
+    </a>
+  </div>
+</div>

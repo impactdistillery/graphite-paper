@@ -1,0 +1,25 @@
+{% if name or label %}
+<aside>
+  <p> Variable: {{ name }}</p>
+  <p> Label: {{ label }}</p>
+</aside>
+{% endif %}
+{% if author or licence %}
+<aside class="ms-aside-licence">
+  <p>{{ author }} | {{ licence }}</p>
+</aside>
+{% endif %}
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
+  <div class="btn-group mr-auto" role="group" aria-label="Download">
+    <a class="btn btn-secondary" href="/{{ file }}"><i class="mdi mdi-fullscreen"></i></a>
+    <a class="btn btn-secondary" href="/{{ file }}"><i class="mdi mdi-download"></i></a>
+  </div>
+  <div class="btn-group" role="group" aria-label="Share">
+    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <a href="#" class="btn btn-secondary"><i class="mdi mdi-facebook"></i> </a>
+    <a href="#" class="btn btn-secondary"><i class="mdi mdi-twitter"></i> </a>
+    <a href="#" class="btn btn-secondary"><i class="mdi mdi-linkedin"></i> </a>
+  </div>
+</div>
