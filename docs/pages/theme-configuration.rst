@@ -5,7 +5,18 @@
 Theme configuraion
 ==================
 
-You can configure your theme by adding custom styles or tweak template files.
+
+.. sidebar:: Create your own journal
+
+   Establish a publication series for your institution or start a magazine – the possibilities are endless. Simply adjust layout and style to fit your needs.
+
+
+You can configure your theme by adding custom styles and tweaking template files.
+
+The starter pack comes with default CSS styles, that can be adjusted with a custom stylesheet.
+For bigger adjustments, a modification of the original SCSS theme might make sense.
+
+
 
 Adding custom styles
 ---------------------

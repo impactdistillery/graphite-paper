@@ -6,7 +6,12 @@
 Welcome to Graphite Paper's documentation!
 ==========================================
 
-*graphite* offers the infrastructure to enhance your publications for a multi-media and interactive digital context. The more than ever emerging demand for reliable and well-edited information meets a depreciated way of publishing. With graphite papers you can create your standalone publication with one command. Or use the provided starter packs to build up your own and invidualised publication series.
+*graphite* offers the infrastructure to enhance your publications for a multi-media and interactive digital context. The more than ever emerging demand for reliable and well-edited information meets a depreciated way of publishing. With graphite papers you can create your standalone publication or use the provided starter packs to build up your own and invidualised publication series.
+
+.. TODO::
+    Implement standalone command, then change to:
+    With graphite papers you can create your standalone publication with one command. Or use the provided starter packs to build up your own and invidualised publication series.
+
 
 .. toctree::
    :maxdepth: 1
@@ -16,9 +21,7 @@ Welcome to Graphite Paper's documentation!
    pages/create-paper
    pages/components
    pages/theme-configuration
-   Beautiful-Reports/Overall-design
-   Beautiful-Reports/Implementation-details
-   notebook
+   pages/contribute
 
 
 Indices and tables

@@ -106,6 +106,10 @@ h3 {
     margin-top: 2em;
 }
 
+p:not(:last-child){
+    margin-bottom: 0.5em;
+}
+
 /*Inline code*/
 .rst-content tt.literal, .rst-content tt.literal, .rst-content code.literal {
     color: darkslategray;
