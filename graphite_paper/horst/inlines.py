@@ -134,7 +134,7 @@ class ReferenceInline(AbstractInline):
         popover_content = markdown_helper(short_reference)
         url = self.reference.get("url", "")
         if url:
-            popover_content += "<a class='mdi mdi-earth' href='%s' target='_blank'></a>" % url
+            popover_content += "<a class='mdi mdi-earth' href='%s' target='_blank' rel='noopener noreferrer'></a>" % url
         return POPOVER_TEMPLATE_FULL % (
             self.data[0].lower(),
             self.report.lang.get("cited_source", "Cited source"),
