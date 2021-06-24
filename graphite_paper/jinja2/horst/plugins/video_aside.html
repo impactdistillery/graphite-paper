@@ -26,7 +26,7 @@
 {% if twitterName %}
 <aside class="ms-aside-twitter">
   <p>
-    <a href="https://twitter.com/{{ twitterName }}" target="_blank">
+    <a href="https://twitter.com/{{ twitterName }}" target="_blank" rel="noopener noreferrer">
        <span class="grey">@&thinsp;</span>{{ twitterName }}
     </a>
   </p>
@@ -34,7 +34,7 @@
 {% endif %}
 {% if linkedinName %}
 <aside class="ms-aside-linkedin">
-  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank">
+  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank" rel="noopener noreferrer">
        <span class="grey">in/&thinsp;</span>{{ linkedinName }}
     </a></p>
 </aside>
@@ -44,15 +44,15 @@
   <div class="btn-group" role="group" aria-label="Share">
     <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
     <a href="{{ get_share_domain('facebook', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
-       target="_blank" class="btn btn-secondary">
+       target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-facebook"></i>
     </a>
     <a href="{{ get_share_domain('twitter', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
-       target="_blank" class="btn btn-secondary">
+       target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-twitter"></i>
     </a>
     <a href="{{ get_share_domain('linkedin', 'https://www.youtube.com/watch?v=' + youtube_id) }}"
-       target="_blank" class="btn btn-secondary">
+       target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-linkedin"></i>
     </a>
   </div>

@@ -35,7 +35,7 @@ Contact the team
 If you want to buy the authors a beer, you can find them here:
 
 Marcel Hebing
-`Email <mailto:mhebing@mstats.io>`_ | `Website <https://www.impactdistillery.com>`_ | `Github <https://github.com/mhebing>`_
+`Email <mailto:mhebing@mstats.io>`__ | `Website <https://www.impactdistillery.com>`__ | `Github <https://github.com/mhebing>`__
 
 Larissa Wunderlich
-`Email <mailto:info@larissawunderlich.de>`_ | `Website <https://www.larissawunderlich.de>`_ | `Github <https://github.com/crosssenses>`_
+`Email <mailto:info@larissawunderlich.de>`_ | `Website <https://www.larissawunderlich.de>`__ | `Github <https://github.com/crosssenses>`__

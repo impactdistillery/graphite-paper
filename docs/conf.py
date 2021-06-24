@@ -33,7 +33,7 @@ release = '2021'
 # ones.
 extensions = [
     'sphinx_rtd_theme',
-    'sphinx.ext.viewcode',
+#    'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx_copybutton',
 ]
@@ -55,6 +55,11 @@ html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'logo_only': True,
 }
+
+# Removing the view source link
+# when using Read The Docs & Sphinx
+# with ReadTheDocs Theme
+html_show_sourcelink = False
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
