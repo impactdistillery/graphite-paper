@@ -35,7 +35,7 @@ extensions = [
     'sphinx_rtd_theme',
 #    'sphinx.ext.viewcode',
     'sphinx.ext.todo',
-    'sphinx_copybutton',
+    #'sphinx_copybutton',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -83,5 +83,5 @@ html_css_files = [
 smartquotes = False
 
 # Exclude bash $ for copying
-copybutton_prompt_text = "$ "
+#copybutton_prompt_text = "$ "
 
