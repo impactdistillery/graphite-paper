@@ -14,7 +14,7 @@ Download  starter
 
     $ git clone github.com/crosssenses/sample-journal
 
-This will give you a starter with the following pape structure:
+This will give you a starter with the following page structure:
 
 :icon-folder:`\ ` ``sample-journal/``
 
@@ -118,7 +118,9 @@ Add directories
 ---------------
 
 To add inline literature refences, create a reference list :file:`pages/references.yaml` and use the inline component :ref:`Reference`.
-The list of references can be
+
+In order to print the full list of references use the directory component :ref:`List of references` below your text or on a seperate page.
+
 
 
 

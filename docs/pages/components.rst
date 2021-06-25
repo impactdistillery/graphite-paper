@@ -511,6 +511,8 @@ Component to display figures spaning the full width of the page.
 Additional plugins
 ==================
 
+.. _List of references:
+
 List of references
 ------------------
 
