@@ -34,7 +34,7 @@ release = '2021'
 extensions = [
     'sphinx_rtd_theme',
 #    'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
+#    'sphinx.ext.todo',
     #'sphinx_copybutton',
 ]
 
