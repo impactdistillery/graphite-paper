@@ -39,7 +39,7 @@ This will give you a starter with the following page structure:
     │   │   ├── directories.md
     │   │   ├── editors.md
     │   │   ├── index.md
-    │   │   └── referenceds.yaml
+    │   │   └── references.yaml
     │   │
     │   ├── theme
     │   │   ├── fonts

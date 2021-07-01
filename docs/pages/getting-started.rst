@@ -66,7 +66,7 @@ Change into repository folder.
     $ python PAPER_FOLDER/manage.py runserver
 
 .. TIP::
-    If you want to run more than one paper at once, you can specify different ports with a blank after :code:`runserver` such as :code:`$ python OTHER_PAPER_FOLDER/manage.py runserver 8001`
+    The default port is 8000. If you want to run more than one paper at once, you can specify different ports with a blank after :code:`runserver` such as :code:`$ python OTHER_PAPER_FOLDER/manage.py runserver 8001`
 
 Publish graphite paper
 --------------------

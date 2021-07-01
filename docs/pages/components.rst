@@ -532,8 +532,16 @@ Prints a list of figures.
 | :syntax:`title:` :variable:`Title above list`
 | :syntax:`:---:`
 
+.. TODO::
+    Plugins to test and document
 
-Plugins to test and document:
+    * TML Plugin
+    * efault Plugin
+    * AML Plugin
+    * SON Plugin
+    * amlMd Plugin
+    * ariable Plugin
+:
 
 HTML Plugin
 -----------
