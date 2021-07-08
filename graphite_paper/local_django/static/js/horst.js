@@ -409,14 +409,16 @@ $(document).ready(function() {
     collapseOversizedMarginals();
     collapseOversizedInfobox();
 
+    // Enable popover (inline references)
+    $('[data-toggle="popover"]').popover();
+
     // Normalise slide height
-//    $('[data-toggle="popover"]').popover();
-//    var $slides = $(".slides-norm-height");
-//    $slides.each(function (index) {
-//        console.log(index);
-//        console.log($slides[index].id);
-//        carouselNormalization($slides[index].id);
-//    });
+    var $slides = $(".slides-norm-height");
+    $slides.each(function (index) {
+        console.log(index);
+        console.log($slides[index].id);
+        carouselNormalization($slides[index].id);
+    });
 
     $('body').scrollspy({ target: '.ms-toc', offset: 100 });
 
