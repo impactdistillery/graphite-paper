@@ -15,7 +15,7 @@
 
       {% if meta.disclaimer %}
       <h3>{{ lang.get('disclaimer', 'Disclaimer') }}</h3>
-      <p>{{ meta.disclaimer }}</p>
+      {{ meta.disclaimer_md | safe }}
       {% endif %}
 
       <p class="ms-buttons-article">
@@ -65,7 +65,7 @@
       {% if meta.licence %}
         <aside>
           <h3>{{ lang.get('licence', 'Licence') }}</h3>
-          <p>{{ meta.licence_md }}</p>
+          {{ meta.licence_md | safe }}
         </aside>
       {% endif %}
       {% if meta.data_usage %}

@@ -2,23 +2,7 @@
 /*global $, jQuery, alert, console*/
 
 
-// Toggle navigation bar
-$("#navToggle").click(function () {
-    $("#navContent").slideToggle();
-    $("#main-logo").fadeToggle();
-});
-
-// Activate tab from URL
-$(function () {
-    var url = document.location.toString();
-    var slug = "#" +  url.split("#")[1];
-    console.log("Slug " + slug + " from URL: " + url);
-    if (url.match("#")) {
-        $(slug).tab("show");
-    }
-});
-
-// ToggleText
+// ToggleText function
 $.fn.extend({
     toggleText: function(a, b){
         return this.text(this.text() == b ? a : b);
@@ -64,19 +48,6 @@ function carouselNormalization(carousel_id) {
     }
 }
 
-$(function () {
-    $('[data-toggle="popover"]').popover();
-    var $slides = $(".slides-norm-height");
-    $slides.each(function (index) {
-        console.log(index);
-        console.log($slides[index].id);
-        carouselNormalization($slides[index].id);
-    });
-
-});
-
-// .slides-norm-height
-
 
 //
 // Table of contents
@@ -84,6 +55,7 @@ $(function () {
 var selector;
 
 function makeToC() {
+    console.log('Creating TOC …')
     $('article').attr('data-spy', 'scroll');
     $('body').attr('data-target', '.ms-toc');
     $('article').attr('data-offset', '-300');
@@ -95,6 +67,9 @@ function makeToC() {
 
     addReduced();
     addDetailed();
+
+    enableListener();
+    console.log('TOC refreshed')
 }
 
 // Build abstract lines
@@ -128,75 +103,6 @@ function addDetailed() {
         }
     }
 };
-
-
-//
-// Collapse oversized marginal notes
-//-------------------------------------------------------------
-//function collapseOversizedMarginals() {
-//    $('.ms-text').each(function () {
-//
-//        var isOverflowing = false;
-//        var canOverflow = false;
-//
-//        /* Content heights */
-//        var heightColContent = $(this).children('.ms-col-content').height();
-//        var heightContent = $(this).children('.ms-col-content').children('p').height();
-//        var numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
-//
-//        /* Check whitespace under content */
-//        if (heightColContent - heightContent > 20){
-//            isOverflowing = true;
-//        }
-//
-//        /* Check if there is no asides or plugins after overflowing, single aside */
-//        // TODO, check hight of next element, let all children flow?
-//        if ($(this).next().hasClass('ms-text')){
-//            if ($(this).next().children('.ms-col-marginal').children().length == 0) {
-//                if (numAsides < 2){
-//                    canOverflow = true;
-//                    }
-//            }
-//        }
-//
-//        if (isOverflowing) {
-//            // if overflow possible, just set height of row
-//            if (canOverflow) {
-//                $(this).children('.ms-col-marginal').addClass('marginals-overflowing');
-//                $(this).children('.ms-col-marginal').css('max-height', heightContent);
-//            }
-//            // otherwise start collapsing
-//            else {
-//
-//                // set hight of marginal to be no more than content
-//                $(this).children('.ms-col-marginal').addClass('marginals-collapsed');
-//                $(this).children('.ms-col-marginal').css('max-height', heightContent);
-//
-//                /* Calculate aside height */
-//                var numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
-//
-//                var medHeightAsides = (heightContent) / numAsides;
-//                medHeightAsides = medHeightAsides - 10;
-//
-//                $(this).children('.ms-col-marginal').children(' aside').each(function() {
-//                    if ($(this).children('p').height() < medHeightAsides) {
-//                        $(this).css('flex-shrink', 0);
-//                        $(this).css('flex-grow', 0);
-//                        $(this).css('flex-basis', $(this).children('p').height());
-//                    }
-//                    else{
-//                        $(this).css('flex-shrink', 1);
-//                        $(this).css('flex-basis', medHeightAsides);
-//                        $(this).addClass('collapsed');
-//                    }
-//                });
-//
-////                $(this).children('.ms-col-marginal').children(' aside').css('height', heightAsides);
-//            }
-//
-//        }
-//    });
-//}
 
 //
 // Collapse oversized marginal notes
@@ -308,6 +214,54 @@ function collapseOversizedInfobox() {
     });
 }
 
+
+//
+// Handle anchor links
+//-------------------------------------------------------------
+
+function handleAnchorLinks(hashValue) {
+    var offset = 80;
+
+    if($(hashValue).hasClass('tab-pane')){
+        console.log('clicked a tab')
+
+        // Show tab
+        // (bootstraps throws error, used try catch to continue script)
+        try {
+            $("a[href='"+hashValue+"']").tab('show');
+        } catch(err) {
+            console.log(err)
+        }
+        setTimeout(makeToC, 200);
+
+        console.log($(hashValue)[0])
+        $(hashValue)[0].scrollIntoView({
+            behavior: "smooth", // or "auto" or "instant"
+            block: "start" // or "end"
+        });
+//            scrollBy(0, -offset);
+    }
+    else if(hashValue.includes('heading')){
+        console.log('clicked a heading')
+
+        var tabID = $(hashValue).parents('.tab-pane').attr('id')
+
+        try {
+            $("a[href='"+tabID+"']").tab('show');
+        } catch(err) {
+            console.log(err)
+        }
+
+        setTimeout(makeToC, 200);
+
+        $(hashValue)[0].scrollIntoView();
+        scrollBy(0, -offset);
+    }
+    else{
+        console.log('hash unknown')
+    }
+}
+
 //
 // Event listener
 //---------------------------------------------------------------
@@ -364,15 +318,17 @@ function enableListener() {
         setTimeout(makeToC, 500);
     });
 
-    //Jump to headline offset
-    var offset = 80;
-    $('.ms-toc li a.ms-toc-entry-link').click(function(event) {
+    // Jump to headline in right tab with offset
+    $('a[href^="#"]').click(function(event) {
+        var hashValue = $(this).attr('href')
+
+        // Prevent default behaviour and proceed below instead
+        event.preventDefault();
+
         // collapse TOC on mobile
         $('.ms-toc').removeClass('ms-toc-active');
 
-        event.preventDefault();
-        $($(this).attr('href'))[0].scrollIntoView();
-        scrollBy(0, -offset);
+        handleAnchorLinks(hashValue);
     });
 
     //Trigger confetti
@@ -397,9 +353,12 @@ function enableListener() {
         $('.ms-toc').removeClass('ms-toc-active');
     });
 
-//    $('.ms-toc li a.ms-toc.entry-link').click(function(event) {
-//        $('.ms-toc').removeClass('ms-toc-active');
-//    });
+    // Toggle navigation bar
+    $("#navToggle").click(function () {
+        $("#navContent").slideToggle();
+        $("#main-logo").fadeToggle();
+    });
+
 }
 
 
@@ -409,30 +368,59 @@ function enableListener() {
 
 $(document).ready(function() {
 
-    // delay for anchors to prevent wrong scrolling position
+    //  delay for anchors to prevent wrong scrolling position
     if (location.hash) {
         var hashValue = location.hash;
-        var scrollPosition = $(hashValue).offset().top - 100;
 
-        //Prevent default behaviour
-        window.scrollTo(0, 0);
+        if (hashValue.includes('heading')) {
+            console.log('heading has been loaded')
 
-        //Jump to hash position after timeOut
-        setTimeout(function() {
-            $('html,body').animate(
-                {scrollTop: scrollPosition},
-                5
-            );
-        }, 100);
+            console.log($(hashValue));
+        }
+        else{
+            var scrollPosition = $(hashValue).offset().top - 80;
+            console.log(scrollPosition)
+
+                    // Prevent default behaviour
+            window.scrollTo(0, 0);
+
+            //Jump to hash position after timeOut
+            setTimeout(function() {
+                $('html,body').animate(
+                    {scrollTop: scrollPosition},
+                    5
+                );
+            }, 500);
+
+            console.log($("a[href='"+hashValue+"']"))
+
+            // Activate tab from URL
+            try {
+                $("a[href='"+hashValue+"']").tab('show');
+            } catch(err) {
+                console.log(err)
+            }
+        }
+
+
     }
 
     makeToC();
     collapseOversizedMarginals();
     collapseOversizedInfobox();
 
-    $('body').scrollspy({ target: '.ms-toc', offset: 200 });
+    // Normalise slide height
+//    $('[data-toggle="popover"]').popover();
+//    var $slides = $(".slides-norm-height");
+//    $slides.each(function (index) {
+//        console.log(index);
+//        console.log($slides[index].id);
+//        carouselNormalization($slides[index].id);
+//    });
 
-    // listner to togle class
+    $('body').scrollspy({ target: '.ms-toc', offset: 100 });
+
+    // listner to toggle class
     enableListener();
 
 });
