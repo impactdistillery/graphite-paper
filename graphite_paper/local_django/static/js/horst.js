@@ -12,6 +12,15 @@ $.fn.extend({
 //
 // Normalise slide height to prevent jumping
 //---------------------------------------------------------
+function normaliseSlidesHeight(){
+    var $slides = $(".slides-norm-height");
+    $slides.each(function (index) {
+//        console.log(index);
+//        console.log($slides[index].id);
+        carouselNormalization($slides[index].id);
+    });
+}
+
 function carouselNormalization(carousel_id) {
 //var items = $('#579carouselExampleIndicators .carousel-item'), //grab all slides
     var target = '#' + carousel_id + ' .carousel-item .ms-row';
@@ -108,76 +117,84 @@ function addDetailed() {
 // Collapse oversized marginal notes
 //-------------------------------------------------------------
 function collapseOversizedMarginals() {
-    $('.ms-text').each(function () {
-
-        var isOverflowing = false;
-        var canOverflow = false;
-
-        /* Content heights */
+    $('.tab-pane.active .ms-text').each(function () {
         var numAsides = $(this).children('.ms-col-marginal').children('aside').length;
-        var heightAsides = 0;
-        $(this).children('.ms-col-marginal').children('aside').each(function () {
-            heightAsides = heightAsides + $(this).height();
-        });
-        var heightContent = $(this).children('.ms-col-content').children('p').height();
 
+        /* Deal with marginals if exist */
+        if (numAsides>0) {
 
-        /* Check whitespace under content */
-        if (heightAsides - heightContent > 20){
-            isOverflowing = true;
-        }
+            var isOverflowing = false;
+            var canOverflow = false;
 
-        /* Check if there is no asides or plugins after overflowing, single aside */
-        // TODO, check hight of next element, let all children flow?
-        if ($(this).next().hasClass('ms-text')){
-            if ($(this).next().children('.ms-col-marginal').children().length == 0) {
-                if (numAsides < 3){
-                    canOverflow = true;
-                    }
+            /* Content heights */
+            var heightAsides = 0;
+            $(this).children('.ms-col-marginal').children('aside').each(function () {
+                heightAsides = heightAsides + $(this).height();
+            });
+//                console.log('Asides:', $(this), heightAsides)
+            var heightContent = $(this).children('.ms-col-content').children('p').height();
+//                console.log('Content:', $(this), heightContent)
+
+            /* Check whitespace under content */
+            if (heightAsides - heightContent > 20){
+                isOverflowing = true;
             }
-        }
 
-        if (isOverflowing) {
-            // if overflow possible, just set height of row
-            if (canOverflow) {
-                $(this).children('.ms-col-marginal').addClass('marginals-overflowing');
-                $(this).children('.ms-col-marginal').css('max-height', heightContent);
+            /* Check if there is no asides or plugins after overflowing, single aside */
+            // TODO, check hight of next element, let all children flow?
+            if ($(this).next().hasClass('ms-text')){
+                if ($(this).next().children('.ms-col-marginal').children().length == 0) {
+                    if (numAsides < 3){
+                        canOverflow = true;
+                        }
+                }
+            }
+
+            if (isOverflowing) {
+                // if overflow possible, just set height of row
+                if (canOverflow) {
+                    $(this).children('.ms-col-marginal').addClass('marginals-overflowing');
+                    $(this).children('.ms-col-marginal').css('max-height', heightContent);
+                    $(this).children('.ms-col-marginal').children('aside').addClass('show');
+                }
+                // otherwise start collapsing
+                else {
+
+                    // set hight of marginal to be no more than content
+                    $(this).children('.ms-col-marginal').addClass('marginals-collapsed');
+                    $(this).children('.ms-col-marginal').css('max-height', heightContent);
+
+                    /* Calculate aside height */
+                    var numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
+
+                    var medHeightAsides = (heightContent) / numAsides;
+                    medHeightAsides = medHeightAsides - 10;
+
+                    $(this).children('.ms-col-marginal').children(' aside').each(function() {
+                        if ($(this).children('p').height() < medHeightAsides) {
+                            $(this).css('flex-shrink', 0);
+                            $(this).css('flex-grow', 0);
+                            $(this).css('flex-basis', $(this).children('p').height());
+                            $(this).addClass('show');
+                        }
+                        else{
+                            $(this).css('flex-shrink', 1);
+                            $(this).css('flex-basis', medHeightAsides);
+                            $(this).addClass('collapsed');
+                        }
+                    });
+
+    //                $(this).children('.ms-col-marginal').children(' aside').css('height', heightAsides);
+                }
+
+            }
+            else{
                 $(this).children('.ms-col-marginal').children('aside').addClass('show');
             }
-            // otherwise start collapsing
-            else {
-
-                // set hight of marginal to be no more than content
-                $(this).children('.ms-col-marginal').addClass('marginals-collapsed');
-                $(this).children('.ms-col-marginal').css('max-height', heightContent);
-
-                /* Calculate aside height */
-                var numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
-
-                var medHeightAsides = (heightContent) / numAsides;
-                medHeightAsides = medHeightAsides - 10;
-
-                $(this).children('.ms-col-marginal').children(' aside').each(function() {
-                    if ($(this).children('p').height() < medHeightAsides) {
-                        $(this).css('flex-shrink', 0);
-                        $(this).css('flex-grow', 0);
-                        $(this).css('flex-basis', $(this).children('p').height());
-                        $(this).addClass('show');
-                    }
-                    else{
-                        $(this).css('flex-shrink', 1);
-                        $(this).css('flex-basis', medHeightAsides);
-                        $(this).addClass('collapsed');
-                    }
-                });
-
-//                $(this).children('.ms-col-marginal').children(' aside').css('height', heightAsides);
-            }
 
         }
-        else{
-            $(this).children('.ms-col-marginal').children('aside').addClass('show');
-        }
+
+
     });
 }
 
@@ -219,47 +236,64 @@ function collapseOversizedInfobox() {
 // Handle anchor links
 //-------------------------------------------------------------
 
+
+
 function handleAnchorLinks(hashValue) {
     var offset = 80;
 
     if($(hashValue).hasClass('tab-pane')){
-        console.log('clicked a tab')
+        console.log('Clicked a tab')
 
         // Show tab
         // (bootstraps throws error, used try catch to continue script)
         try {
             $("a[href='"+hashValue+"']").tab('show');
         } catch(err) {
-            console.log(err)
+            console.log('Changing tab errors: ', err)
         }
-        setTimeout(makeToC, 200);
 
-        console.log($(hashValue)[0])
-        $(hashValue)[0].scrollIntoView({
-            behavior: "smooth", // or "auto" or "instant"
-            block: "start" // or "end"
-        });
-//            scrollBy(0, -offset);
+        //Reload TOC and collapse/show marginals after changing tabs
+//            console.log('Calling makeToC from handleAnchorLinks TAB')
+        setTimeout(makeToC, 200);
+        setTimeout(collapseOversizedMarginals, 300);
+
+        // Scroll to top if below fixed tabs
+        if ($('.ms-tabs')[0].getBoundingClientRect().top === 0){
+            var firstElementClass = hashValue + ' .ms-row:first-child'
+            setTimeout(function(){
+                $(firstElementClass)[0].scrollIntoView(true)
+                scrollBy(0, -offset);
+            },
+            200);
+        }
+
     }
     else if(hashValue.includes('heading')){
-        console.log('clicked a heading')
+        console.log('Clicked a heading')
 
-        var tabID = $(hashValue).parents('.tab-pane').attr('id')
+        var tabID = '#'+$(hashValue).parents('.tab-pane').attr('id')
+//        console.log('tab id', tabID )
 
         try {
             $("a[href='"+tabID+"']").tab('show');
         } catch(err) {
-            console.log(err)
+            console.log('Changing tab errors: ', err)
         }
-
+//        console.log('Calling makeToC from handleAnchorLinks HEADING')
         setTimeout(makeToC, 200);
 
-        $(hashValue)[0].scrollIntoView();
-        scrollBy(0, -offset);
+        setTimeout(function(){
+            $(hashValue)[0].scrollIntoView(true);
+            scrollBy(0, -offset);
+        },
+        200);
+
     }
     else{
         console.log('hash unknown')
     }
+
+    window.location.hash = hashValue;
 }
 
 //
@@ -313,13 +347,8 @@ function enableListener() {
         $(this).toggleText('Collapse infobox', 'Expand infobox');
     })
 
-    //Reload TOC after changing tabs
-    $('#masterTab a.nav-link').click(function(event) {
-        setTimeout(makeToC, 500);
-    });
-
     // Jump to headline in right tab with offset
-    $('a[href^="#"]').click(function(event) {
+    $('a[href^="#"]').unbind('click').click(function(event) {
         var hashValue = $(this).attr('href')
 
         // Prevent default behaviour and proceed below instead
@@ -341,10 +370,10 @@ function enableListener() {
     });
 
     //Show TOC on mobile
-    $('.ms-tabs a.ms-trigger-toc').click(function(event) {
+    $('.ms-tabs a.ms-trigger-toc').unbind('click').click(function(event) {
         $('.ms-toc').toggleClass('ms-toc-active');
     });
-    $('.ms-article-top a.ms-button-toc').click(function(event) {
+    $('.ms-article-top a.ms-button-toc').unbind('click').click(function(event) {
         $('.ms-toc').toggleClass('ms-toc-active');
     });
 
@@ -354,7 +383,7 @@ function enableListener() {
     });
 
     // Toggle navigation bar
-    $("#navToggle").click(function () {
+    $("#navToggle").unbind('click').click(function () {
         $("#navContent").slideToggle();
         $("#main-logo").fadeToggle();
     });
@@ -366,59 +395,31 @@ function enableListener() {
 // Document ready calls
 //-----------------------------------------------------------------
 
-$(document).ready(function() {
+$(function() {
 
     //  delay for anchors to prevent wrong scrolling position
     if (location.hash) {
-        var hashValue = location.hash;
-
-        if (hashValue.includes('heading')) {
-            console.log('heading has been loaded')
-
-            console.log($(hashValue));
-        }
-        else{
-            var scrollPosition = $(hashValue).offset().top - 80;
-            console.log(scrollPosition)
-
-                    // Prevent default behaviour
-            window.scrollTo(0, 0);
-
-            //Jump to hash position after timeOut
-            setTimeout(function() {
-                $('html,body').animate(
-                    {scrollTop: scrollPosition},
-                    5
-                );
-            }, 500);
-
-            console.log($("a[href='"+hashValue+"']"))
-
-            // Activate tab from URL
-            try {
-                $("a[href='"+hashValue+"']").tab('show');
-            } catch(err) {
-                console.log(err)
-            }
-        }
-
-
+        var hashValue = location.hash
+        handleAnchorLinks(hashValue);
     }
-
-    makeToC();
-    collapseOversizedMarginals();
-    collapseOversizedInfobox();
+    else{
+            console.log('Calling makeToC from Document ready')
+        makeToC();
+    }
 
     // Enable popover (inline references)
     $('[data-toggle="popover"]').popover();
 
-    // Normalise slide height
-    var $slides = $(".slides-norm-height");
-    $slides.each(function (index) {
-        console.log(index);
-        console.log($slides[index].id);
-        carouselNormalization($slides[index].id);
-    });
+    // Caluclate hights after DOM finished loading
+    setTimeout(function() {
+          // Collpase/Show Marginals
+        collapseOversizedMarginals();
+        collapseOversizedInfobox();
+
+        // Normalise slide height
+        normaliseSlidesHeight();
+    }, 1000);
+
 
     $('body').scrollspy({ target: '.ms-toc', offset: 100 });
 
