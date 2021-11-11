@@ -425,8 +425,10 @@ Full width chapter headers with headline, subheadline and background image.
 
 | :syntax:`:--- CHAPTER_HEADER ---:`
 | :syntax:`image:` :variable:`url to background image`
+| :syntax:`authors:` :variable:`chapter authors`
 | :syntax:`title:` :variable:`chapter headline`
 | :syntax:`subtitle:` :variable:`chapter subheadline`
+| :syntax:`thumbnail:` :variable:`url to thumbnail left of content`
 | :syntax:`:---:`
 
 **Example:**
