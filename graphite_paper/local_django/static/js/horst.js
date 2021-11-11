@@ -144,7 +144,7 @@ function collapseOversizedMarginals() {
             // TODO, check hight of next element, let all children flow?
             if ($(this).next().hasClass('ms-text')){
                 if ($(this).next().children('.ms-col-marginal').children().length == 0) {
-                    if (numAsides < 3){
+                    if (numAsides < 2){
                         canOverflow = true;
                         }
                 }
