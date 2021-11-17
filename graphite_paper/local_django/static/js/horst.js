@@ -30,21 +30,8 @@ function carouselNormalization(carousel_id) {
         tallest; //create variable to make note of the tallest slide
 
     if (items.length) {
-        function normalizeHeights() {
-            items.each(function () { //add heights to array
-                heights.push($(this).actual('height'));
-            });
-            tallest = Math.max.apply(null, heights); //cache largest value
-            console.log(heights);
-            console.log("Tallest: "  + tallest);
-            items.each(function () {
-                $(this).css('min-height', (tallest) + 'px');
-                $(this).parent().parent().css("height", (tallest + 50) + "px");
-                $(this).parent().parent().css("overflow-y", "hidden");
-                console.log($(this));
-            });
-        }
-        normalizeHeights();
+
+        normalizeHeights(items, heights, tallest);
 
         $(window).on('resize orientationchange', function () {
             tallest = 0;
@@ -52,9 +39,24 @@ function carouselNormalization(carousel_id) {
             items.each(function () {
                 $(this).css('min-height', '0'); //reset min-height
             });
-            normalizeHeights(); //run it again
+            normalizeHeights(items, heights, tallest); //run it again
         });
     }
+}
+
+function normalizeHeights(items, heights, tallest) {
+    items.each(function () { //add heights to array
+        heights.push($(this).actual('height'));
+    });
+    tallest = Math.max.apply(null, heights); //cache largest value
+    console.log(heights);
+    console.log("Tallest: "  + tallest);
+    items.each(function () {
+        $(this).css('min-height', (tallest) + 'px');
+        $(this).parent().parent().css("height", (tallest + 50) + "px");
+        $(this).parent().parent().css("overflow-y", "hidden");
+        console.log($(this));
+    });
 }
 
 
@@ -95,7 +97,7 @@ function addReduced() {
             }
         }
     }
-};
+}
 
 // Build full toc
 function addDetailed() {
@@ -111,7 +113,7 @@ function addDetailed() {
             }
         }
     }
-};
+}
 
 //
 // Collapse oversized marginal notes
@@ -165,7 +167,7 @@ function collapseOversizedMarginals() {
                     $(this).children('.ms-col-marginal').css('max-height', heightContent);
 
                     /* Calculate aside height */
-                    var numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
+                    numAsides = $(this).children('.ms-col-marginal').children(' aside').length;
 
                     var medHeightAsides = (heightContent) / numAsides;
                     medHeightAsides = medHeightAsides - 10;
@@ -227,6 +229,8 @@ function collapseOversizedInfobox() {
 //                $(this).css('max-height', maxHeight);
             }
             $(this).after('<button class="btn btn-primary toggleInfobox" type="button">Expand infobox</button>')
+
+            enableListener();
         }
     });
 }
@@ -334,7 +338,7 @@ function enableListener() {
     });
 
     // Show collapsed marginals on click
-    $('.marginals-collapsed').children('aside').click(function () {
+    $('.marginals-collapsed').children('aside').unbind('click').click(function () {
         $(this).toggleClass('show-collapsed');
     });
 
@@ -342,7 +346,8 @@ function enableListener() {
         $(this).removeClass('show-collapsed');
     });
 
-    $('.toggleInfobox').click(function () {
+    // Toggle infobox on click
+    $('.toggleInfobox').unbind('click').click(function () {
         $(this).prev().toggleClass('show-collapsed');
         $(this).toggleText('Collapse infobox', 'Expand infobox');
     })
