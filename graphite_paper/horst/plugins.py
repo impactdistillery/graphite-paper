@@ -323,6 +323,8 @@ class VideoPlugin(YamlPlugin):
         data["lang"] = self.report.lang
         if "youtube.com" in self.data.get("url"):
             data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
+        if "youtube-nocookie.com" in self.data.get("url"):
+            data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
         data["formated_data"] = self.format_data()
         data["config"] = self.config
         content = self.render_template(data)
