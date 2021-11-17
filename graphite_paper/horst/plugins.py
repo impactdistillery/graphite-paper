@@ -320,6 +320,7 @@ class VideoPlugin(YamlPlugin):
     def render(self):
         data = self.data.copy()
         data["data"] = self.data
+        data["lang"] = self.report.lang
         if "youtube.com" in self.data.get("url"):
             data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
         data["formated_data"] = self.format_data()
