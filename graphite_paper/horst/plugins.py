@@ -464,6 +464,8 @@ class CsvPlugin(YamlPlugin):
             data["header_row"]=TRUE
         if "description" in self.data:
             data["description_html"]=markdown_helper(self.data["description"])
+            data["description_html"] = RE_INLINE.sub(self._inline_replace, data["description_html"])
+
         data["lang"] = self.report.lang
         data["data_frame"] = data_frame
         data["html_table"] = data_frame.to_html(
@@ -496,7 +498,13 @@ class CsvPlugin(YamlPlugin):
     def render_cell_markdown(self, match):
         cell_content = match.group(1)
         cell_content = markdown_helper(cell_content)
+        cell_content = cell_content.replace("\\n","<br>",)
         return '<td>' + cell_content + '</td>'
+
+    def _inline_replace(self, match):
+        data = [ x.strip() for x in match.group(1).split("|")]
+        inline = InlineController.get_inline(data[0])
+        return inline(self.report, data, self).render()
 
 
 class HtmlPlugin(AbstractPlugin):
