@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path
 from .views import report, assets, frame
 
 urlpatterns = (
-    url(r'^(?P<slug>[\w./-]+).html$', report, name="report"),
-    url(r'^(?P<path>assets/.*)$', assets, name="assets"),
-    url(r'^(?P<path>theme/.*)$', assets, name="theme"),
-    url(r'^frame$', frame, name="frame"),
-    url(r'^$', report, name="homepage"),
+    re_path(r'^(?P<slug>[\w./-]+).html$', report, name="report"),
+    re_path(r'^(?P<path>assets/.*)$', assets, name="assets"),
+    re_path(r'^(?P<path>theme/.*)$', assets, name="theme"),
+    re_path(r'^frame$', frame, name="frame"),
+    re_path(r'^$', report, name="homepage"),
 )
