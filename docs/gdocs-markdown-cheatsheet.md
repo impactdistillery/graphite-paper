@@ -38,6 +38,16 @@ $1
 \t
 durch
     
+    
+#### ODER BEI GDHRNet
+
+\[\^(\d)+\]: \^(.*)\^
+
+durch 
+
+ref$1:\n    short: "$2"\n    long: "$2"
+
+
 ### Inline Reference subsitution
 \(((\w+)(.+?)(\d+))\)
 

@@ -48,7 +48,7 @@
         {% endif %}
 
         {% if meta.doi %}
-          <p><strong>DOI: </strong> {{ meta.doi }}</p>
+        <p><strong>DOI: </strong><a href="https://doi.org/{{ meta.doi }}" target="_blank" rel="nofollow noreferrer" >{{ meta.doi }}</a></p>
         {% endif %}
       </aside>
       {% if meta.logo_url %}

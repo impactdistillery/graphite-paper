@@ -428,7 +428,7 @@ Full width chapter headers with headline, subheadline and background image.
 | :syntax:`authors:` :variable:`chapter authors`
 | :syntax:`title:` :variable:`chapter headline`
 | :syntax:`subtitle:` :variable:`chapter subheadline`
-| :syntax:`thumbnail:` :variable:`url to thumbnail left of content`
+| :syntax:`thumbnail:` :variable:`url to graphic/icon left of content`
 | :syntax:`:---:`
 
 **Example:**
@@ -437,9 +437,12 @@ Full width chapter headers with headline, subheadline and background image.
 
     :-------------------- CHAPTER_HEADER --------------------:
     image: "path/to/background-image.jpg"
+    authors: "Joan London & Jack Middleton"
+    thumbnail: "path/to/trailing-icon.png"
     title: Introduction
     subtitle: Bibendum ut tristique et egestas quis ipsum suspendisse ultrices
     :---------------------------------------------------------:
+
 
 Infobox
 -------
