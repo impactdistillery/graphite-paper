@@ -1,4 +1,18 @@
-<h2 id="heading-{{ id }}">{{ title }}</h2>
-{% if subtitle %}
-  <p>{{ subtitle }}</p>
+{% if thumbnail %}
+<div class="has-thumbnail">
+  <div class="thumbnail">
+    <img src="{{ thumbnail }}" alt="{{ title }}" />
+  </div>
+  <div class="content">
+  {% endif %}
+  {% if authors %}
+    <p class="authors">{{ authors }}</p>
+  {% endif %}
+  <h2 id="heading-{{ id }}">{{ title }}</h2>
+  {% if subtitle %}
+    <p>{{ subtitle }}</p>
+  {% endif %}
+  {% if thumbnail %}
+  </div>
+</div>
 {% endif %}

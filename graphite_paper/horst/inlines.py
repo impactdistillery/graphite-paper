@@ -12,7 +12,7 @@ DEFAULT_TEMPLATE = "<span class=\"ms-inline ms-inline-%s\">%s<i></i></span>"
 #POPOVER_TEMPLATE_FULL = "<a tabindex=\"0\" data-trigger=\"focus hover\" class=\"ms-inline ms-inline-%s\" data-toggle=\"popover\" data-placement=\"top\" title=\"%s\" data-content=\"%s\" data-html=\"true\">%s<i></i></a>"
 POPOVER_TEMPLATE_FULL = '<a tabindex="0" data-trigger="focus hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="%s" data-content="%s" data-html="true">%s<i></i></a>'
 
-POPOVER_TEMPLATE = "<span class=\"ms-inline ms-inline-%s\">%s<i></i></span>"
+POPOVER_TEMPLATE = '<a tabindex="0" data-trigger="focus hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="Note" data-content="%s" data-html="true">%s<i></i></a>'
 
 class AbstractInline:
     """
@@ -78,7 +78,7 @@ class GloassaryInline(AbstractInline):
             self.label = self.data[1]
 
     def render(self):
-        return POPOVER_TEMPLATE % (
+        return DEFAULT_TEMPLATE % (
             self.data[0].lower(),
             self.label,
         )
@@ -94,15 +94,33 @@ class SidenoteInline(AbstractInline):
         #    aside(self.report, self.data[1], self.Meta.name),
         #)
         if len(self.data) > 2:
-            self.label = self.data[2]
-        else:
             self.label = self.data[1]
+        else:
+            self.label = ''
+            
+        if len(self.data) > 2:
+            self.content = self.data[2]
+        else:
+            self.content = ''
 
     def render(self):
-        return DEFAULT_TEMPLATE % (
-            self.data[0].lower(),
-            self.label,
-        )
+        
+        if len(self.data) > 2:
+            return POPOVER_TEMPLATE % (
+                self.data[0].lower(),
+                self.content,
+                self.label,
+            )
+        else:
+            return DEFAULT_TEMPLATE % (
+                self.data[0].lower(),
+                self.label,
+            )
+    
+class TranslationInline(SidenoteInline):
+    
+    class Meta:
+        name = "translate"
 
 
 class ThanksInline(SidenoteInline):

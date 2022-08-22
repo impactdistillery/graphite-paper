@@ -8,7 +8,7 @@ from .jinja2 import additional_globals
 def markdown_helper(content):
     return markdown(
         content,
-        extensions=["markdown.extensions.tables"],
+        extensions=["markdown.extensions.tables", "markdown.extensions.nl2br"],
     )
 
 def read_report_file(report, file_name):

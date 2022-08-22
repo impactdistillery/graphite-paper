@@ -34,8 +34,8 @@ release = '2021'
 extensions = [
     'sphinx_rtd_theme',
 #    'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
-    #'sphinx_copybutton',
+#    'sphinx.ext.todo',
+#    'sphinx_copybutton',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -82,6 +82,9 @@ html_css_files = [
 # Disable smart quotes (-- to dash)
 smartquotes = False
 
+# COPYBUTTON settings
 # Exclude bash $ for copying
 #copybutton_prompt_text = "$ "
 
+# TODO settings
+todo_include_todos = True

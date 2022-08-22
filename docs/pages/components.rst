@@ -425,8 +425,10 @@ Full width chapter headers with headline, subheadline and background image.
 
 | :syntax:`:--- CHAPTER_HEADER ---:`
 | :syntax:`image:` :variable:`url to background image`
+| :syntax:`authors:` :variable:`chapter authors`
 | :syntax:`title:` :variable:`chapter headline`
 | :syntax:`subtitle:` :variable:`chapter subheadline`
+| :syntax:`thumbnail:` :variable:`url to graphic/icon left of content`
 | :syntax:`:---:`
 
 **Example:**
@@ -435,9 +437,12 @@ Full width chapter headers with headline, subheadline and background image.
 
     :-------------------- CHAPTER_HEADER --------------------:
     image: "path/to/background-image.jpg"
+    authors: "Joan London & Jack Middleton"
+    thumbnail: "path/to/trailing-icon.png"
     title: Introduction
     subtitle: Bibendum ut tristique et egestas quis ipsum suspendisse ultrices
     :---------------------------------------------------------:
+
 
 Infobox
 -------
@@ -511,6 +516,8 @@ Component to display figures spaning the full width of the page.
 Additional plugins
 ==================
 
+.. _List of references:
+
 List of references
 ------------------
 
@@ -530,8 +537,16 @@ Prints a list of figures.
 | :syntax:`title:` :variable:`Title above list`
 | :syntax:`:---:`
 
+.. TODO::
+    Plugins to test and document
 
-Plugins to test and document:
+    * TML Plugin
+    * efault Plugin
+    * AML Plugin
+    * SON Plugin
+    * amlMd Plugin
+    * ariable Plugin
+:
 
 HTML Plugin
 -----------

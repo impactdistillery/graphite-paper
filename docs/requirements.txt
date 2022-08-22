@@ -1,0 +1,10 @@
+# Defining requirements for readthedocs
+
+# sphinx==4.0.2
+# 
+# sphinx_rtd_theme==0.5.2
+# sphinx.ext.todo==1.5.1
+# sphinx_copybutton==0.3.3
+
+# sphinx.ext.viewcode==
+

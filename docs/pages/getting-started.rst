@@ -7,51 +7,77 @@ Do you want to create a website from a single source or do you want to create yo
 Install graphite-paper
 ----------------------
 
-**Mac OS**
+Mac OS
+^^^^^^
 
 xCode command line tools
+
+.. code:: shell
+
+    # Check if exist:
+    $ xcode-select --version
+
+    # Otherwise install:
+    $ xcode-select --install
+
 Homebrew
 
 .. code:: shell
 
+    # Check if exist:
+    $ brew --version
+
+    # Otherwise install:
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-Install Python 3
+Python (^3.7)
 
 .. code:: shell
 
-    $ brew install python
+    # Check for installed version:
+    $ brew info python
+
+    # Otherwise install:
+    $ brew install python@3.7
 
 
-Install pipenv
-
-Check which pip is installed (`pip --version` or `pip3 --version` and use pip or pip3 depending on which routes to python3)
+Pipenv
 
 .. code:: shell
 
-    $ sudo pip install pipenv
+    # Check if exists:
+    $ pipenv --version
+
+    # If none installed, check which pip is installed
+    $ pip --version
+    $ pip3 --version
+
+    # Install pipenv, use pip or pip3 depending on which routes to python 3.x
+    $ sudo pip3 install pipenv
 
 Clone repository
 
 .. code:: shell
 
-    $ git clone REPOSITORY_URL
+    # Move to folder, where the article files shall be located (use tab key to autocomplete)
+    $ cd ~/PATH_TO_FOLDER_FROM_HOME_DIRECTORY
 
-Change into repository folder.
+    # Copy repository url from github and clone
+    $ git clone REPOSITORY_URL
 
 
 Setup Adobe Brackets as graphite environment
 --------------------------------------------
 
-You can use the text editor of your choice to create a graphite paper. If you're not too familiar with the command line, we recommend the use  of Adobe Brackets for Mac, a free and easy to use editor that comes with a graphical git extension.
+You can use the text editor of your choice to create a graphite paper. If you're not too familiar with the command line, we recommend the use  of `Brackets <https://brackets.io>`_ on Mac, a free and easy to use editor that comes with a graphical git extension.
 
-Install brackets
+Install brackets from `brackets.io <https://brackets.io>`_ or:
 
 ::
 
     $ brew cask install brackets
 
-Add Extensions to Brackets (File > Extension Manager):
+Add Extensions to Brackets (File › Extension Manager):
 
 * `Brackets Git <https://github.com/brackets-userland/brackets-git>`_ by  Martin Zagora
 * `Markdown Toolbar <https://github.com/alanhohn/markdown-toolbar>`_ Alan Hohn
@@ -61,12 +87,24 @@ Start development environment
 
 Change into repository folder.
 
+If you're there for the first time, do an install
+
+.. code:: shell
+
+    $ pipenv install
+
+Then start environment
+
+.. code:: shell
+
+    $ pipenv shell
+
 .. code:: shell
 
     $ python PAPER_FOLDER/manage.py runserver
 
 .. TIP::
-    If you want to run more than one paper at once, you can specify different ports with a blank after :code:`runserver` such as :code:`$ python OTHER_PAPER_FOLDER/manage.py runserver 8001`
+    The default port is 8000. If you want to run more than one paper at once, you can specify different ports with a blank after :code:`runserver` such as :code:`$ python OTHER_PAPER_FOLDER/manage.py runserver 8001`
 
 Publish graphite paper
 --------------------
@@ -80,4 +118,4 @@ Change into repository folder.
 The paper and all assets will be rendered into the folder :file:`_build`. The contents of this folder can be copied to the desired location or server in order to publish the website.
 
 .. WARNING::
-    Currently the static folder needs to be located at the root. It needs to be copied manually into the root folder of the server  in order for the paper to work within a subdirectory.
+    Currently the static folder needs to be located in the root folder. It needs to be copied manually into the root folder of the server in order for the paper to work within a subdirectory.

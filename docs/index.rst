@@ -12,7 +12,7 @@ Welcome to Graphite Paper's documentation!
 
 .. TODO::
     Implement standalone command, then change to:
-    With graphite papers you can create your standalone publication with one command. Or use the provided starter packs to build up your own and invidualised publication series.
+    With graphite papers you can create your standalone publication with one command. Or use the provided starter packs to build up your own invidualised publication series.
 
 
 .. toctree::

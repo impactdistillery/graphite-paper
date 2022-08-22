@@ -1,5 +1,41 @@
 <!-- Place this data between the <head> tags of your website -->
 <title>{{ meta.title }}</title>
+
+<!-- Google structured data -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "url": "{{meta.short_url}}"
+      },
+      "headline": "{{ meta.title }}",
+      "alternativeHeadline": "{{ meta.subtitle }}",
+      "image": "{{ meta.social_image_url }}",
+      "datePublished": "{{ meta.date_publication }}",
+      "copyrightYear": "{{ meta.year }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ meta.authors }}"
+      },
+      "keywords": "{{ meta.keywords }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ meta.author_info }}",
+        "logo": {
+          "@type": "ImageObject"
+          {% if meta.logo_url %} ,
+          "url": "{{meta.short_url}}/{{ meta.logo_url }}"
+          {% endif %}
+        }
+      }
+      {% if meta.doi %} ,
+      "sameAs": "{{meta.doi}}"
+      {% endif %}
+    }
+</script>
+
 <meta name="description" content="{{ meta.subtitle }}" />
 <meta name="author" content="{{ meta.author_info }}">
 
