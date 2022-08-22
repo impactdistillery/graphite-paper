@@ -84,7 +84,7 @@ smartquotes = False
 
 # COPYBUTTON settings
 # Exclude bash $ for copying
-copybutton_prompt_text = "$ "
+#copybutton_prompt_text = "$ "
 
 # TODO settings
 todo_include_todos = True
