@@ -1,5 +1,7 @@
 # Graphite-paper
 
+
+
 _graphite_ offers the infrastructure to enhance your publications for a multi-media and interactive digital context. The more than ever emerging demand for reliable and well-edited information meets a depreciated way of publishing. With graphite papers you can create your standalone publication or use the provided starter packs to build up your own and individualised publication series.
 
 ## How to use this package
