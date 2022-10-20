@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <ul class="nav nav-tabs d-none d-lg-flex" id="masterTab" role="tablist">
+    <ul class="nav nav-tabs d-none d-lg-flex" id="masterTab" role="tablist" style="margin-left: 8.6% !important;">
       {% for tab in tabs %}
       <li class="nav-item">
         <a class="nav-link tab-item {% if tab.active %}active{% endif%}" id="{{ tab.slug }}-tab" data-toggle="tab" href="#{{ tab.slug }}" role="tab" aria-controls="{{ tab.slug }}" {% if tab.active %}aria-expanded="true"{% endif%}>
@@ -30,6 +30,28 @@
       </li>
       {% endfor %}
     </ul>
+
+    {% if meta.translation_nav or meta.translation_nav is true %}
+    <ul class="nav justify-content-end d-none d-lg-flex">
+      {% if meta.further_languages %}
+        {% for l in meta.further_languages %}
+          
+          {% if l.current is true or l.current %}
+            <li class="nav-item font-weight-bold current ml-2">
+              {{ l.label }}
+            </li>
+          {% else %}
+            <li class="nav-item ml-2">
+              <a href={{ l.url }} target="_blank" style="color: inherit">{{ l.label }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <li><span>Add lang via meta.yaml</span></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+
   </div>
 </nav>
 <div class="tab-content" id="masterTabContent">

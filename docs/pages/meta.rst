@@ -53,9 +53,21 @@
 
     author_info_sticky:     true
     no_journal:             true
+    translation_nav:        false
     matomo_tracking:        true
     matomo_url:             "https://piwik.wunderjewel.de/"
     matomo_siteId:          "4"
+
+    # ADDITIONAL LANGUAGES
+    # Add language navigation in settings and links below
+    # —————————————————————
+
+    # further_languages:
+    #   - label: DE
+    #     url: https://graphite.page/scholar-led-manifest/
+    #   - label:  EN
+    #     url: https://graphite.page/scholar-led-manifesto-en/
+    #     current: true
 
 
     # PUBLISHER INFO
@@ -151,9 +163,14 @@ logo_url                Relative path to publisher logo
 ----------------------------------------------------------------------------------------
 author_info_sticky      Make footer bar sticky                      true/false
 no_journal              Disable expandable top navigation           true/false
+translation_nav:        Enable language switch                      true/false
 matomo_tracking         Enable Matomo statistics                    true/false
 matomo_url              URL of Mataomo tracking
 matomo_siteId           Matomo site ID
+**ADDITIONAL LANGUAGES**
+----------------------------------------------------------------------------------------
+further_languages:      Link list to translations                   yaml list syntax
+
 **PUBLISHER INFO**
 ----------------------------------------------------------------------------------------
 brand                   graphite or whitelabel brand
