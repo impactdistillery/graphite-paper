@@ -152,7 +152,9 @@ class CoreParser:
         config = list()
         results = list()
 
-        for line in self.input_text.split("\n"):
+        for line in [""] + self.input_text.split("\n"):
+            # The [""] is necessary to enable results[-1] even if the first
+            # plugin starts with the first line
 
             # (1) Deal with plugins (incl. file imports and side notes)
             if RE_PLUGIN_START.match(line):
