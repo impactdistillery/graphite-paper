@@ -5,16 +5,68 @@
 Create a Graphite paper
 ***********************
 
-The easiest way to start you graphite paper is to download our sample journal starter.
+Create a publication repository
+===============================
 
-Download  starter
-=================
+The easiest way to start your first graphite paper is to use our cookiecutter starter.
+If you prefer to start with a full, prefilled sample publication, you can clone our sample journal repository instead.
+
+Create publication with starter
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A documentation of how to install our starter can be found here:
+
+   :ref:`Starter`
+
+This will give you a publication repository with the following page structure:
+
+:icon-folder:`\ ` ``YOUR_JOURNAL_SLUG/``
+
+::
+
+    YOUR_JOURNAL_SLUG
+    │
+    ├── YOUR_PAPER_SLUG
+    │   ├── assets
+    │   │   └── images
+    │   │   │   └── header.jpg
+    │   │
+    │   ├── config
+    │   │   ├── development.py
+    │   │   ├── lang.yaml
+    │   │   └── meta.yaml
+    │   │
+    │   ├── pages
+    │   │   ├── index.md
+    │   │   ├── imprint.md
+    │   │
+    │   ├── theme
+    │   │   ├── fonts
+    |   │   │   └── ...
+    │   │   ├── images
+    |   │   │   └── graphite.svg
+    │   │   └── styles
+    |   │       └── sample-journal.css
+    │   │
+    │   └── manage.py
+    │
+    ├── Pipfile
+    │
+    └── README.md
+
+
+Download  sample journal
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A preview of the sample publication can be seen here: `graphite-paper.netlify.app <https://graphite-paper.netlify.app/>`_
+
+To copy this sample, clone the following repository.
 
 .. code:: shell
 
     $ git clone github.com/crosssenses/sample-journal
 
-This will give you a starter with the following page structure:
+This will give you a publication repository with the following page structure:
 
 :icon-folder:`\ ` ``sample-journal/``
 
@@ -25,13 +77,13 @@ This will give you a starter with the following page structure:
     ├── sample-paper
     │   ├── assets
     │   │   ├── figures
+    |   │   │   └── ...
     │   │   ├── images
     │   │   └── csv
     │   │
     │   ├── config
     │   │   ├── development.py
     │   │   ├── lang.yaml
-    │   │   ├── meta.yaml
     │   │   └── meta.yaml
     │   │
     │   ├── pages
