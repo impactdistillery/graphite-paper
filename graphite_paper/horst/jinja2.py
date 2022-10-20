@@ -29,7 +29,7 @@ SOCIAL_NETWORKS = dict(
     ),
 )
 
-def get_share_domain(network_name, link=settings.SHARE_DOMAIN, description=None, title=None):
+def get_share_domain(network_name, link, description=None, title=None):
     link = link.replace(":", "%3A")
     network = SOCIAL_NETWORKS.get(network_name)
     param = {network["param"]: link}
@@ -55,8 +55,6 @@ def additional_globals():
         settings=settings,
         DEBUG=settings.DEBUG and settings.SUPER_DEBUG,
         urlencode=urlencode,
-        share_domain=settings.SHARE_DOMAIN,
-        share_domain_full=settings.SHARE_DOMAIN_FULL,
         get_share_domain=get_share_domain,
         url=reverse,
         media=media,
