@@ -1,9 +1,9 @@
 .. role:: icon-folder
    :class: fa fa-folder-open
 
-==================
-Theme configuraion
-==================
+===================
+Theme configuration
+===================
 
 
 .. sidebar:: Create your own journal

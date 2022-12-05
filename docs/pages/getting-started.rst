@@ -48,18 +48,53 @@ Pipenv
     # Check if exists:
     $ pipenv --version
 
-    # If none installed, check which pip is installed
+    # If none installed, check which pip is installed:
     $ pip --version
     $ pip3 --version
 
-    # Install pipenv, use pip or pip3 depending on which routes to python 3.x
+    # Install pipenv, use pip or pip3 depending on which routes to python 3.x:
     $ sudo pip3 install pipenv
 
+
+Windows
+^^^^^^^
+
+Install from official websites:
+
+    - Python (Make sure to check the box for PATH variables to be set)
+    - Git (includes Git-Bash)
+
+Open Git-Bash to install Pipenv 
+
+.. code:: shell
+
+    # Check if exists:
+    $ pipenv --version
+
+    # Install pipenv:
+    $ pip install pipenv
+
+Optional: Pyenv
+
+You might run into errors regarding your installed/default version of python in the further installation steps.
+
+.. code:: shell
+
+    # Install pyenv-win by running the following installation command in a PowerShell terminal:
+    $ Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+
+    # If you are getting any UnauthorizedAccess error, start Windows PowerShell with the "Run as administrator" option and run 
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+    # now re-run the above installation command
+
+Here you can find detailed installation instructions (via the PowerShell):
+
+ | `https://github.com/pyenv-win <https://github.com/pyenv-win/pyenv-win/blob/master/docs/installation.md#powershell>`_.
 
 Install graphite-paper
 ----------------------
 
-You can a) work on an existing graphite publicaion repository or b) start from scratch with our graphite starter.
+You can a) work on an existing graphite publication repository, or b) start from scratch with our graphite starter.
 
 Clone existing repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -71,6 +106,8 @@ Clone existing repository
 
     # Copy repository url from github and clone
     $ git clone REPOSITORY_URL
+
+    # If you're using git for the first time, proceed with promted sign-in procedures
 
 .. _Starter:
 
@@ -84,7 +121,7 @@ Our starter is provided by `cookiecutter <https://github.com/cookiecutter/cookie
     # Check for installed version:
     $ cookiecutter --version
 
-    # Otherwise install:
+    # Otherwise install (OSX/Linux):
     $ brew install cookiecutter
 
 Install the starter.
@@ -92,7 +129,7 @@ Install the starter.
 .. code:: shell
 
     # Download and init graphite starter:
-    $ cookiecutter gh:impactdistillery/graphite-starter.git
+    $ cookiecutter gh:impactdistillery/graphite-starter
 
 Cookiecutter will prompt you to enter a title, authors etc. for your publication. Your :code:`journal_slug` will be the name of the directory created by cookiecutter.
 
@@ -100,31 +137,6 @@ Cookiecutter will prompt you to enter a title, authors etc. for your publication
 
     # Change to your repository
     $ cd JOURNAL_SLUG
-
-Install a text editor to edit your *graphite* publication
----------------------------------------------------------
-
-You can use the text or source code editor of your choice to create a graphite paper. 
-If you're not too familiar with the command line, we recommend the use of for example `Brackets <https://brackets.io>`_ on Mac, a free and easy to use editor that comes with a graphical git extension.
-
-Install brackets from `brackets.io <https://brackets.io>`_ or:
-
-::
-
-    $ brew cask install brackets
-
-Add Extensions to Brackets (File › Extension Manager):
-
-* `Brackets Git <https://github.com/brackets-userland/brackets-git>`_ by  Martin Zagora
-* `Markdown Toolbar <https://github.com/alanhohn/markdown-toolbar>`_ Alan Hohn
-
-.. WARNING::
-    Recently Brackets experienced errors when trying to install extensions. Try one of the alternative editors below.
-    
-Alternative Editors that also offer a graphical git interface:
-
-    - Atom `atom.io <https://atom.io>`_
-    - `VS Codium <https://vscodium.com>`_
 
 Start development environment
 -----------------------------
@@ -136,6 +148,11 @@ If you're there for the first time, do an install
 .. code:: shell
 
     $ pipenv install
+
+.. WARNING::
+    You might run into errors regarding your installed/default version of python.
+    Use Pyenv to administer Phython versions in Pipenv. 
+
 
 Then start environment
 
@@ -150,8 +167,19 @@ Then start environment
 .. TIP::
     The default port is 8000. If you want to run more than one paper at once, you can specify different ports with a blank after :code:`runserver` such as :code:`$ python OTHER_PAPER_FOLDER/manage.py runserver 8001`
 
+
+Install a text editor to edit your *graphite* publication
+---------------------------------------------------------
+
+You can use the text or source code editor of your choice to create a graphite paper. 
+If you're not too familiar with the command line, we suggest the use of one of the following editors:
+
+    - `VS Codium <https://vscodium.com>`_, the popular open-source version of VS code with a graphical git interface and an extensive extension library
+    - `Brackets <https://brackets.io>`_, a free and easy to use editor for Mac that comes with a graphical git extension
+    - Atom `atom.io <https://atom.io>`_
+
 Publish graphite paper
---------------------
+----------------------
 
 Change into repository folder.
 
