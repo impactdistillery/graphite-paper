@@ -373,7 +373,7 @@ An author component presenting authors, editors or other persona relevant for th
 Carousel
 --------
 
-Multiple container components can be shown as carousel. Slides are seperated by three hypens, component details need to be intended.
+Multiple container components can be shown as carousel. Slides are seperated by three hypens, component details need to be indented.
 
 | :syntax:`:--- SLIDES ---:`
 | :variable:`container component slug` :syntax:`:`
