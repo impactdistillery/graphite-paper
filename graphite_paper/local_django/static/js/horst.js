@@ -12,53 +12,19 @@ $.fn.extend({
 //
 // Normalise slide height to prevent jumping
 //---------------------------------------------------------
-function normaliseSlidesHeight(){
-    var $slides = $(".slides-norm-height");
-    $slides.each(function (index) {
-//        console.log(index);
-//        console.log($slides[index].id);
-        carouselNormalization($slides[index].id);
-    });
+
+function normalizeSlideHeights() {
+    $('.carousel').each(function(){
+      var items = $('.carousel-item', this);
+      // reset the height
+      items.css('min-height', 0);
+      // set the height
+      var maxHeight = Math.max.apply(null, 
+          items.map(function(){
+              return $(this).outerHeight()}).get() );
+      items.css('min-height', maxHeight + 'px');
+    })
 }
-
-function carouselNormalization(carousel_id) {
-//var items = $('#579carouselExampleIndicators .carousel-item'), //grab all slides
-    var target = '#' + carousel_id + ' .carousel-item .ms-row';
-    console.log(target);
-    var items = $(target), //grab all slides
-        heights = [], //create empty array to store height values
-        tallest; //create variable to make note of the tallest slide
-
-    if (items.length) {
-
-        normalizeHeights(items, heights, tallest);
-
-        $(window).on('resize orientationchange', function () {
-            tallest = 0;
-            heights.length = 0; //reset vars
-            items.each(function () {
-                $(this).css('min-height', '0'); //reset min-height
-            });
-            normalizeHeights(items, heights, tallest); //run it again
-        });
-    }
-}
-
-function normalizeHeights(items, heights, tallest) {
-    items.each(function () { //add heights to array
-        heights.push($(this).actual('height'));
-    });
-    tallest = Math.max.apply(null, heights); //cache largest value
-    console.log(heights);
-    console.log("Tallest: "  + tallest);
-    items.each(function () {
-        $(this).css('min-height', (tallest) + 'px');
-        $(this).parent().parent().css("height", (tallest + 50) + "px");
-        $(this).parent().parent().css("overflow-y", "hidden");
-        console.log($(this));
-    });
-}
-
 
 //
 // Table of contents
@@ -216,20 +182,17 @@ function collapseOversizedInfobox() {
             isOverflowing = true;
         }
 
-        /* Check if there is no asides or plugins after overflowing, single aside */
-        // TODO, check hight of next element, let all children flow?
+        /* Check if collapse is set to true > class collapse exists */
         if ($(this).hasClass('collapse')){
             canOverflow = true;
         }
 
         if (isOverflowing) {
-            // if overflow possible, just set height of row
+            // if collapse set to true, adjust class and show button
             if (canOverflow) {
                 $(this).addClass('infobox-overflowing');
-//                $(this).css('max-height', maxHeight);
+                $(this).after('<button class="btn btn-primary toggleInfobox" type="button">Expand infobox</button>')
             }
-            $(this).after('<button class="btn btn-primary toggleInfobox" type="button">Expand infobox</button>')
-
             enableListener();
         }
     });
@@ -240,57 +203,71 @@ function collapseOversizedInfobox() {
 // Handle anchor links
 //-------------------------------------------------------------
 
+function changeToTab(prevTab, targetTab){
 
-
-function handleAnchorLinks(hashValue) {
     var offset = 80;
 
+    // console.log("Changing from ", prevTab, " to ", targetTab)
+
+    // Show tab manually to avoid collsion with carousel
+    // (bootstraps throws error, used try catch to continue script)
+    try {        
+        prevTab.removeClass('active fade show');
+        $(prevTab.attr('href')).removeClass('active');
+    
+        targetTab.addClass("active fade show");
+        $(targetTab.attr('href')).addClass('active');
+        
+    } catch(err) {
+        console.log('Changing tab errors: ', err)
+    }
+
+    // Show tab
+    // (bootstraps throws error, used try catch to continue script)
+    // try {
+    //     console.log('Changing tabs')
+    //     $("a[href='"+hashValue+"']").tab('show');
+        
+    // } catch(err) {
+    //     console.log('Changing tab errors: ', err)
+    // }
+
+    //Reload TOC and collapse/show marginals after changing tabs
+    setTimeout(makeToC, 200);
+    setTimeout(collapseOversizedMarginals, 300);
+
+    // Scroll to top if below fixed tabs
+    if ($('.ms-tabs')[0].getBoundingClientRect().top === 0){
+        var firstElementClass = targetTab + ' .ms-row:first-child'
+        setTimeout(function(){
+            scrollBy(0, -offset);
+            // $(firstElementClass)[0].scrollIntoView(true)
+        },
+        0);
+    }
+    // Works for headings even this is not implemented
+    // TODO: Check above code
+    //setTimeout(function(){
+    //     $(hashValue)[0].scrollIntoView(true);
+    //     scrollBy(0, -offset);
+    // },
+    // 200);
+}
+
+function handleAnchorLinks(hashValue) {
+    let activeTab = $('#masterTab a').filter('.active');
+
     if($(hashValue).hasClass('tab-pane')){
-        console.log('Clicked a tab')
+        // console.log('Clicked a tab', activeTab)
 
-        // Show tab
-        // (bootstraps throws error, used try catch to continue script)
-        try {
-            $("a[href='"+hashValue+"']").tab('show');
-        } catch(err) {
-            console.log('Changing tab errors: ', err)
-        }
-
-        //Reload TOC and collapse/show marginals after changing tabs
-//            console.log('Calling makeToC from handleAnchorLinks TAB')
-        setTimeout(makeToC, 200);
-        setTimeout(collapseOversizedMarginals, 300);
-
-        // Scroll to top if below fixed tabs
-        if ($('.ms-tabs')[0].getBoundingClientRect().top === 0){
-            var firstElementClass = hashValue + ' .ms-row:first-child'
-            setTimeout(function(){
-                $(firstElementClass)[0].scrollIntoView(true)
-                scrollBy(0, -offset);
-            },
-            200);
-        }
-
+        changeToTab(activeTab, $(hashValue))
     }
     else if(hashValue.includes('heading')){
-        console.log('Clicked a heading')
+        // console.log('Clicked a heading')
 
         var tabID = '#'+$(hashValue).parents('.tab-pane').attr('id')
-//        console.log('tab id', tabID )
 
-        try {
-            $("a[href='"+tabID+"']").tab('show');
-        } catch(err) {
-            console.log('Changing tab errors: ', err)
-        }
-//        console.log('Calling makeToC from handleAnchorLinks HEADING')
-        setTimeout(makeToC, 200);
-
-        setTimeout(function(){
-            $(hashValue)[0].scrollIntoView(true);
-            scrollBy(0, -offset);
-        },
-        200);
+        changeToTab(activeTab, $(tabID))
 
     }
     else{
@@ -313,29 +290,29 @@ function enableListener() {
     });
 
     // Pause Carousel
-    $('.carousel-item .ms-col-content').click(function(){
+
+    // $(".carousel").carousel('pause');
+    // $('.carousel-item .ms-col-content').click(function(){
+    //     if ($(this).parents('.carousel').hasClass('paused')) {
+    //         $(this).parents('.carousel-item').addClass('play').delay(800).queue(function() {
+    //             $(this).removeClass('play').dequeue();
+    //         });
+    //         $(this).parents('.carousel').toggleClass('paused');
+    //         $(this).parents('.carousel').carousel('cycle');
+    //         $(this).parents('.carousel').delay(500).queue(function() {
+    //             $(this).carousel('next').dequeue();
+    //         });
+    //     }
+    //     else{
+    //         $(this).parents('.carousel-item').addClass('pause').delay(800).queue(function(){
+    //             $(this).removeClass('pause').dequeue();
+    //         });
+    //         $(this).parents('.carousel').toggleClass('paused');
+    //         $(this).parents('.carousel').carousel('pause');
+    //     }   
+    // });
 
 
-        if ($(this).parents('.carousel').hasClass('paused')) {
-            $(this).parents('.carousel-item').addClass('play').delay(800).queue(function() {
-                $(this).removeClass('play').dequeue();
-            });
-            $(this).parents('.carousel').toggleClass('paused');
-            $(this).parents('.carousel').carousel('cycle');
-            $(this).parents('.carousel').delay(500).queue(function() {
-                $(this).carousel('next').dequeue();
-            });
-        }
-        else{
-            $(this).parents('.carousel-item').addClass('pause').delay(800).queue(function(){
-                $(this).removeClass('pause').dequeue();
-            });
-            $(this).parents('.carousel').toggleClass('paused');
-            $(this).parents('.carousel').carousel('pause');
-        }
-
-
-    });
 
     // Show collapsed marginals on click
     $('.marginals-collapsed').children('aside').unbind('click').click(function () {
@@ -415,14 +392,14 @@ $(function() {
     // Enable popover (inline references)
     $('[data-toggle="popover"]').popover();
 
-    // Caluclate hights after DOM finished loading
+    // Caluclate heights after DOM finished loading
     setTimeout(function() {
           // Collpase/Show Marginals
         collapseOversizedMarginals();
         collapseOversizedInfobox();
 
         // Normalise slide height
-        normaliseSlidesHeight();
+        normalizeSlideHeights();
     }, 1000);
 
 
@@ -433,4 +410,8 @@ $(function() {
 
 });
 
+// $(window).on(
+//     'load resize orientationchange', 
+//     normalizeSlideHeights
+// );
 

@@ -191,15 +191,16 @@ class InfoboxPlugin(YamlMdPlugin):
         content = self.render_template(dict(content=html_content))
         aside = self.render_template(self.data, aside=True)
         collapse = self.data["collapse"]
-#        collapse = "true"
+        classname = self.Meta.name
+        if collapse:
+            classname += " collapse"
 
         return Section(
             self.report,
             content,
             aside,
-#            collapse,
             partial_id=self.partial_id,
-            plugin_class=self.Meta.name + " collapse"
+            plugin_class=classname
         ).render()
 
     def modify_markdown_based_html(self, html):
