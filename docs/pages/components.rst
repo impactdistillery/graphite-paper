@@ -454,6 +454,8 @@ Collapsable section for case studies, excursus or similar.
 | :syntax:`description:` :variable:`description of infobox`
 | :syntax:`note:` :variable:`key learnings or quick summary`
 | :syntax:`link:` :variable:`list of links`
+| :syntax:`file_url:` :variable:`url to download`
+| :syntax:`file_label:` :variable:`label of download`
 | :syntax:`collapse:` :variable:`true/false, defaults to false`
 | :syntax:`---`
 | :variable:`infobox component content (md)`
