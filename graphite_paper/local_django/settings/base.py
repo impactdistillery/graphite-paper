@@ -1,7 +1,7 @@
 import sys, os
 
-SHARE_DOMAIN="http://idist.io/g/sum/"
-SHARE_DOMAIN_FULL="https://www.impactdistillery.com/graphite/hiig-sum/"
+# SHARE_DOMAIN="http://idist.io/g/sum/"
+# SHARE_DOMAIN_FULL="https://www.impactdistillery.com/graphite/hiig-sum/"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 

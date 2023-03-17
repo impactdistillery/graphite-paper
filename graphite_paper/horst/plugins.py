@@ -359,6 +359,7 @@ class FigurePlugin(YamlPlugin):
         data["config"] = self.config
         data["partial_id"] = self.partial_id
         data["lang"] = self.report.lang
+        data["meta"] = self.report.meta
         if data["file"].endswith("svg"):
             data["share_file"] = data["file"][:-3] + "png"
         else:
