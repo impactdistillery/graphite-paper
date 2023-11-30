@@ -12,6 +12,7 @@ RE_INLINE = re.compile(r'\[:([^\]]+):\]')
 MD_SITE = re.compile( "\[(.*)\]" )
 MD_URL = re.compile( "\((.*)\)" )
 RE_TD = re.compile( "<td>(.*?)<\/td>" )
+RE_TIKTOK = re.compile(r'@[\w\d]+/video/([\w\d]+)')
 
 class AbstractPlugin:
     """
@@ -326,6 +327,8 @@ class VideoPlugin(YamlPlugin):
             data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
         if "youtube-nocookie.com" in self.data.get("url"):
             data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
+        if "tiktok.com" in self.data.get("url") and (tiktok_id_match := RE_TIKTOK.search(self.data.get("url"))):
+            data["tiktok_id"] = tiktok_id_match.group(1)        
         data["formated_data"] = self.format_data()
         data["config"] = self.config
         content = self.render_template(data)

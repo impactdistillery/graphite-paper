@@ -3,8 +3,13 @@
   <div class="youtube" data-id="{{ youtube_id }}">
   </div>
 </div>
+{% elif tiktok_id %}
+<div class="embed-responsive embed-responsive-tiktok" id="video-tiktok-{{ tiktok_id }}">
+  <div class="tiktok" data-id="{{ tiktok_id }}">
+  </div>
+</div>
 {% else %}
 <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="{{ url }}" ></iframe>
+  <iframe class="embed-responsive-item" src="{{ url }}"></iframe>
 </div>
 {% endif %}
