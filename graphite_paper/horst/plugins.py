@@ -319,20 +319,59 @@ class VideoPlugin(YamlPlugin):
         template = "horst/plugins/video.html"
         template_aside = "horst/plugins/video_aside.html"
 
+    def extract_id(self, url):
+        if "youtube.com" in url:
+            return url.replace("https://www.youtube.com/embed/", "")
+        elif "youtube-nocookie.com" in url:
+            return url.replace("https://www.youtube-nocookie.com/embed/", "")
+        elif "tiktok.com" in url:
+            tiktok_id_match = RE_TIKTOK.search(url)
+            if tiktok_id_match:
+                return tiktok_id_match.group(1)
+        return None
+
+    def extract_ids(self, urls):
+        youtube_ids = []
+        tiktok_ids = []
+        
+        for url in urls:
+            extracted_id = self.extract_id(url)
+            if extracted_id:
+                if "youtube.com" in url or "youtube-nocookie.com" in url:
+                    youtube_ids.append(extracted_id)
+                elif "tiktok.com" in url:
+                    tiktok_ids.append(extracted_id)
+        
+        return youtube_ids, tiktok_ids
+
     def render(self):
         data = self.data.copy()
         data["data"] = self.data
         data["lang"] = self.report.lang
-        if "youtube.com" in self.data.get("url"):
-            data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
-        if "youtube-nocookie.com" in self.data.get("url"):
-            data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
-        if "tiktok.com" in self.data.get("url") and (tiktok_id_match := RE_TIKTOK.search(self.data.get("url"))):
-            data["tiktok_id"] = tiktok_id_match.group(1)        
+        # if "youtube.com" in self.data.get("url"):
+        #     data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
+        # if "youtube-nocookie.com" in self.data.get("url"):
+        #     data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
+        # if "tiktok.com" in self.data.get("url") and (tiktok_id_match := RE_TIKTOK.search(self.data.get("url"))):
+        #     data["tiktok_id"] = tiktok_id_match.group(1)        
+        # if self.data.get("url_2") and "tiktok.com" in self.data.get("url_2") and (tiktok_id_2_match := RE_TIKTOK.search(self.data.get("url_2"))):
+        #     data["tiktok_id_2"] = tiktok_id_2_match.group(1) 
+        if "url" in self.data:
+            youtube_ids, tiktok_ids = self.extract_ids(self.data.get("url"))
+            print("Extracted YouTube IDs:", self.data.get("caption"), youtube_ids)  # Debug log
+            print("Extracted TikTok IDs:", self.data.get("caption"), tiktok_ids)    # Debug log
+            
+            if youtube_ids:
+                data["youtube_ids"] = youtube_ids
+            
+            if tiktok_ids:
+                data["tiktok_ids"] = tiktok_ids
+
         data["formated_data"] = self.format_data()
         data["config"] = self.config
         content = self.render_template(data)
         aside = self.render_template(data, aside=True)
+
         return RenderTwo(
             self.report,
             content,

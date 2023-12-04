@@ -1,15 +1,23 @@
-{% if youtube_id %}
-<div class="embed-responsive embed-responsive-16by9" id="video-youtube-{{ youtube_id }}">
-  <div class="youtube" data-id="{{ youtube_id }}">
+{% if youtube_ids %}
+  {% for youtube_id in youtube_ids %}
+  <div class="embed-responsive embed-responsive-16by9" id="video-youtube-{{ youtube_id }}">
+    <div class="youtube" data-id="{{ youtube_id }}">
+    </div>
   </div>
-</div>
-{% elif tiktok_id %}
-<div class="embed-responsive embed-responsive-tiktok" id="video-tiktok-{{ tiktok_id }}">
-  <div class="tiktok" data-id="{{ tiktok_id }}">
+  {% endfor %}
+{% endif %}
+
+{% if tiktok_ids %}
+  {% for tiktok_id in tiktok_ids %}
+  <div class="embed-responsive embed-responsive-tiktok" id="video-tiktok-{{ tiktok_id }}">
+    <div class="tiktok" data-id="{{ tiktok_id }}">
+    </div>
   </div>
-</div>
-{% else %}
-<div class="embed-responsive embed-responsive-16by9">
+  {% endfor %}
+{% endif %}
+
+{% if not youtube_ids and not tiktok_ids %}
+<div class="embed-responsive embed-responsive-16by9 embed-unknown">
   <iframe class="embed-responsive-item" src="{{ url }}"></iframe>
 </div>
 {% endif %}
