@@ -333,6 +333,10 @@ class VideoPlugin(YamlPlugin):
     def extract_ids(self, urls):
         youtube_ids = []
         tiktok_ids = []
+
+        # Convert single URL string to a list
+        if isinstance(urls, str):
+            urls = [urls]
         
         for url in urls:
             extracted_id = self.extract_id(url)
