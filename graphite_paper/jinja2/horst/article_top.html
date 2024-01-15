@@ -9,13 +9,18 @@
       {{ meta.abstract_md | safe }}
 
       {% if meta.keywords %}
-      <h3>{{ lang.get('keywords', 'Keywords') }}</h3>
-      <p>{{ meta.keywords }}</p>
+        <h3>{{ lang.get('keywords', 'Keywords') }}</h3>
+        <p>{{ meta.keywords }}</p>
       {% endif %}
 
       {% if meta.disclaimer %}
-      <h3>{{ lang.get('disclaimer', 'Disclaimer') }}</h3>
-      {{ meta.disclaimer_md | safe }}
+        <h3>{{ lang.get('disclaimer', 'Disclaimer') }}</h3>
+        {{ meta.disclaimer_md | safe }}
+      {% endif %}
+
+      {% if meta.licence %}
+        <h3>{{ lang.get('licence', 'Licance') }}</h3>
+        {{ meta.licence_md | safe }}
       {% endif %}
 
       <p class="ms-buttons-article">
@@ -25,9 +30,11 @@
     </div>
     <div class="ms-col-marginal">
       <div class="btn-toolbar" role="toolbar" aria-label="Download and share buttons">
-        <div class="btn-group mr-auto" role="group" aria-label="Download">
-          <a href="{{ meta.pdf_url }}" class="ms-button ms-button-download" target="_blank" rel="noreferrer noopener"><i></i> {{ lang.get('download', 'Download') }}</a>
-        </div>
+        {% if meta.pdf_url %}
+          <div class="btn-group mr-auto" role="group" aria-label="Download">
+            <a href="{{ meta.pdf_url }}" class="ms-button ms-button-download" target="_blank" rel="noreferrer noopener"><i></i> {{ lang.get('download', 'Download') }}</a>
+          </div>
+        {% endif %}
         {% include "horst/share.html" %}
       </div>
       <aside>
@@ -48,13 +55,13 @@
         {% endif %}
 
         {% if meta.doi %}
-        <p><strong>DOI: </strong><a href="https://doi.org/{{ meta.doi }}" target="_blank" rel="nofollow noreferrer" >{{ meta.doi }}</a></p>
+          <p><strong>DOI: </strong><a href="https://doi.org/{{ meta.doi }}" target="_blank" rel="nofollow noreferrer" >{{ meta.doi }}</a></p>
         {% endif %}
       </aside>
       {% if meta.logo_url %}
-      <aside>
-        <p><img alt="{{ meta.author_info }}" src="{{ meta.logo_url }}"></p>
-      </aside>
+        <aside>
+          <p><img alt="{{ meta.author_info }}" src="{{ meta.logo_url }}"></p>
+        </aside>
       {% endif %}
       {% if meta.cite_as %}
         <aside>
@@ -75,10 +82,10 @@
         </aside>
       {% endif %}
       {% if meta.get("contact_email", None) %}
-      <aside>
-        <h3>{{ lang.get('questions', 'XXX') }}</h3>
-        <p><i class="mdi mdi-email-outline"></i>&nbsp; {{ lang.get('write_mail', 'XXX') }} <a href="mailto:{{ meta.contact_email }}"> {{ meta.contact_email }}</a></p>
-      </aside>
+        <aside>
+          <h3>{{ lang.get('questions', 'XXX') }}</h3>
+          <p><i class="mdi mdi-email-outline"></i>&nbsp; {{ lang.get('write_mail', 'XXX') }} <a href="mailto:{{ meta.contact_email }}"> {{ meta.contact_email }}</a></p>
+        </aside>
       {% endif %}
       <a id="read-full-article"></a>
     </div>
