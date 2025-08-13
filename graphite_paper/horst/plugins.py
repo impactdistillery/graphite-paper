@@ -12,6 +12,7 @@ RE_INLINE = re.compile(r'\[:([^\]]+):\]')
 MD_SITE = re.compile( "\[(.*)\]" )
 MD_URL = re.compile( "\((.*)\)" )
 RE_TD = re.compile( "<td>(.*?)<\/td>" )
+RE_TIKTOK = re.compile(r'@[\w\d]+/video/([\w\d]+)')
 
 class AbstractPlugin:
     """
@@ -191,15 +192,16 @@ class InfoboxPlugin(YamlMdPlugin):
         content = self.render_template(dict(content=html_content))
         aside = self.render_template(self.data, aside=True)
         collapse = self.data["collapse"]
-#        collapse = "true"
+        classname = self.Meta.name
+        if collapse:
+            classname += " collapse"
 
         return Section(
             self.report,
             content,
             aside,
-#            collapse,
             partial_id=self.partial_id,
-            plugin_class=self.Meta.name + " collapse"
+            plugin_class=classname
         ).render()
 
     def modify_markdown_based_html(self, html):
@@ -321,20 +323,36 @@ class VideoPlugin(YamlPlugin):
         data = self.data.copy()
         data["data"] = self.data
         data["lang"] = self.report.lang
-        if "youtube.com" in self.data.get("url"):
-            data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
-        if "youtube-nocookie.com" in self.data.get("url"):
-            data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
+        # if "youtube.com" in self.data.get("url"):
+        #     data["youtube_id"] = self.data.get("url").replace("https://www.youtube.com/embed/", "") #TODO
+        # if "youtube-nocookie.com" in self.data.get("url"):
+        #     data["youtube_id"] = self.data.get("url").replace("https://www.youtube-nocookie.com/embed/", "") #TODO
+        # if "tiktok.com" in self.data.get("url") and (tiktok_id_match := RE_TIKTOK.search(self.data.get("url"))):
+        #     data["tiktok_id"] = tiktok_id_match.group(1)        
+        # if self.data.get("url_2") and "tiktok.com" in self.data.get("url_2") and (tiktok_id_2_match := RE_TIKTOK.search(self.data.get("url_2"))):
+        #     data["tiktok_id_2"] = tiktok_id_2_match.group(1) 
+        if "url" in self.data:
+            youtube_ids, tiktok_ids = self.extract_ids(self.data.get("url"))
+            print("Extracted YouTube IDs:", self.data.get("caption"), youtube_ids)  # Debug log
+            print("Extracted TikTok IDs:", self.data.get("caption"), tiktok_ids)    # Debug log
+            
+            if youtube_ids:
+                data["youtube_ids"] = youtube_ids
+            
+            if tiktok_ids:
+                data["tiktok_ids"] = tiktok_ids
+
         data["formated_data"] = self.format_data()
         data["config"] = self.config
         content = self.render_template(data)
         aside = self.render_template(data, aside=True)
+
         return RenderTwo(
             self.report,
             content,
             aside,
             partial_id=self.partial_id,
-            plugin_class=self.Meta.name,
+            plugin_class=self.Meta.name
         ).render()
 
 class FigurePlugin(YamlPlugin):
@@ -358,6 +376,7 @@ class FigurePlugin(YamlPlugin):
         data["config"] = self.config
         data["partial_id"] = self.partial_id
         data["lang"] = self.report.lang
+        data["meta"] = self.report.meta
         if data["file"].endswith("svg"):
             data["share_file"] = data["file"][:-3] + "png"
         else:
