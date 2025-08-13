@@ -10,7 +10,7 @@ from .asides import AsideController
 DEFAULT_TEMPLATE = "<span class=\"ms-inline ms-inline-%s\">%s<i></i></span>"
 
 #POPOVER_TEMPLATE_FULL = "<a tabindex=\"0\" data-trigger=\"focus hover\" class=\"ms-inline ms-inline-%s\" data-toggle=\"popover\" data-placement=\"top\" title=\"%s\" data-content=\"%s\" data-html=\"true\">%s<i></i></a>"
-POPOVER_TEMPLATE_FULL = '<a tabindex="0" data-trigger="focus hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="%s" data-content="%s" data-html="true">%s<i></i></a>'
+POPOVER_TEMPLATE_FULL = '<a tabindex="0" data-trigger="click hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="%s" data-content="%s" data-html="true">%s<i></i></a>'
 
 POPOVER_TEMPLATE = '<a tabindex="0" data-trigger="focus hover" class="ms-inline ms-inline-%s" data-toggle="popover" data-placement="top" title="Note" data-content="%s" data-html="true">%s<i></i></a>'
 
