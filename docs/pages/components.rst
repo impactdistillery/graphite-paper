@@ -373,7 +373,7 @@ An author component presenting authors, editors or other persona relevant for th
 Carousel
 --------
 
-Multiple container components can be shown as carousel. Slides are seperated by three hypens, component details need to be intended.
+Multiple container components can be shown as carousel. Slides are seperated by three hypens, component details need to be indented.
 
 | :syntax:`:--- SLIDES ---:`
 | :variable:`container component slug` :syntax:`:`
@@ -454,6 +454,9 @@ Collapsable section for case studies, excursus or similar.
 | :syntax:`description:` :variable:`description of infobox`
 | :syntax:`note:` :variable:`key learnings or quick summary`
 | :syntax:`link:` :variable:`list of links`
+| :syntax:`file_url:` :variable:`url to download`
+| :syntax:`file_label:` :variable:`label of download`
+| :syntax:`collapse:` :variable:`true/false, defaults to false`
 | :syntax:`---`
 | :variable:`infobox component content (md)`
 | :syntax:`:---:`
@@ -546,7 +549,6 @@ Prints a list of figures.
     * SON Plugin
     * amlMd Plugin
     * ariable Plugin
-:
 
 HTML Plugin
 -----------
