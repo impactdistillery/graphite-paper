@@ -114,7 +114,7 @@ durch
 
 1. Substitute Quotes
 
-"(.*?)" durch “$1”
+"(.*?)" durch "$1"
 
 2. Remove md Links
 

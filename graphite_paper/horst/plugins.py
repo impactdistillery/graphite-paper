@@ -381,7 +381,7 @@ class VideoPlugin(YamlPlugin):
             content,
             aside,
             partial_id=self.partial_id,
-            plugin_class=self.Meta.name,
+            plugin_class=self.Meta.name
         ).render()
 
 class FigurePlugin(YamlPlugin):
