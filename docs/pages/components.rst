@@ -531,6 +531,12 @@ Prints the list of references defined in :file:`pages/references.yaml`.
 | :syntax:`:---:`
 
 
+.. HINT::
+    **Does your page throw errors instead of displaying the reference list?** 
+
+    The devil is in the details. Make sure your `references.yaml` doesn't contain any syntax errors. Use typographical quotes within your citations and prevent the use of special characters for reference slugs.
+
+
 List of figures
 ---------------
 

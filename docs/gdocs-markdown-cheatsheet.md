@@ -48,9 +48,7 @@ durch
 
 durch 
 
-ref$1:
-    short: "$2"
-    long: "$2"
+ref$1:\n    short: "$2"\n    long: "$2"
 
 
 und 

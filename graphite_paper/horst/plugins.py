@@ -319,6 +319,35 @@ class VideoPlugin(YamlPlugin):
         template = "horst/plugins/video.html"
         template_aside = "horst/plugins/video_aside.html"
 
+    def extract_id(self, url):
+        if "youtube.com" in url:
+            return url.replace("https://www.youtube.com/embed/", "")
+        elif "youtube-nocookie.com" in url:
+            return url.replace("https://www.youtube-nocookie.com/embed/", "")
+        elif "tiktok.com" in url:
+            tiktok_id_match = RE_TIKTOK.search(url)
+            if tiktok_id_match:
+                return tiktok_id_match.group(1)
+        return None
+
+    def extract_ids(self, urls):
+        youtube_ids = []
+        tiktok_ids = []
+
+        # Convert single URL string to a list
+        if isinstance(urls, str):
+            urls = [urls]
+        
+        for url in urls:
+            extracted_id = self.extract_id(url)
+            if extracted_id:
+                if "youtube.com" in url or "youtube-nocookie.com" in url:
+                    youtube_ids.append(extracted_id)
+                elif "tiktok.com" in url:
+                    tiktok_ids.append(extracted_id)
+        
+        return youtube_ids, tiktok_ids
+
     def render(self):
         data = self.data.copy()
         data["data"] = self.data

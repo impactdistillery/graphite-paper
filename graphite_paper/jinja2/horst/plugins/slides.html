@@ -3,7 +3,7 @@
   <div class="carousel-inner">
   {% for i, slide in slides %}
     <div class="carousel-item {% if i == 1 %}active{% endif %}">
-      {{ slide | safe }}
+      {{ slide }}
     </div>
   {% endfor %}
   </div>
