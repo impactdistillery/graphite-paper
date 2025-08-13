@@ -6,9 +6,9 @@
   <div class="content">
   {% endif %}
   {% if authors %}
-    <p class="authors">{{ authors }}</p>
+    <p class="authors" id="heading-{{ id }}">{{ authors }}</p>
   {% endif %}
-  <h2 id="heading-{{ id }}">{{ title }}</h2>
+  <h2  id="heading-{{ id }}">{{ title }}</h2>
   {% if subtitle %}
     <p>{{ subtitle }}</p>
   {% endif %}

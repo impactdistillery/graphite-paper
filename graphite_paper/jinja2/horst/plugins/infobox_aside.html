@@ -19,3 +19,13 @@
   <p>{{ note | safe }}</p>
 </aside>
 {% endif %}
+
+{% if file_url %}
+<aside class="ms-aside-download">
+  {% if file_label %}
+  <p><a href="{{ file_url }}">{{ file_label }}</a></p>
+  {% else %}
+  <p><a href="{{ file_url }}">Download file</a></p>
+  {% endif %}
+</aside>
+{% endif %}

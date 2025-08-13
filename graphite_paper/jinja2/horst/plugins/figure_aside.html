@@ -31,15 +31,15 @@
   </div>
   <div class="btn-group" role="group" aria-label="Share">
     <span class="input-group-addon" id="btnGroupAddon">{{ lang.get("share", "SHARE") }}</span>
-    <a href="{{ get_share_domain('facebook', share_domain_full + share_file) }}"
+    <a href="{{ get_share_domain('facebook', meta.short_url + share_file) }}"
        target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-facebook"></i>
     </a>
-    <a href="{{ get_share_domain('twitter', share_domain + share_file) }}"
+    <a href="{{ get_share_domain('twitter', meta.short_url + share_file) }}"
        target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-twitter"></i>
     </a>
-    <a href="{{ get_share_domain('linkedin', share_domain_full + share_file, title=caption, description=description) }}"
+    <a href="{{ get_share_domain('linkedin', meta.short_url + share_file, title=caption, description=description) }}"
        target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
       <i class="mdi mdi-linkedin"></i>
     </a>
