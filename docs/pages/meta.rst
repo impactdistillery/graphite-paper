@@ -58,6 +58,19 @@
     matomo_url:             "https://piwik.wunderjewel.de/"
     matomo_siteId:          "4"
 
+    # SOCIAL SHARE PLATFORMS
+    # Customize social media share buttons
+    # If not specified, defaults to: facebook, twitter, linkedin
+    # —————————————————————
+
+    # social_share_platforms:
+    #   - facebook
+    #   - x
+    #   - linkedin
+    #   - whatsapp
+    #   - mastodon
+    #   - bluesky
+
     # ADDITIONAL LANGUAGES
     # Add language navigation in settings and links below
     # —————————————————————
@@ -167,6 +180,13 @@ translation_nav:        Enable language switch                      true/false
 matomo_tracking         Enable Matomo statistics                    true/false
 matomo_url              URL of Mataomo tracking
 matomo_siteId           Matomo site ID
+social_share_platforms  List of social platforms for share buttons | yaml list syntax
+                                                                    | Supported: facebook,
+                                                                    | twitter, x, linkedin,
+                                                                    | whatsapp, mastodon,
+                                                                    | bluesky.
+                                                                    | Defaults: facebook,
+                                                                    | twitter, linkedin
 **ADDITIONAL LANGUAGES**
 ----------------------------------------------------------------------------------------
 further_languages:      Link list to translations                   yaml list syntax
