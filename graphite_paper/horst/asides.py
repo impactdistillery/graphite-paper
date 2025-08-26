@@ -1,4 +1,4 @@
-import os
+import os, re
 import pprint
 import yaml
 import pandas as pd
@@ -68,15 +68,34 @@ class GlossaryAside(AbstractAside):
     class Meta:
         name = "glossary"
 
+#     def pre_render(self):
+#         x = self.config.split(":")
+#         if len(x) == 1:
+#             x = x[0]
+#         else:
+# #            x = "**%s:**%s" % (x[0], ":".join(x[1:]))
+#             x = "<strong>%s:</strong>%s" % (x[0], ":".join(x[1:]))
+# #        return markdown_helper(x.strip())
+#         return x
+
+    
+
     def pre_render(self):
-        x = self.config.split(":")
-        if len(x) == 1:
-            x = x[0]
+
+        RE_REFERENCE = re.compile(r'^.*[\[:]$')
+
+        s = self.config.strip()
+        # If string is a reference, return as is (never bold)
+        if RE_REFERENCE.match(s):
+            return s
         else:
-#            x = "**%s:**%s" % (x[0], ":".join(x[1:]))
-            x = "<strong>%s:</strong>%s" % (x[0], ":".join(x[1:]))
-#        return markdown_helper(x.strip())
-        return x
+            # Only bold if colon is present and NOT inside brackets
+            # Pattern: starts with anything except '[' or ']', up to a colon
+            match = re.match(r'^([^\[\]]?):\s*(.*)$', s)
+            if match:
+                return f"<strong>{match.group(1).strip()}:</strong> {match.group(2)}"
+            # Otherwise, return as is
+            return s
 
 class MarkdownAside(AbstractAside):
     
