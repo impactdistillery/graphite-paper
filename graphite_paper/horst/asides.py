@@ -81,7 +81,7 @@ class GlossaryAside(AbstractAside):
         else:
             # Only bold if colon is present and NOT inside brackets
             # Pattern: starts with anything except '[' or ']', up to a colon
-            match = re.match(r'^([^\[\]]?):\s*(.*)$', s)
+            match = re.match(r'^([^:\[\]]+):\s*(.*)$', s)
             if match:
                 return f"<strong>{match.group(1).strip()}:</strong> {match.group(2)}"
             # Otherwise, return as is
