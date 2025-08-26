@@ -72,7 +72,7 @@ class GlossaryAside(AbstractAside):
 
     def pre_render(self):
 
-        RE_REFERENCE = re.compile(r'^.*[\[:]$')
+        RE_REFERENCE = re.compile(r'^.*\[$')
 
         s = self.config.strip()
         # If string is a reference, return as is (never bold)
