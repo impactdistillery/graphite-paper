@@ -187,6 +187,9 @@ social_share_platforms  List of social platforms for share buttons | yaml list s
                                                                     | bluesky.
                                                                     | Defaults: facebook,
                                                                     | twitter, linkedin
+                                                                    | Note: Additional CSS and fonts
+                                                                    | may be required for new
+                                                                    | platforms depending on theme
 **ADDITIONAL LANGUAGES**
 ----------------------------------------------------------------------------------------
 further_languages:      Link list to translations                   yaml list syntax
