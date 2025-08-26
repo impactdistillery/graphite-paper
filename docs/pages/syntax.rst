@@ -24,6 +24,35 @@ Example for markdown:
     * two
     * three
 
+Named Heading IDs
+^^^^^^^^^^^^^^^^^
+
+You can assign custom IDs to headings for permanent, stable links using the syntax ``{#id}``:
+
+.. code-block:: md
+
+    ## My Section {#my-section}
+    
+    ### Technical Details {#tech-details}
+    
+    ## Regular Heading
+
+This generates HTML with the specified IDs:
+
+.. code-block:: html
+
+    <h3 id='my-section'>My Section</h3>
+    <h4 id='tech-details'>Technical Details</h4>
+    <h3 id='heading-partial-123'>Regular Heading</h3>
+
+**Benefits:**
+
+- **Permanent links**: ``#my-section`` won't break when content is edited
+- **Readable URLs**: More meaningful than auto-generated numeric IDs
+- **SEO friendly**: Better page structure understanding
+- **Backward compatible**: Existing documents work without changes
+- **Optional**: Use only when needed
+
 Further resources on markdown
 
 -  https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
