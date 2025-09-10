@@ -415,6 +415,61 @@ function enableListener() {
 }
 
 //
+// Fix Bootstrap modal/carousel conflicts
+//-------------------------------------------------------------
+
+function fixModalCarouselConflicts() {
+  // Store original modal positions
+  var modalOriginalParents = {};
+  
+  // Handle modal show event
+  $('body').on('show.bs.modal', '.modal', function (e) {
+    var modal = $(this);
+    var modalId = modal.attr('id');
+    
+    // Check if modal is inside a carousel
+    var carousel = modal.closest('.carousel');
+    if (carousel.length > 0) {
+      // Store original parent and position
+      modalOriginalParents[modalId] = {
+        parent: modal.parent(),
+        nextSibling: modal.next()[0] // Store DOM element for insertBefore
+      };
+      
+      // Move modal to body to avoid carousel containment
+      modal.appendTo('body');
+      
+      // Ensure modal has proper z-index
+      modal.css('z-index', '1060');
+    }
+  });
+  
+  // Handle modal hidden event
+  $('body').on('hidden.bs.modal', '.modal', function (e) {
+    var modal = $(this);
+    var modalId = modal.attr('id');
+    
+    // Check if we moved this modal
+    if (modalOriginalParents[modalId]) {
+      var originalInfo = modalOriginalParents[modalId];
+      
+      // Move modal back to original position
+      if (originalInfo.nextSibling) {
+        originalInfo.parent[0].insertBefore(modal[0], originalInfo.nextSibling);
+      } else {
+        originalInfo.parent.append(modal);
+      }
+      
+      // Reset z-index
+      modal.css('z-index', '');
+      
+      // Clean up stored info
+      delete modalOriginalParents[modalId];
+    }
+  });
+}
+
+//
 // Document ready calls
 //-----------------------------------------------------------------
 
@@ -430,6 +485,9 @@ $(function () {
 
   // Enable popover (inline references)
   $('[data-toggle="popover"]').popover();
+
+  // Fix modal/carousel conflicts
+  fixModalCarouselConflicts();
 
   // Caluclate heights after DOM finished loading
   setTimeout(function () {
