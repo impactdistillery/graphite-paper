@@ -37,7 +37,7 @@ var selector;
 
 // Control variable for TOC building behavior
 // Set to true to build TOC on all tabs, false to build only on index tab
-var buildTocOnAllTabs = true;
+var buildTocOnAllTabs = false;
 
 function makeToC() {
   // console.log("Creating TOC …");
