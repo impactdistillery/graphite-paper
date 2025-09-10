@@ -39,6 +39,9 @@ var selector;
 // Set to true to build TOC on all tabs, false to build only on index tab
 var buildTocOnAllTabs = false;
 
+// Control variable for TOC depth (number of heading levels to include)
+var TocDepth = 2;
+
 function makeToC() {
   // console.log("Creating TOC …");
   $("article").attr("data-spy", "scroll");
@@ -72,7 +75,7 @@ function addReduced() {
   for (var i = 0; i < selector.length; i++) {
     if ($(selector[i]).attr("id")) {
       // Add elements to nav
-      for (var j = 2; j < 5; j++) {
+      for (var j = 2; j < 2 + TocDepth; j++) {
         if (selector[i].nodeName == "H" + j) {
           $("ul.ms-toc-abstract-entries").append(
             '<li class="nav-item side-nav ms-toc-abstract-entry ms-toc-abstract-entry ms-toc-abstract-entry-' +
@@ -93,7 +96,7 @@ function addDetailed() {
   for (var i = 0; i < selector.length; i++) {
     if ($(selector[i]).attr("id")) {
       // Add elements to nav
-      for (var j = 0; j < 4; j++) {
+      for (var j = 2; j < 2 + TocDepth; j++) {
         if (selector[i].nodeName == "H" + j) {
           $("ul.ms-toc-entries").append(
             '<li class="nav-item side-nav ms-toc-entry ms-toc-entry-level' +
