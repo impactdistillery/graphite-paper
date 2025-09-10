@@ -35,6 +35,10 @@ function normalizeSlideHeights() {
 //-----------------------------------------------------------------
 var selector;
 
+// Control variable for TOC building behavior
+// Set to true to build TOC on all tabs, false to build only on index tab
+var buildTocOnAllTabs = true;
+
 function makeToC() {
   // console.log("Creating TOC …");
   $("article").attr("data-spy", "scroll");
@@ -268,7 +272,9 @@ function changeToTab(prevTab, targetTab, noscroll = false) {
   // }
 
   //Reload TOC and collapse/show marginals after changing tabs
-  setTimeout(makeToC, 200);
+  if (buildTocOnAllTabs) {
+    setTimeout(makeToC, 200);
+  }
   setTimeout(collapseOversizedMarginals, 300);
 
   // keep position if changing quote tabs, otherwise scroll below fixed tabbar
@@ -293,14 +299,49 @@ function handleAnchorLinks(hashValue) {
     // console.log("Clicked a tab", activeTab);
 
     changeToTab(activeTab, $(hashValue));
-  } else if (hashValue.includes("heading")) {
-    // console.log("Clicked a heading");
-
-    var tabID = "#" + $(hashValue).parents(".tab-pane").attr("id");
-
-    changeToTab(activeTab, $(tabID));
   } else {
-    console.log("hash unknown");
+    // Check if hash refers to a heading element
+    var targetElement = $(hashValue);
+    if (targetElement.length > 0 && targetElement.is(":header")) {
+      // console.log("Clicked a heading");
+
+      var tabID = "#" + targetElement.parents(".tab-pane").attr("id");
+      
+      if (tabID && tabID !== "#") {
+        // Switch to the correct tab first
+        var targetTab = $("a[href='" + tabID + "']");
+        if (targetTab.length > 0) {
+          changeToTab(activeTab, targetTab);
+          
+          // Scroll to the heading with 100px offset after tab switch
+          setTimeout(function() {
+            var elementTop = targetElement.offset().top;
+            $('html, body').animate({
+              scrollTop: elementTop - 100
+            }, 300);
+          }, 300);
+        }
+      } else {
+        // Heading is in the current active tab, just build TOC if needed
+        if (buildTocOnAllTabs) {
+          makeToC();
+        }
+        
+        // Scroll to the heading with 100px offset
+        setTimeout(function() {
+          var elementTop = targetElement.offset().top;
+          $('html, body').animate({
+            scrollTop: elementTop - 100
+          }, 300);
+        }, 100);
+      }
+    } else {
+      // If hash is unknown, still build TOC if configured to do so
+      console.log("hash unknown, building TOC if configured");
+      if (buildTocOnAllTabs) {
+        makeToC();
+      }
+    }
   }
 
   window.location.hash = hashValue;
