@@ -711,6 +711,12 @@ async function changeToTab(prevTab, targetTab, noscroll = false) {
   }
 
   try {
+    // Update URL hash to track tab change for direct linking
+    const targetTabId = targetTab.attr("href");
+    if (targetTabId && targetTabId.startsWith("#")) {
+      window.location.hash = targetTabId;
+    }
+
     // Wait for tab transition to complete
     await new Promise(resolve => {
       // Check if tab content is visible and rendered
@@ -737,7 +743,7 @@ async function changeToTab(prevTab, targetTab, noscroll = false) {
     // Wait for all operations to complete
     await Promise.all(operations);
 
-    // Handle scrolling after tab operations are complete
+    // Handle scrolling after tab operations are complete - restore proper offset behavior
     if (!noscroll) {
       // Use requestAnimationFrame for smooth scrolling
       requestAnimationFrame(() => {
@@ -771,6 +777,12 @@ function fallbackChangeToTab(prevTab, targetTab, noscroll = false) {
   
   console.log("Using fallback synchronous tab change");
   
+  // Update URL hash to track tab change
+  const targetTabId = targetTab.attr("href");
+  if (targetTabId && targetTabId.startsWith("#")) {
+    window.location.hash = targetTabId;
+  }
+  
   if (buildTocOnAllTabs) {
     setTimeout(makeToC, 200);
   }
@@ -803,7 +815,7 @@ async function handleAnchorLinks(hashValue) {
       
     } else if ($(hashValue).hasClass("tab-pane")) {
       console.log("Clicked a tab");
-      await changeToTab(activeTab, $(hashValue));
+      await changeToTab(activeTab, $("a[href='" + hashValue + "']"));
       
     } else {
       // Check if hash refers to a heading element
@@ -819,7 +831,7 @@ async function handleAnchorLinks(hashValue) {
           if (targetTab.length > 0) {
             await changeToTab(activeTab, targetTab);
             
-            // Scroll to the heading after tab switch is complete
+            // Scroll to the heading after tab switch is complete - restore 100px offset
             await scrollToElement(targetElement, 100);
           }
         } else {
@@ -828,7 +840,7 @@ async function handleAnchorLinks(hashValue) {
             await makeToC();
           }
           
-          // Scroll to the heading
+          // Scroll to the heading - restore 100px offset like original
           await scrollToElement(targetElement, 100);
         }
       } else {
@@ -840,22 +852,26 @@ async function handleAnchorLinks(hashValue) {
       }
     }
 
-    // Set hash after all operations complete
-    window.location.hash = hashValue;
+    // Set hash after all operations complete - ensure URL tracking works
+    if (!window.location.hash || window.location.hash !== hashValue) {
+      window.location.hash = hashValue;
+    }
     
   } catch (error) {
     console.error('Error handling anchor links:', error);
     // Fallback to setting hash anyway
-    window.location.hash = hashValue;
+    if (!window.location.hash || window.location.hash !== hashValue) {
+      window.location.hash = hashValue;
+    }
   }
 }
 
 /**
- * Smooth scroll to element with proper timing
+ * Smooth scroll to element with proper timing - consistent 100px offset
  * @param {jQuery} $element - Element to scroll to
- * @param {number} offset - Offset from top in pixels
+ * @param {number} offset - Offset from top in pixels (default: 100px to match original)
  */
-async function scrollToElement($element, offset = 0) {
+async function scrollToElement($element, offset = 100) {
   return new Promise((resolve) => {
     // Wait for element to be visible and properly positioned
     const checkAndScroll = () => {
@@ -1051,15 +1067,20 @@ async function initializeHorst() {
   try {
     console.log("Starting modern Horst initialization...");
 
-    // Handle initial anchors with proper delay for DOM stability
+    // Always build TOC first to ensure proper structure
+    console.log("Building initial TOC...");
+    await makeToC();
+
+    // Initialize layout first to ensure proper element sizing
+    await initializeLayout();
+
+    // Handle initial anchors after everything is set up - this fixes reload issues
     if (location.hash) {
       const hashValue = location.hash;
-      // Wait a bit for DOM to be fully settled before handling anchors
-      await new Promise(resolve => setTimeout(resolve, 100));
+      console.log("Handling initial hash:", hashValue);
+      // Wait longer for DOM to be fully settled before handling anchors on reload
+      await new Promise(resolve => setTimeout(resolve, 200));
       await handleAnchorLinks(hashValue);
-    } else {
-      console.log("Calling makeToC from Document ready");
-      await makeToC();
     }
 
     // Enable popover (inline references)
@@ -1067,9 +1088,6 @@ async function initializeHorst() {
 
     // Fix modal/carousel conflicts
     fixModalCarouselConflicts();
-
-    // Initialize layout after DOM is fully ready
-    await initializeLayout();
 
     // Enable scrollspy after everything is set up
     $("body").scrollspy({ target: ".ms-toc", offset: 100 });
@@ -1113,12 +1131,30 @@ async function initializeLayout() {
 function fallbackInitialization() {
   console.log("Using fallback initialization approach");
   
+  // Handle initial anchors like original
+  if (location.hash) {
+    var hashValue = location.hash;
+    handleAnchorLinks(hashValue);
+  } else {
+    console.log("Calling makeToC from fallback initialization");
+    makeToC();
+  }
+
+  // Enable popover (inline references)
+  $('[data-toggle="popover"]').popover();
+
+  // Fix modal/carousel conflicts
+  fixModalCarouselConflicts();
+  
   // Original timeout-based approach as backup
   setTimeout(function () {
     collapseOversizedMarginals();
     collapseOversizedInfobox();
     normalizeSlideHeights();
   }, 600);
+
+  $("body").scrollspy({ target: ".ms-toc", offset: 100 });
+  enableListener();
 }
 
 // Modern document ready with async initialization
