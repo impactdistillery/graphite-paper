@@ -1,4 +1,7 @@
 <div class="btn-group" role="group" aria-label="Share">
   <span class="input-group-addon" id="btnGroupAddon">{{ lang.get("share", "SHARE") }}</span>
-et
+  {% for platform in get_social_share_platforms(meta) %}
+    <a href="{{ get_share_domain(platform, meta.short_url) }}" target="_blank"
+       class="btn btn-secondary" rel="noopener noreferrer"><i class="mdi mdi-{{ platform }}"></i> </a>
+  {% endfor %}
 </div>
