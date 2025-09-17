@@ -96,7 +96,7 @@ class SidenoteInline(AbstractInline):
         if len(self.data) > 2:
             self.label = self.data[1]
         else:
-            self.label = ''
+            self.label = self.data[1]
             
         if len(self.data) > 2:
             self.content = self.data[2]
