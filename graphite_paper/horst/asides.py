@@ -69,14 +69,7 @@ class GlossaryAside(AbstractAside):
         name = "glossary"
 
     def pre_render(self):
-        x = self.config.split(":")
-        if len(x) == 1:
-            x = x[0]
-        else:
-#            x = "**%s:**%s" % (x[0], ":".join(x[1:]))
-            x = "<strong>%s:</strong>%s" % (x[0], ":".join(x[1:]))
-#        return markdown_helper(x.strip())
-        return x
+        return markdown_helper(self.config)
 
 class MarkdownAside(AbstractAside):
     
