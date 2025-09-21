@@ -1,4 +1,4 @@
-import os
+import os, re
 import pprint
 import yaml
 import pandas as pd
@@ -67,6 +67,8 @@ class GlossaryAside(AbstractAside):
     
     class Meta:
         name = "glossary"
+
+    
 
     def pre_render(self):
         return markdown_helper(self.config)

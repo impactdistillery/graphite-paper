@@ -54,11 +54,49 @@ class Partial:
         self.content = content
         self.renderer = renderer
         self.asides = list()
+        self.named_heading_ids = dict()  # Maps heading position to named ID
+        self.heading_counter = 0  # Track heading position for named ID mapping
 
+
+    def _extract_named_heading_ids(self, content):
+        """
+        Extract named heading IDs from markdown content.
+        
+        Converts headings like "## My Heading {#my-id}" to "## My Heading"
+        and stores the mapping of heading position to named ID.
+        
+        Returns the cleaned content with named IDs removed.
+        """
+        lines = content.split('\n')
+        cleaned_lines = []
+        heading_position = 0
+        
+        # Regex to match named IDs at end of heading line
+        named_id_regex = re.compile(r'^(#+\s+.*?)\s*\{#([^}]+)\}\s*$')
+        
+        for line in lines:
+            if line.strip().startswith('#'):
+                match = named_id_regex.match(line)
+                if match:
+                    # Found a named ID
+                    heading_text = match.group(1).strip()
+                    named_id = match.group(2)
+                    self.named_heading_ids[heading_position] = named_id
+                    cleaned_lines.append(heading_text)
+                else:
+                    # Regular heading without named ID
+                    cleaned_lines.append(line)
+                heading_position += 1
+            else:
+                cleaned_lines.append(line)
+        
+        return '\n'.join(cleaned_lines)
 
     def render(self, partial_id):
         if self.parser_name == "md":
-            html_content = markdown_helper(self.content).strip()
+            # Extract named heading IDs before markdown processing
+            cleaned_content = self._extract_named_heading_ids(self.content)
+            html_content = markdown_helper(cleaned_content).strip()
             self.partial_id = partial_id
             renderer, html_content = self.modify_markdown_based_html(html_content)
             result = renderer(
@@ -95,7 +133,17 @@ class Partial:
         
     def _heading_replace(self, match):
         level = int(match.group(1)) + 1
-        return "<h%s id='heading-%s' %s</h%s>" % (level, self.partial_id, match.group(2), level)
+        
+        # Check if we have a named ID for this heading position
+        if self.heading_counter in self.named_heading_ids:
+            heading_id = self.named_heading_ids[self.heading_counter]
+        else:
+            # Fall back to numeric ID for backward compatibility
+            partial_id = getattr(self, 'partial_id', 'unknown')
+            heading_id = "heading-%s" % partial_id
+        
+        self.heading_counter += 1
+        return "<h%s id='%s' %s</h%s>" % (level, heading_id, match.group(2), level)
     
 
 class Aside:
