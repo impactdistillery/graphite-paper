@@ -35,6 +35,13 @@ function normalizeSlideHeights() {
 //-----------------------------------------------------------------
 var selector;
 
+// Control variable for TOC building behavior
+// Set to true to build TOC on all tabs, false to build only on index tab
+var buildTocOnAllTabs = false;
+
+// Control variable for TOC depth (number of heading levels to include)
+var TocDepth = 2;
+
 function makeToC() {
   // console.log("Creating TOC …");
   $("article").attr("data-spy", "scroll");
@@ -68,7 +75,7 @@ function addReduced() {
   for (var i = 0; i < selector.length; i++) {
     if ($(selector[i]).attr("id")) {
       // Add elements to nav
-      for (var j = 2; j < 5; j++) {
+      for (var j = 2; j < 2 + TocDepth; j++) {
         if (selector[i].nodeName == "H" + j) {
           $("ul.ms-toc-abstract-entries").append(
             '<li class="nav-item side-nav ms-toc-abstract-entry ms-toc-abstract-entry ms-toc-abstract-entry-' +
@@ -89,7 +96,7 @@ function addDetailed() {
   for (var i = 0; i < selector.length; i++) {
     if ($(selector[i]).attr("id")) {
       // Add elements to nav
-      for (var j = 0; j < 4; j++) {
+      for (var j = 2; j < 2 + TocDepth; j++) {
         if (selector[i].nodeName == "H" + j) {
           $("ul.ms-toc-entries").append(
             '<li class="nav-item side-nav ms-toc-entry ms-toc-entry-level' +
@@ -268,7 +275,9 @@ function changeToTab(prevTab, targetTab, noscroll = false) {
   // }
 
   //Reload TOC and collapse/show marginals after changing tabs
-  setTimeout(makeToC, 200);
+  if (buildTocOnAllTabs) {
+    setTimeout(makeToC, 200);
+  }
   setTimeout(collapseOversizedMarginals, 300);
 
   // keep position if changing quote tabs, otherwise scroll below fixed tabbar
@@ -293,14 +302,49 @@ function handleAnchorLinks(hashValue) {
     // console.log("Clicked a tab", activeTab);
 
     changeToTab(activeTab, $(hashValue));
-  } else if (hashValue.includes("heading")) {
-    // console.log("Clicked a heading");
-
-    var tabID = "#" + $(hashValue).parents(".tab-pane").attr("id");
-
-    changeToTab(activeTab, $(tabID));
   } else {
-    console.log("hash unknown");
+    // Check if hash refers to a heading element
+    var targetElement = $(hashValue);
+    if (targetElement.length > 0 && targetElement.is(":header")) {
+      // console.log("Clicked a heading");
+
+      var tabID = "#" + targetElement.parents(".tab-pane").attr("id");
+      
+      if (tabID && tabID !== "#") {
+        // Switch to the correct tab first
+        var targetTab = $("a[href='" + tabID + "']");
+        if (targetTab.length > 0) {
+          changeToTab(activeTab, targetTab);
+          
+          // Scroll to the heading with 100px offset after tab switch
+          setTimeout(function() {
+            var elementTop = targetElement.offset().top;
+            $('html, body').animate({
+              scrollTop: elementTop - 100
+            }, 300);
+          }, 300);
+        }
+      } else {
+        // Heading is in the current active tab, just build TOC if needed
+        if (buildTocOnAllTabs) {
+          makeToC();
+        }
+        
+        // Scroll to the heading with 100px offset
+        setTimeout(function() {
+          var elementTop = targetElement.offset().top;
+          $('html, body').animate({
+            scrollTop: elementTop - 100
+          }, 300);
+        }, 100);
+      }
+    } else {
+      // If hash is unknown, still build TOC if configured to do so
+      console.log("hash unknown, building TOC if configured");
+      if (buildTocOnAllTabs) {
+        makeToC();
+      }
+    }
   }
 
   window.location.hash = hashValue;
@@ -415,6 +459,61 @@ function enableListener() {
 }
 
 //
+// Fix Bootstrap modal/carousel conflicts
+//-------------------------------------------------------------
+
+function fixModalCarouselConflicts() {
+  // Store original modal positions
+  var modalOriginalParents = {};
+  
+  // Handle modal show event
+  $('body').on('show.bs.modal', '.modal', function (e) {
+    var modal = $(this);
+    var modalId = modal.attr('id');
+    
+    // Check if modal is inside a carousel
+    var carousel = modal.closest('.carousel');
+    if (carousel.length > 0) {
+      // Store original parent and position
+      modalOriginalParents[modalId] = {
+        parent: modal.parent(),
+        nextSibling: modal.next()[0] // Store DOM element for insertBefore
+      };
+      
+      // Move modal to body to avoid carousel containment
+      modal.appendTo('body');
+      
+      // Ensure modal has proper z-index
+      modal.css('z-index', '1060');
+    }
+  });
+  
+  // Handle modal hidden event
+  $('body').on('hidden.bs.modal', '.modal', function (e) {
+    var modal = $(this);
+    var modalId = modal.attr('id');
+    
+    // Check if we moved this modal
+    if (modalOriginalParents[modalId]) {
+      var originalInfo = modalOriginalParents[modalId];
+      
+      // Move modal back to original position
+      if (originalInfo.nextSibling) {
+        originalInfo.parent[0].insertBefore(modal[0], originalInfo.nextSibling);
+      } else {
+        originalInfo.parent.append(modal);
+      }
+      
+      // Reset z-index
+      modal.css('z-index', '');
+      
+      // Clean up stored info
+      delete modalOriginalParents[modalId];
+    }
+  });
+}
+
+//
 // Document ready calls
 //-----------------------------------------------------------------
 
@@ -430,6 +529,9 @@ $(function () {
 
   // Enable popover (inline references)
   $('[data-toggle="popover"]').popover();
+
+  // Fix modal/carousel conflicts
+  fixModalCarouselConflicts();
 
   // Caluclate heights after DOM finished loading
   setTimeout(function () {

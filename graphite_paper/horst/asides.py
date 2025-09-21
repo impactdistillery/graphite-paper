@@ -71,24 +71,7 @@ class GlossaryAside(AbstractAside):
     
 
     def pre_render(self):
-
-        # NOT WORKING!
-        RE_REFERENCE = re.compile(r'^.*\[$')
-
-        s = self.config.strip()
-        # If string is a reference, return as is (never bold)
-        if RE_REFERENCE.match(s):
-            return s
-        else:
-            # Only bold if colon is present and NOT inside brackets
-            # Pattern: starts with anything except '[' or ']', up to a colon
-            match = re.match(r'^([^:\[\]]+):\s*(.*)$', s)
-            if match:
-                return s
-                # STILL NOT WORKING
-                #return f"<strong>{match.group(1).strip()}:</strong> {match.group(2)}"
-            # Otherwise, return as is
-            return s
+        return markdown_helper(self.config)
 
 class MarkdownAside(AbstractAside):
     

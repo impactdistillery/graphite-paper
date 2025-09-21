@@ -183,14 +183,14 @@ Followed by the :ref:`Marginal module`:
 Glossary item
 -------------
 
-Glossary items can be added to the text. The explanation will show in the marginal column. The term preceeding the first colon will be wrapped in a <strong> tag.
+Glossary items can be added to the text. The explanation will show in the marginal column. Use Markdown formatting to style the glossary entry as desired.
 
 :syntax:`[: GLOSSARY |` :variable:`glossary slug` :syntax:`\ |\ ` :variable:`glossary caption` :syntax:`\ :]`
 
 Followed by the marginal component:
 
 | :syntax:`:--------- GLOSSARY |` :variable:`glossary slug` :syntax:`\ ---------:`
-| :variable:`Term: Explanation`
+| :variable:`**Term**: Explanation` 
 | :syntax:`:---------------------------------------------------------------------------:`
 
 **Example:**
@@ -199,7 +199,7 @@ Followed by the marginal component:
 
     Alongside human reviewers called content moderators, platforms use automation and AI to identify and respond to problematic content and behaviour. The benefit of [: GLOSSARY | ACM | algorithmic content moderation (ACM) :] is that it is a fast and globally scalable way to prevent offensive content being uploaded and travelling across the globe within seconds.
     :--- GLOSSARY | ACM ---:
-    ACM: Platforms use human reviewers, known as _content moderators_, to screen posts and accounts for abuse. Because of the large amount of activity that happens on platforms everyday, content moderation is too large a task for human content moderators alone. Platforms therefore use technical automation to identify and sanction violating posts and accounts. ACM refers to "systems that classify user-generated content based on either matching or prediction, leading to a decision and governance outcome (e.g. removal, geoblocking, account takedown)"[: REFERENCE | GorwaKatzenbach2020 | :]. This could be as simple as a bot that deletes posts with a certain keyword in them. However, large platforms routinely and increasingly use complex, advanced technologies, such as machine learning (ML), to undertake tasks in content moderation.
+    **ACM**: Platforms use human reviewers, known as _content moderators_, to screen posts and accounts for abuse. Because of the large amount of activity that happens on platforms everyday, content moderation is too large a task for human content moderators alone. Platforms therefore use technical automation to identify and sanction violating posts and accounts. ACM refers to "systems that classify user-generated content based on either matching or prediction, leading to a decision and governance outcome (e.g. removal, geoblocking, account takedown)"[: REFERENCE | GorwaKatzenbach2020 | :]. This could be as simple as a bot that deletes posts with a certain keyword in them. However, large platforms routinely and increasingly use complex, advanced technologies, such as machine learning (ML), to undertake tasks in content moderation.
     :---------------------:
 
 .. HINT::
