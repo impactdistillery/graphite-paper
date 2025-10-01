@@ -35,3 +35,13 @@ Here is an inclomplete list of publications created with the framework:
 
 The framwork has been developed by [Larissa Wunderlich](https://www.larissawunderlich.de/) and [Marcel Hebing](https://www.impactdistillery.com).
 
+## Changelog
+
+For a detailed list of changes, new features, and bug fixes, see [CHANGELOG.md](CHANGELOG.md).
+
+## Versioning
+
+Graphite Paper follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). The current stable version is **1.0.0**.
+
+Release notes and version history are available in the [changelog](CHANGELOG.md) and on [PyPI](https://pypi.org/project/graphite-paper/).
+
