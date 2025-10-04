@@ -190,7 +190,7 @@ Glossary items can be added to the text. The explanation will show in the margin
 Followed by the marginal component:
 
 | :syntax:`:--------- GLOSSARY |` :variable:`glossary slug` :syntax:`\ ---------:`
-| :variable:`**Term**: Explanation` 
+| :variable:`Glossary explanation text with Markdown formatting`
 | :syntax:`:---------------------------------------------------------------------------:`
 
 **Example:**

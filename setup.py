@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='graphite-paper',
-    version='0.0.6',
+    version='1.0.0',
     description='Graphite Paper',
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -19,11 +19,11 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'Graphite Paper'
-copyright = '2020, Marcel Hebing & Larissa Wunderlich'
+copyright = '2020-2025, Marcel Hebing & Larissa Wunderlich'
 author = 'Hebing, M., Wunderlich, L.'
 
 # The full version, including alpha/beta/rc tags
-release = '2021'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
