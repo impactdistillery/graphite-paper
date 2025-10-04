@@ -9,7 +9,7 @@ Version 1.0.0 (2025-10-01)
 
 **First Stable Release**
 
-This marks the first stable release of Graphite Paper. The framework has been in active development and production use since November 2020, powering numerous academic and policy publications.
+This marks the first stable release of Graphite Paper. The framework has been in active development and production use since 2017, powering numerous academic and policy publications.
 
 Added
 -----
@@ -111,5 +111,5 @@ Links
 * `PyPI Package <https://pypi.org/project/graphite-paper/>`_
 * `Documentation <https://graphite-paper.readthedocs.io/>`_
 * `GitHub Repository <https://github.com/impactdistillery/graphite-paper>`_
-* `Sample Publication <https://graphite-paper.netlify.app/>`_
+* `Academic Publication - Theoretical Basis <https://2017.xcoax.org/pdf/xCoAx2017-Hebing.pdf>`_
 * `Full Changelog <https://github.com/impactdistillery/graphite-paper/blob/master/CHANGELOG.md>`_

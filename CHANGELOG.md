@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2025-10-01
 
-This marks the first stable release of Graphite Paper. The framework has been in active development and production use since November 2020, powering numerous academic and policy publications.
+This marks the first stable release of Graphite Paper. The framework has been in active development and production use since 2017, powering numerous academic and policy publications.
 
 ### Added
 - Comprehensive changelog documenting project history
@@ -126,7 +126,7 @@ Graphite Paper follows [Semantic Versioning](https://semver.org/):
 - [PyPI Package](https://pypi.org/project/graphite-paper/)
 - [Documentation](https://graphite-paper.readthedocs.io/)
 - [GitHub Repository](https://github.com/impactdistillery/graphite-paper)
-- [Sample Publication](https://graphite-paper.netlify.app/)
+- [Academic Publication - Theoretical Basis](https://2017.xcoax.org/pdf/xCoAx2017-Hebing.pdf)
 
 [1.0.0]: https://github.com/impactdistillery/graphite-paper/compare/v0.0.6...v1.0.0
 [0.0.6]: https://github.com/impactdistillery/graphite-paper/releases/tag/v0.0.6
