@@ -24,3 +24,4 @@ Welcome to Graphite Paper's documentation!
    pages/components
    pages/theme-configuration
    pages/contribute
+   pages/changelog
