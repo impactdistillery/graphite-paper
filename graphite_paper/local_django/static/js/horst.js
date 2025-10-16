@@ -1,6 +1,14 @@
 /*jslint browser: true*/
 /*global $, jQuery, alert, console*/
 
+// Language helper function
+function getLang(key, defaultValue) {
+  if (typeof window.GRAPHITE_LANG !== 'undefined' && window.GRAPHITE_LANG[key]) {
+    return window.GRAPHITE_LANG[key];
+  }
+  return defaultValue || key;
+}
+
 // ToggleText function
 $.fn.extend({
   toggleText: function (a, b) {
@@ -235,7 +243,7 @@ function collapseOversizedInfobox() {
       if (canOverflow) {
         $(this).addClass("infobox-overflowing");
         $(this).after(
-          '<button class="btn btn-primary toggleInfobox" type="button">Expand infobox</button>'
+          '<button class="btn btn-primary toggleInfobox" type="button">' + getLang('expand_infobox', 'Expand infobox') + '</button>'
         );
       }
       enableListener();
@@ -402,7 +410,7 @@ function enableListener() {
     .unbind("click")
     .click(function () {
       $(this).prev().toggleClass("show-collapsed");
-      $(this).toggleText("Collapse infobox", "Expand infobox");
+      $(this).toggleText(getLang('collapse_infobox', 'Collapse infobox'), getLang('expand_infobox', 'Expand infobox'));
     });
 
   // Jump to headline in right tab with offset

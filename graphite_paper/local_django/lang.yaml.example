@@ -1,0 +1,72 @@
+# Graphite Paper Language Configuration
+# =====================================
+# This file contains all user-facing text strings used in the Graphite Paper framework.
+# Copy this file to your publication's config/lang.yaml and customize the values
+# to translate your publication to another language.
+#
+# All strings have English defaults built into the framework, so you only need to
+# include the keys you want to customize.
+
+# Navigation and Headers
+# ----------------------
+header_articles: "Further publications"
+header_more: "More information"
+powered_by: "Powered by"
+toc: "Table of content"
+toc_long: "Table of content"
+
+# Abstract and Metadata
+# ---------------------
+abstract: "Abstract"
+keywords: "Keywords"
+cite_as: "Cite as"
+licence: "Licence"
+disclaimer: "Disclaimer"
+terms_of_use: "Terms of use"
+questions: "Questions?"
+write_mail: "Write an email to"
+
+# Dates
+# -----
+date_publication: "Published"
+date_submission: "Submitted"
+date_last_updated: "Last updated"
+
+# Actions
+# -------
+download: "Download"
+download_csv: "Download .csv"
+downloadData: "Download the data"
+download_file: "Download file"
+read_on: "Continue reading full article"
+visit_website: "Visit website"
+
+# Share
+# -----
+share: "SHARE"
+
+# Quote Component
+# ---------------
+quote_open: """
+quote_close: """
+translation: "Translation"
+original_version: "Original version"
+
+# Infobox Component
+# -----------------
+expand_infobox: "Expand infobox"
+collapse_infobox: "Collapse infobox"
+
+# Default Navigation Content (fallbacks)
+# ---------------------------------------
+default_imprint: "This publication was built with the framework Graphite based on python's graphite-paper. The framework enables users to create publications for a digital environment."
+default_publication_1_label: "Agility. A whitepaper by LRN LAB"
+default_publication_1_url: "https://www.impactdistillery.com/graphite/lrnlab-agile-en/"
+default_publication_2_label: "Freedom of Expression in the Digital Public Sphere"
+default_publication_2_url: "https://graphite.page/policy-brief-values/"
+default_publication_3_label: "Increasing fairness in targeted advertising"
+default_publication_3_url: "https://preview.graphite.page/fair-targeted-ads/"
+default_link_1_label: "Graphite project website"
+default_link_1_url: "https://www.impactdistillery.com/graphite"
+default_link_2_label: "graphite-paper on PyPI"
+default_link_2_url: "https://pypi.org/project/graphite-paper"
