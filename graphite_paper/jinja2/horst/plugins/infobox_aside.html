@@ -12,6 +12,7 @@
 {% set reserved = ["title", "caption", "description", "file_url", "file_label", "collapse", "html_description", "data", "link"] %}
 
 {# Legacy link handling for backward compatibility #}
+{% if link %}
 {% for l in link %}
 <aside class="ms-aside-link">
   {% if l.startswith('http') and not l.startswith('[') %}
@@ -21,8 +22,10 @@
   {% endif %}
 </aside>
 {% endfor %}
+{% endif %}
 
 {# Iterate over all top-level keys and render as marginals #}
+{% if data %}
 {% for slug, value in data.items() %}
   {% if slug not in reserved %}
     {% if value is string %}
@@ -38,6 +41,7 @@
     {% endif %}
   {% endif %}
 {% endfor %}
+{% endif %}
 
 {# Legacy support for file_url and file_label #}
 {% if file_url %}
