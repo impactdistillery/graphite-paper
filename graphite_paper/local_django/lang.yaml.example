@@ -12,8 +12,8 @@
 header_articles: "Further publications"
 header_more: "More information"
 powered_by: "Powered by"
-toc: "Table of content"
-toc_long: "Table of content"
+toc: "Contents"
+toc_long: "Table of contents"
 
 # Abstract and Metadata
 # ---------------------
@@ -36,14 +36,14 @@ date_last_updated: "Last updated"
 # -------
 download: "Download"
 download_csv: "Download .csv"
-downloadData: "Download the data"
+download_data: "Download the data"
 download_file: "Download file"
-read_on: "Continue reading full article"
+read_on: "Read full article"
 visit_website: "Visit website"
 
 # Share
 # -----
-share: "SHARE"
+share: "Share"
 
 # Quote Component
 # ---------------
@@ -57,16 +57,7 @@ original_version: "Original version"
 expand_infobox: "Expand infobox"
 collapse_infobox: "Collapse infobox"
 
-# Default Navigation Content (fallbacks)
-# ---------------------------------------
+# Default Imprint Text
+# ---------------------
+# This is shown in the navigation when no custom imprint is provided in meta.yaml
 default_imprint: "This publication was built with the framework Graphite based on python's graphite-paper. The framework enables users to create publications for a digital environment."
-default_publication_1_label: "Agility. A whitepaper by LRN LAB"
-default_publication_1_url: "https://www.impactdistillery.com/graphite/lrnlab-agile-en/"
-default_publication_2_label: "Freedom of Expression in the Digital Public Sphere"
-default_publication_2_url: "https://graphite.page/policy-brief-values/"
-default_publication_3_label: "Increasing fairness in targeted advertising"
-default_publication_3_url: "https://preview.graphite.page/fair-targeted-ads/"
-default_link_1_label: "Graphite project website"
-default_link_1_url: "https://www.impactdistillery.com/graphite"
-default_link_2_label: "graphite-paper on PyPI"
-default_link_2_url: "https://pypi.org/project/graphite-paper"

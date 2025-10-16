@@ -58,8 +58,8 @@ Navigation and Headers
     header_articles: "Further publications"
     header_more: "More information"
     powered_by: "Powered by"
-    toc: "Table of content"
-    toc_long: "Table of content"
+    toc: "Contents"
+    toc_long: "Table of contents"
 
 Abstract and Metadata
 ---------------------
@@ -91,9 +91,9 @@ Actions
 
     download: "Download"
     download_csv: "Download .csv"
-    downloadData: "Download the data"
+    download_data: "Download the data"
     download_file: "Download file"
-    read_on: "Continue reading full article"
+    read_on: "Read full article"
     visit_website: "Visit website"
 
 Share Buttons
@@ -101,7 +101,7 @@ Share Buttons
 
 .. code:: yaml
 
-    share: "SHARE"
+    share: "Share"
 
 Quote Component
 ---------------
@@ -121,17 +121,14 @@ Infobox Component
     expand_infobox: "Expand infobox"
     collapse_infobox: "Collapse infobox"
 
-Default Navigation Content
----------------------------
+Default Imprint Text
+--------------------
 
-These keys customize the default content shown in the expandable top navigation when no custom content is provided in ``meta.yaml``:
+This key customizes the default imprint text shown in the expandable top navigation when no custom imprint is provided in ``meta.yaml``:
 
 .. code:: yaml
 
     default_imprint: "This publication was built with the framework Graphite..."
-    default_publication_1_label: "Agility. A whitepaper by LRN LAB"
-    default_publication_1_url: "https://www.impactdistillery.com/graphite/..."
-    # ... additional defaults available in lang.yaml.example
 
 
 Complete Example Files
@@ -145,8 +142,8 @@ For an English publication, you typically don't need a ``lang.yaml`` file since 
 .. code:: yaml
 
     # config/lang.yaml - Minimal English customization
-    powered_by: "Built with"
-    share: "Share"
+    read_on: "Explore guide"
+    expand_infobox: "Continue reading"
 
 German Publication
 ------------------
