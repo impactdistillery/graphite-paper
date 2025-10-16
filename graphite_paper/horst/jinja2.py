@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from django.urls import reverse
 
 from jinja2 import Environment
+from markdown import markdown
 
 try:
     GRAPHITE_SERVER = settings.GRAPHITE_SERVER
@@ -85,6 +86,13 @@ def media(file_reference):
     else:
         return os.path.join(GRAPHITE_SERVER, file_reference)
 
+def markdown_filter(content):
+    """Convert markdown to HTML."""
+    return markdown(
+        content,
+        extensions=["markdown.extensions.tables", "markdown.extensions.nl2br"],
+    )
+
 def additional_globals():
     return dict(
         static=staticfiles_storage.url,
@@ -102,4 +110,5 @@ def environment(**options):
 
     env = Environment(**options)
     env.globals.update(additional_globals())
+    env.filters['markdown'] = markdown_filter
     return env

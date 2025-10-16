@@ -190,7 +190,10 @@ class InfoboxPlugin(YamlMdPlugin):
     def render(self):
         renderer, html_content = self.modify_markdown_based_html(self.content)
         content = self.render_template(dict(content=html_content))
-        aside = self.render_template(self.data, aside=True)
+        # Pass data both as unpacked dict (for backward compatibility) and as named 'data' variable (for iteration)
+        template_data = self.data.copy()
+        template_data['data'] = self.data
+        aside = self.render_template(template_data, aside=True)
         collapse = self.data["collapse"]
         classname = self.Meta.name
         if collapse:
