@@ -1,14 +1,6 @@
 /*jslint browser: true*/
 /*global $, jQuery, alert, console*/
 
-// Language helper function
-function getLang(key, defaultValue) {
-  if (typeof window.GRAPHITE_LANG !== 'undefined' && window.GRAPHITE_LANG[key]) {
-    return window.GRAPHITE_LANG[key];
-  }
-  return defaultValue || key;
-}
-
 // ToggleText function
 $.fn.extend({
   toggleText: function (a, b) {
@@ -242,9 +234,8 @@ function collapseOversizedInfobox() {
       // if collapse set to true, adjust class and show button
       if (canOverflow) {
         $(this).addClass("infobox-overflowing");
-        $(this).after(
-          '<button class="btn btn-primary toggleInfobox" type="button">' + getLang('expand_infobox', 'Expand infobox') + '</button>'
-        );
+        // Show the pre-rendered button
+        $(this).parent().find(".toggleInfobox").show();
       }
       enableListener();
     }
@@ -409,8 +400,13 @@ function enableListener() {
   $(".toggleInfobox")
     .unbind("click")
     .click(function () {
-      $(this).prev().toggleClass("show-collapsed");
-      $(this).toggleText(getLang('collapse_infobox', 'Collapse infobox'), getLang('expand_infobox', 'Expand infobox'));
+      var $button = $(this);
+      var $infobox = $button.prev();
+      $infobox.toggleClass("show-collapsed");
+      // Toggle button text using data attributes
+      var textCollapse = $button.data('text-collapse') || 'Collapse infobox';
+      var textExpand = $button.data('text-expand') || 'Expand infobox';
+      $button.toggleText(textCollapse, textExpand);
     });
 
   // Jump to headline in right tab with offset

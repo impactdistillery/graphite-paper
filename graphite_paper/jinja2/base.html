@@ -25,10 +25,6 @@
     <script src="{{ static("js/popper.min.js") }}"></script>
 <!--  Needed to calculate actual height   <script src="{{ static("js/jquery.actual.min.js") }}"></script>-->
     <script src="{{ static("js/bootstrap.min.js") }}"></script>
-    <script type="text/javascript">
-      // Make language strings available to JavaScript
-      window.GRAPHITE_LANG = {{ lang | tojson | safe }};
-    </script>
     <script src="{{ static("js/horst.js") }}"></script>
     <script src="{{ static("js/youtube.js") }}"></script>
     {% if meta.load_confetti %}
