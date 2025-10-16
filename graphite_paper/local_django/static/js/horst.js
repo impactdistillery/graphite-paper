@@ -138,7 +138,7 @@ function collapseOversizedMarginals() {
       //                console.log('Asides:', $(this), heightAsides)
       var heightContent = $(this)
         .children(".ms-col-content")
-        .children("p")
+        .children("p, ul, ol, table")
         .height();
       //                console.log('Content:', $(this), heightContent)
 
