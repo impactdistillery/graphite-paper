@@ -9,6 +9,11 @@
         {{ aside | safe }}
       </div>
     </div>
+    {% if 'infobox' in pluginClass %}
+    <button class="btn btn-primary toggleInfobox" type="button" style="display: none;" 
+            data-text-expand="{{ lang.get('expand_infobox', 'Expand infobox') }}"
+            data-text-collapse="{{ lang.get('collapse_infobox', 'Collapse infobox') }}">{{ lang.get('expand_infobox', 'Expand infobox') }}</button>
+    {% endif %}
   </div>
 </section>
 <div class="container">

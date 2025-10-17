@@ -17,13 +17,13 @@
   <li class="nav-item">
     <a class="nav-link active" id="{{ id }}quote-tab" data-toggle="tab"
        href="#{{ id }}quote" role="tab" aria-controls="{{ id }}quote" aria-expanded="true">
-      Übersetzung
+      {{ lang.get('translation', 'Translation') }}
     </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="{{ id }}quoteOriginal-tab" data-toggle="tab"
        href="#{{ id }}quoteOriginal" role="tab" aria-controls="{{ id }}quoteOriginal">
-      Originalversion
+      {{ lang.get('original_version', 'Original version') }}
     </a>
   </li>
 </ul>

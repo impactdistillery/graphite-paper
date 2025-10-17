@@ -50,6 +50,10 @@
 {# Legacy support for file_url and file_label #}
 {% if file_url %}
 <aside class="ms-aside-file">
-  <p><a href="{{ file_url }}">{{ file_label or file_url }}</a></p>
+  {% if file_label %}
+  <p><a href="{{ file_url }}">{{ file_label }}</a></p>
+  {% else %}
+  <p><a href="{{ file_url }}">{{ lang.get('download_file', 'Download file') }}</a></p>
+  {% endif %}
 </aside>
 {% endif %}

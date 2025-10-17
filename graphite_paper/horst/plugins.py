@@ -193,6 +193,7 @@ class InfoboxPlugin(YamlMdPlugin):
         # Pass data both as unpacked dict (for backward compatibility) and as named 'data' variable (for iteration)
         template_data = self.data.copy()
         template_data['data'] = self.data
+        template_data['lang'] = self.report.lang
         aside = self.render_template(template_data, aside=True)
         collapse = self.data["collapse"]
         classname = self.Meta.name
