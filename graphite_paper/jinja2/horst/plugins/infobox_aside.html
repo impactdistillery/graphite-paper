@@ -14,29 +14,33 @@
 {# Legacy link handling for backward compatibility #}
 {% if link %}
 {% for l in link %}
-<aside class="ms-aside-link">
-  {% if l.startswith('http') and not l.startswith('[') %}
-    <p><a href="{{ l }}">{{ l }}</a></p>
-  {% else %}
-    {{ l | markdown | safe }}
+  {% if l %}
+  <aside class="ms-aside-link">
+    {% if l is string and l.startswith('http') and not l.startswith('[') %}
+      <p><a href="{{ l }}">{{ l }}</a></p>
+    {% else %}
+      {{ l | markdown | safe }}
+    {% endif %}
+  </aside>
   {% endif %}
-</aside>
 {% endfor %}
 {% endif %}
 
 {# Iterate over all top-level keys and render as marginals #}
 {% if data %}
 {% for slug, value in data.items() %}
-  {% if slug not in reserved %}
+  {% if slug not in reserved and value %}
     {% if value is string %}
       <aside class="ms-aside-{{ slug }}">
         {{ value | markdown | safe }}
       </aside>
-    {% else %}
+    {% elif value is iterable and value is not string %}
       {% for element in value %}
+        {% if element %}
         <aside class="ms-aside-{{ slug }}">
           {{ element | markdown | safe }}
         </aside>
+        {% endif %}
       {% endfor %}
     {% endif %}
   {% endif %}
