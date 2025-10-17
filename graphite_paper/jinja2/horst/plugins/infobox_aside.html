@@ -8,20 +8,48 @@
 </aside>
 {% endif %}
 
-{% for l in link %}
-<aside class="ms-aside-link">
-  <p><a href="{{ l }}">{{ l }}</a></p>
-</aside>
-{% endfor %}
+{# Reserved keys that should not be treated as marginals #}
+{% set reserved = ["title", "caption", "description", "file_url", "file_label", "collapse", "html_description", "data", "link"] %}
 
-{% if note %}
-<aside class="ms-aside-note">
-  <p>{{ note | safe }}</p>
-</aside>
+{# Legacy link handling for backward compatibility #}
+{% if link %}
+{% for l in link %}
+  {% if l %}
+  <aside class="ms-aside-link">
+    {% if l is string and l.startswith('http') and not l.startswith('[') %}
+      <p><a href="{{ l }}">{{ l }}</a></p>
+    {% else %}
+      {{ l | markdown | safe }}
+    {% endif %}
+  </aside>
+  {% endif %}
+{% endfor %}
 {% endif %}
 
+{# Iterate over all top-level keys and render as marginals #}
+{% if data %}
+{% for slug, value in data.items() %}
+  {% if slug not in reserved and value %}
+    {% if value is string %}
+      <aside class="ms-aside-{{ slug }}">
+        {{ value | markdown | safe }}
+      </aside>
+    {% elif value is iterable and value is not string %}
+      {% for element in value %}
+        {% if element %}
+        <aside class="ms-aside-{{ slug }}">
+          {{ element | markdown | safe }}
+        </aside>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{# Legacy support for file_url and file_label #}
 {% if file_url %}
-<aside class="ms-aside-download">
+<aside class="ms-aside-file">
   {% if file_label %}
   <p><a href="{{ file_url }}">{{ file_label }}</a></p>
   {% else %}

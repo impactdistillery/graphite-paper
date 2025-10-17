@@ -449,36 +449,89 @@ Infobox
 
 Collapsable section for case studies, excursus or similar.
 
-| :syntax:`:--- INFOBOX ---:`
-| :syntax:`title:` :variable:`title of infobox`
-| :syntax:`description:` :variable:`description of infobox`
-| :syntax:`note:` :variable:`key learnings or quick summary`
-| :syntax:`link:` :variable:`list of links`
-| :syntax:`file_url:` :variable:`url to download`
-| :syntax:`file_label:` :variable:`label of download`
+The infobox component supports dynamic marginals based on any top-level YAML key (except ``title``, ``caption``, and ``description`` which have special formatting). Each marginal type is rendered with a class ``ms-aside-{slug}`` and supports Markdown formatting.
+
+**Special Keys:**
+
+| :syntax:`title:` :variable:`title of infobox (displayed in caption)`
+| :syntax:`description:` :variable:`description of infobox (displayed below title)`
 | :syntax:`collapse:` :variable:`true/false, defaults to false`
+
+**Dynamic Marginals:**
+
+Any other top-level key creates a marginal with class ``ms-aside-{key}``. Each marginal value can be:
+
+* A string (single marginal)
+* A list (multiple marginals of the same type)
+
+All marginal content supports Markdown formatting (links, emphasis, etc.).
+
+**Common Marginal Types:**
+
+| :syntax:`note:` :variable:`key learnings or quick summary`
+| :syntax:`hint:` :variable:`helpful tips or hints`
+| :syntax:`link:` :variable:`list of links (plain URLs or markdown format)`
+| :syntax:`glossary:` :variable:`glossary entries`
+| :syntax:`bookmark:` :variable:`cross-references`
+| :syntax:`file_url:` :variable:`url to download (legacy, see below)`
+| :syntax:`file_label:` :variable:`label of download (legacy, see below)`
+
+**Legacy File Download:**
+
+For backward compatibility, ``file_url`` and ``file_label`` create a download link with class ``ms-aside-file``.
+
+**Content:**
+
 | :syntax:`---`
-| :variable:`infobox component content (md)`
+| :variable:`infobox component content (markdown)`
 | :syntax:`:---:`
 
-**Example:**
+**Example with Dynamic Marginals:**
+
+.. code:: yaml
+
+    :---------------------- INFOBOX ---------------------------:
+    title: "Research Methods"
+    description: "Overview of quantitative and qualitative approaches"
+    note: "Key takeaway: Mixed methods provide **comprehensive** insights"
+    hint: "Consider sample size when choosing methods"
+    link:
+      - "[Survey Design Guide](https://example.com/surveys)"
+      - "[Interview Best Practices](https://example.com/interviews)"
+    glossary:
+      - "**Quantitative**: Numerical data analysis"
+      - "**Qualitative**: Thematic content analysis"
+    bookmark: "See [Data Collection](#data-collection) for more details"
+    ---
+    ## Research Methodology
+
+    This infobox demonstrates the new dynamic marginal feature. You can use
+    any marginal type you need, and each supports full Markdown formatting
+    including **bold**, *italic*, and [links](https://example.com).
+
+    Multiple entries of the same type are automatically rendered as separate
+    marginals.
+    :----------------------------------------------------------:
+
+**Legacy Format Example:**
+
+The old format is still supported for backward compatibility:
 
 .. code:: yaml
 
     :---------------------- INFOBOX ---------------------------:
     title: Lorem ipsum dolor sit amet
-    description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    note: "<strong>Key-Learnings:</strong><br>
-    Duis aute irure dolor in reprehen derit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    description: Ut enim ad minim veniam, quis nostrud exercitation
+    note: "<strong>Key-Learnings:</strong><br>Legacy HTML format still works"
     link:
     - http://www.loopline-systems.com
     - http://www.allfoye.net
+    file_url: "https://example.com/file.pdf"
+    file_label: "Download PDF"
     ---
-    ## Headline for the excursus
-    Augue mauris augue neque gravida in fermentum et sollicitudin ac. Scelerisque fermentum dui faucibus in ornare quam. Malesuada fames ac turpis egestas sed. Nisi porta lorem mollis aliquam ut porttitor. Tortor dignissim convallis aenean et tortor at risus viverra. Purus sit amet luctus venenatis lectus magna fringilla. Nulla at volutpat diam ut venenatis tellus in metus.
-
-    Amet commodo nulla [: REFERENCE | Lorem2020 | facilisi :] nullam vehicula. Id velit ut tortor pretium viverra suspendisse potenti. Sed nisi lacus sed viverra. Mi quis hendrerit dolor magna eget est. A diam sollicitudin tempor id eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. At erat pellentesque adipiscing commodo elit at imperdiet.
+    ## Content Section
+    
+    Legacy infobox content with inline components and markdown.
     :----------------------------------------------------------:
 
 .. _Full-width figure:
