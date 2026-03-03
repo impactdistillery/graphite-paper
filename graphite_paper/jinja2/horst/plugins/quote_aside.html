@@ -1,6 +1,6 @@
 {% if author %}
 <aside class="ms-aside-author">
-  <p><strong>{{ author }}</strong></p>
+  {{ author | markdown | safe }}
   {% if authorDescription %}
   {{ authorDescription | markdown | safe }}
   {% endif %}
@@ -24,7 +24,7 @@
 {% endif %}
 {% if generalSource %}
 <aside class="ms-aside-generalSource">
-  <p><strong>{{ generalSource }}</strong></p>
+  {{ generalSource | markdown | safe }}
   {% if sourceDescription %}
   {{ sourceDescription | markdown | safe }}
   {% endif %}
