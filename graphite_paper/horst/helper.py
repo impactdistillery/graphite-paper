@@ -20,6 +20,9 @@ def read_report_file(report, file_name):
         return f.read()
 
 def jinja_template(template_html):
+    #env = Environment(
+    #    loader=PackageLoader("horst", "jinja2"),
+    #)
     env = Environment()
     env.filters['markdown'] = markdown_helper
     env.globals.update(additional_globals())
