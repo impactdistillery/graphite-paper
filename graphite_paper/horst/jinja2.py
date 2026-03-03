@@ -99,7 +99,9 @@ def additional_globals():
     )
 
 def environment(**options):
+    from graphite_paper.horst.helper import markdown_helper
 
     env = Environment(**options)
     env.globals.update(additional_globals())
+    env.filters['markdown'] = markdown_helper
     return env

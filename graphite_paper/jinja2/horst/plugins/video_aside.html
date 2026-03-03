@@ -18,7 +18,7 @@
   <p>
     <strong>{{ author }}</strong>
     {% if authorDescription %}
-    <br>{{ authorDescription }}
+    <br>{{ authorDescription | markdown | safe }}
     {% endif %}
   </p>
 </aside>

@@ -3,7 +3,7 @@
   <p>
     <strong>{{ author }}</strong>
     {% if authorDescription %}
-    <br>{{ authorDescription }}
+    <br>{{ authorDescription | markdown | safe }}
     {% endif %}
   </p>
 </aside>
@@ -29,7 +29,7 @@
   <p>
     <strong>{{ generalSource }}</strong>
     {% if sourceDescription %}
-    <br>{{ sourceDescription }}
+    <br>{{ sourceDescription | markdown | safe }}
     {% endif %}
   </p>
 </aside>
