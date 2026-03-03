@@ -2,7 +2,7 @@ import os, glob
 from xml.etree import ElementTree
 import yaml
 from markdown import markdown
-from jinja2 import Environment
+from jinja2 import PackageLoader, Template, Environment
 from .jinja2 import additional_globals
 
 def markdown_helper(content):
@@ -20,10 +20,15 @@ def read_report_file(report, file_name):
         return f.read()
 
 def jinja_template(template_html):
-    env = Environment()
-    env.filters['markdown'] = markdown_helper
-    env.globals.update(additional_globals())
-    return env.from_string(template_html)
+    #env = Environment(
+    #    loader=PackageLoader("horst", "jinja2"),
+    #)
+    #template = env.from_string(template_html)
+    template = Template(template_html)
+    template.globals.update(additional_globals())
+    # Add markdown filter
+    template.environment.filters['markdown'] = markdown_helper
+    return template
 
 def svg_remove_wh(glob_path="_build/images/*svg"):
     for file_path in glob.glob(glob_path):
