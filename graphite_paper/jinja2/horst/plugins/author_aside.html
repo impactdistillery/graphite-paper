@@ -1,11 +1,9 @@
 {% if author %}
 <aside class="ms-aside-author">
-  <p>
-    <strong>{{ author | markdown | safe }}</strong>
-    {% if authorDescription %}
-    <br>{{ authorDescription | markdown | safe }}
-    {% endif %}
-  </p>
+  <p><strong>{{ author }}</strong></p>
+  {% if authorDescription %}
+  {{ authorDescription | markdown | safe }}
+  {% endif %}
 </aside>
 {% endif %}
 {% if website %}
