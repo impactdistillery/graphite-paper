@@ -161,6 +161,29 @@ class ReferenceInline(AbstractInline):
         )
 
 
+class ListOfReferencesInline(AbstractInline):
+
+    class Meta:
+        name = "listofreferences"
+
+    def process(self):
+        self.embed = "module"
+        for param in self.data[1:]:
+            if "=" in param:
+                key, value = param.split("=", 1)
+                if key.strip() == "embed":
+                    self.embed = value.strip()
+
+    def render(self):
+        from .plugins import ListOfReferencesPlugin
+        partial_id = getattr(self.partial, 'partial_id', None)
+        plugin = ListOfReferencesPlugin(self.report, "", partial_id=partial_id)
+        if self.embed == "fragment":
+            return plugin.render_template({"entries": plugin.get_entries()})
+        else:
+            return plugin.render()
+
+
 class InlineController:
 
     @classmethod
