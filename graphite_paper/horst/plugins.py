@@ -42,6 +42,11 @@ class AbstractPlugin:
         Abstract method: render Plugin to HTML.
         """
 
+    def _inline_replace(self, match):
+        data = [x.strip() for x in match.group(1).split("|")]
+        inline = InlineController.get_inline(data[0])
+        return inline(self.report, data, self).render()
+
     def render_template(self, data=dict(), aside=False, file_name=None):
         if file_name:
             pass
@@ -55,6 +60,14 @@ class AbstractPlugin:
         )
         with open(file_path, "r+") as f:
             template = jinja_template(f.read())
+        # Override markdown filter with one that also expands inline references
+        _self = self
+        def _markdown_with_inlines(text):
+            if not text:
+                return text
+            html = markdown_helper(text)
+            return RE_INLINE.sub(_self._inline_replace, html)
+        template.environment.filters['markdown'] = _markdown_with_inlines
         return template.render(data)
 
     def format_data(self):
