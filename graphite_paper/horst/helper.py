@@ -2,7 +2,7 @@ import os, glob
 from xml.etree import ElementTree
 import yaml
 from markdown import markdown
-from jinja2 import PackageLoader, Environment
+from jinja2 import Environment
 from .jinja2 import additional_globals
 
 def markdown_helper(content):
@@ -20,9 +20,6 @@ def read_report_file(report, file_name):
         return f.read()
 
 def jinja_template(template_html):
-    #env = Environment(
-    #    loader=PackageLoader("horst", "jinja2"),
-    #)
     env = Environment()
     env.filters['markdown'] = markdown_helper
     env.globals.update(additional_globals())
