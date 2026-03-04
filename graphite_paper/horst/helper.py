@@ -26,6 +26,8 @@ def jinja_template(template_html):
     #template = env.from_string(template_html)
     template = Template(template_html)
     template.globals.update(additional_globals())
+    # Add markdown filter
+    template.environment.filters['markdown'] = markdown_helper
     return template
 
 def svg_remove_wh(glob_path="_build/images/*svg"):

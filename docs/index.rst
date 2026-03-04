@@ -22,6 +22,7 @@ Welcome to Graphite Paper's documentation!
    pages/getting-started
    pages/create-paper
    pages/components
+   pages/translation
    pages/theme-configuration
    pages/contribute
    pages/changelog

@@ -1,0 +1,63 @@
+# Graphite Paper Language Configuration
+# =====================================
+# This file contains all user-facing text strings used in the Graphite Paper framework.
+# Copy this file to your publication's config/lang.yaml and customize the values
+# to translate your publication to another language.
+#
+# All strings have English defaults built into the framework, so you only need to
+# include the keys you want to customize.
+
+# Navigation and Headers
+# ----------------------
+header_articles: "Further publications"
+header_more: "More information"
+powered_by: "Powered by"
+toc: "Contents"
+toc_long: "Table of contents"
+
+# Abstract and Metadata
+# ---------------------
+abstract: "Abstract"
+keywords: "Keywords"
+cite_as: "Cite as"
+licence: "Licence"
+disclaimer: "Disclaimer"
+terms_of_use: "Terms of use"
+questions: "Questions?"
+write_mail: "Write an email to"
+
+# Dates
+# -----
+date_publication: "Published"
+date_submission: "Submitted"
+date_last_updated: "Last updated"
+
+# Actions
+# -------
+download: "Download"
+download_csv: "Download .csv"
+download_data: "Download the data"
+download_file: "Download file"
+read_on: "Read full article"
+visit_website: "Visit website"
+
+# Share
+# -----
+share: "Share"
+
+# Quote Component
+# ---------------
+quote_open: """
+quote_close: """
+translation: "Translation"
+original_version: "Original version"
+
+# Infobox Component
+# -----------------
+expand_infobox: "Expand infobox"
+collapse_infobox: "Collapse infobox"
+
+# Default Imprint Text
+# ---------------------
+# This is shown in the navigation when no custom imprint is provided in meta.yaml
+default_imprint: "This publication was built with the Graphite framework, which is available as the open-source Python package graphite-paper on the Python Package Index (PyPI). The framework enables users to create and publish digital publications efficiently. For more information about this publication and its publishers, please see the publication’s About page."

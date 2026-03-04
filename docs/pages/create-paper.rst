@@ -120,6 +120,14 @@ All meta information and some settings are added in :file:`config/meta.yaml`.
 .. include:: meta.rst
 
 
+Customize language and translations
+====================================
+
+All user-facing text in Graphite Paper can be customized through :file:`config/lang.yaml`. This is useful for translating your publication or customizing terminology.
+
+For details on translation support, see :ref:`translation`.
+
+
 Add page content
 ================
 
