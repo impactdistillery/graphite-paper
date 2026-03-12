@@ -95,6 +95,8 @@ class YamlPlugin(AbstractPlugin):
             self.data = yaml.safe_load(self.config)
         except:
             self.data = dict()
+        if not isinstance(self.data, dict):
+            self.data = dict()
         if "description" in self.data:
             self.data["html_description"] = markdown.markdown(
                 self.data["description"]
