@@ -486,11 +486,7 @@ class ListOfReferencesPlugin(ListOfFiguresPlugin):
     def get_entries(self):
         references = self.report.references
         for key, value in references.items():
-            html = markdown_helper(value.get("long")).strip()
-            if value.get("url"):
-                icon = '<a class="mdi mdi-earth" href="{}" target="_blank"></a>'.format(value["url"])
-                html = re.sub(r'(</p>)\s*$', icon + r'\1', html)
-            references[key]["html"] = html
+            references[key]["html"] = markdown_helper(value.get("long")).strip()
         return references
 
 
