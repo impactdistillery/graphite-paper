@@ -1,7 +1,7 @@
 {% for key, value in entries.sorted_items() %}
 <div class="ms-entry">
   {% if value.url %}
-    {% set icon %}<a class="mdi mdi-earth" href="{{ value.url }}" target="_blank"></a>{% endset %}
+    {% set icon %}&nbsp;<a class="mdi mdi-earth" href="{{ value.url }}" target="_blank"></a>{% endset %}
     {{ value.html | append_to_last_p(icon) }}
   {% else %}
     {{ value.html }}
