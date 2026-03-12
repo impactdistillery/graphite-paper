@@ -1,4 +1,5 @@
 import os
+import re
 from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from urllib.parse import urlencode
@@ -86,6 +87,10 @@ def media(file_reference):
     else:
         return os.path.join(GRAPHITE_SERVER, file_reference)
 
+def append_to_last_p(html, content):
+    """Inject `content` inside the closing tag of the last <p> in `html`."""
+    return re.sub(r'(</p>)\s*$', content + r'\1', html)
+
 def markdown_filter(content):
     """Convert markdown to HTML."""
     return markdown(
@@ -111,4 +116,5 @@ def environment(**options):
     env = Environment(**options)
     env.globals.update(additional_globals())
     env.filters['markdown'] = markdown_filter
+    env.filters['append_to_last_p'] = append_to_last_p
     return env

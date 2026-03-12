@@ -3,7 +3,7 @@ from xml.etree import ElementTree
 import yaml
 from markdown import markdown
 from jinja2 import PackageLoader, Template, Environment
-from .jinja2 import additional_globals
+from .jinja2 import additional_globals, append_to_last_p
 
 def markdown_helper(content):
     return markdown(
@@ -28,6 +28,7 @@ def jinja_template(template_html):
     template.globals.update(additional_globals())
     # Add markdown filter
     template.environment.filters['markdown'] = markdown_helper
+    template.environment.filters['append_to_last_p'] = append_to_last_p
     return template
 
 def svg_remove_wh(glob_path="_build/images/*svg"):
