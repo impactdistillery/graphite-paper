@@ -113,6 +113,7 @@ class Section(RenderTwo):
             aside=self.aside,
 #            collapse=self.collapse,
             partialId=self.partial_id,
+            lang=self.report.lang,
         ))
 
 class RenderText(RenderTwo):

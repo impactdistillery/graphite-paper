@@ -1,10 +1,10 @@
 {% for key, value in entries.sorted_items() %}
 <div class="ms-entry">
-  <p>
+  {% if value.url %}
+    {% set icon %}&nbsp;<a class="mdi mdi-earth" href="{{ value.url }}" target="_blank" rel="noreferrer noopener"></a>{% endset %}
+    {{ value.html | append_to_last_p(icon) }}
+  {% else %}
     {{ value.html }}
-    {% if value.url %}
-    <a class="mdi mdi-earth" href="{{ value.url }}" target="_blank"></a>
-    {% endif %}
-  </p>
+  {% endif %}
 </div>
 {% endfor %}

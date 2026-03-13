@@ -42,7 +42,7 @@
             </li>
           {% else %}
             <li class="nav-item ml-2">
-              <a href={{ l.url }} target="_blank" style="color: inherit">{{ l.label }}</a>
+              <a href="{{ l.url }}" target="_blank" rel="noreferrer noopener" style="color: inherit">{{ l.label }}</a>
             </li>
           {% endif %}
         {% endfor %}

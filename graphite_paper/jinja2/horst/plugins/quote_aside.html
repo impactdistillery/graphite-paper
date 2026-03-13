@@ -1,11 +1,9 @@
 {% if author %}
 <aside class="ms-aside-author">
-  <p>
-    <strong>{{ author }}</strong>
-    {% if authorDescription %}
-    <br>{{ authorDescription }}
-    {% endif %}
-  </p>
+  {{ author | markdown | safe }}
+  {% if authorDescription %}
+  {{ authorDescription | markdown | safe }}
+  {% endif %}
 </aside>
 {% endif %}
 {% if twitterName %}
@@ -26,18 +24,16 @@
 {% endif %}
 {% if generalSource %}
 <aside class="ms-aside-generalSource">
-  <p>
-    <strong>{{ generalSource }}</strong>
-    {% if sourceDescription %}
-    <br>{{ sourceDescription }}
-    {% endif %}
-  </p>
+  {{ generalSource | markdown | safe }}
+  {% if sourceDescription %}
+  {{ sourceDescription | markdown | safe }}
+  {% endif %}
 </aside>
 {% endif %}
 {% if link %}
 <aside class="ms-aside-link">
   <p><a href="{{ link }}" target="_blank" rel="noopener noreferrer">
-       {{ lang.get("visit_website") }}
+       {{ lang.get("visit_website", "Visit website") }}
     </a></p>
 </aside>
 {% endif %}
@@ -49,7 +45,7 @@
     <a class="btn btn-secondary" href="/{{ file }}"><i class="mdi mdi-download"></i></a>
   </div>
   <div class="btn-group" role="group" aria-label="Share">
-    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <span class="input-group-addon" id="btnGroupAddon">{{ lang.get("share", "SHARE") }}</span>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-facebook"></i> </a>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-twitter"></i> </a>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-linkedin"></i> </a>

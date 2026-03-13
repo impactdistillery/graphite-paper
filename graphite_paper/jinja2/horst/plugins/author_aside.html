@@ -1,17 +1,15 @@
 {% if author %}
 <aside class="ms-aside-author">
-  <p>
-    <strong>{{ author }}</strong>
-    {% if authorDescription %}
-    <br>{{ authorDescription }}
-    {% endif %}
-  </p>
+  {{ author | markdown | safe }}
+  {% if authorDescription %}
+  {{ authorDescription | markdown | safe }}
+  {% endif %}
 </aside>
 {% endif %}
 {% if website %}
 <aside class="ms-aside-link">
   <p>
-    <a href={{ website }} target="_blank">
+    <a href="{{ website }}" target="_blank" rel="noreferrer noopener">
        {{ lang.get("visit_website", "Visit website") }}
     </a>
   </p>
@@ -20,7 +18,7 @@
 {% if twitterName %}
 <aside class="ms-aside-twitter">
   <p>
-    <a href="https://twitter.com/{{ twitterName }}" target="_blank">
+    <a href="https://twitter.com/{{ twitterName }}" target="_blank" rel="noreferrer noopener">
        <span class="grey">@&thinsp;</span>{{ twitterName }}
     </a>
   </p>
@@ -28,7 +26,7 @@
 {% endif %}
 {% if linkedinName %}
 <aside class="ms-aside-linkedin">
-  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank">
+  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank" rel="noreferrer noopener">
        <span class="grey">in&thinsp;/&thinsp;</span>{{ linkedinName }}
     </a></p>
 </aside>
@@ -41,7 +39,7 @@
     <a class="btn btn-secondary" href="/{{ file }}"><i class="mdi mdi-download"></i></a>
   </div>
   <div class="btn-group" role="group" aria-label="Share">
-    <span class="input-group-addon" id="btnGroupAddon">TEILEN</span>
+    <span class="input-group-addon" id="btnGroupAddon">{{ lang.get("share", "SHARE") }}</span>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-facebook"></i> </a>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-twitter"></i> </a>
     <a href="#" class="btn btn-secondary"><i class="mdi mdi-linkedin"></i> </a>
