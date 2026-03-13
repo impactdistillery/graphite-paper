@@ -444,6 +444,8 @@ Full width chapter headers with headline, subheadline and background image.
     :---------------------------------------------------------:
 
 
+.. _Infobox:
+
 Infobox
 -------
 
@@ -579,9 +581,37 @@ List of references
 
 Prints the list of references defined in :file:`pages/references.yaml`.
 
+**Legacy block syntax**
+
 | :syntax:`:--- LISTOFREFERENCES ---:`
 | :syntax:`title:` :variable:`Title above list`
 | :syntax:`:---:`
+
+**Inline include syntax**
+
+The list of references can also be embedded inside Markdown bodies (for
+example inside an :ref:`Infobox`) using the inline include syntax:
+
+| :syntax:`[: LISTOFREFERENCES :]`
+
+An optional ``embed`` parameter controls the wrapper behaviour:
+
+- ``embed=module`` *(default)* — renders the full standalone module wrapper.
+- ``embed=fragment`` — renders only the entry ``<div>`` elements without the
+  outer module wrapper, so the list can be placed cleanly inside other
+  components.
+
+**Example: embedding inside an** :ref:`Infobox`
+
+.. code:: yaml
+
+    :------------ INFOBOX ---------------:
+    title: Sources
+    ---
+
+    ## References
+    [: LISTOFREFERENCES | embed=fragment :]
+    :------------------------------------:
 
 
 .. HINT::
