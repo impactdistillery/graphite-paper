@@ -77,8 +77,12 @@ class Report:
     def _load_lang(self, lang_name="lang.yaml"):
         file_path = os.path.join(self.PROJECT_DIRECTORY, "config", lang_name)
         lang = dict()
-        with open(file_path, "r") as f:
-            file_content = f.read()
-            if lang_name[-4:] == "yaml":
-                lang.update(yaml.safe_load(file_content))
+        try:
+            with open(file_path, "r") as f:
+                file_content = f.read()
+                if lang_name[-4:] == "yaml":
+                    lang.update(yaml.safe_load(file_content))
+        except FileNotFoundError:
+            # lang.yaml is optional - if not found, templates will use English defaults
+            pass
         self.lang = lang

@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-03-16
+
+### Added
+- **Full internationalisation (i18n) support** — All user-facing strings (e.g. "Collapse", "Expand", "Share", "Download", "Translation", "Original version") are now configurable via `lang.yaml`, with English fallbacks for backward compatibility. A new `lang.yaml.example` template is included. (#41)
+- **Dynamic infobox marginals** — `INFOBOX` now renders every non-reserved top-level YAML key as a marginal (class `ms-aside-{slug}`). Both scalar and list values are supported, with full Markdown rendering. Legacy `file_url` / `file_label` usage is preserved. (#43)
+- **Markdown & inline-reference rendering in aside templates** — The `markdown` filter is now applied to `authorDescription` and `sourceDescription` fields in `quote_aside.html`, `video_aside.html`, and `author_aside.html`, enabling formatted text and `[: REFERENCE | … :]` inline references in those fields. (#45)
+- **`LISTOFREFERENCES` inline include syntax** — A new `[: LISTOFREFERENCES | embed=fragment :]` inline tag can be placed inside any Markdown body (including inside an `INFOBOX` body after `---`). `embed=fragment` omits the outer module wrapper so the reference list integrates cleanly into surrounding content; `embed=module` (default) reproduces legacy standalone behaviour. (#47)
+- **`append_to_last_p` Jinja2 filter** — Injects HTML content inside the closing `</p>` of the last paragraph in a string; used internally to attach URL icons to reference entries without embedding HTML in Python code. (#47)
+- **`ExternalLinksExtension` Markdown extension** — A custom `markdown.treeprocessors.Treeprocessor` automatically adds `target="_blank" rel="noreferrer noopener"` to every external link (those whose `href` starts with `http://` or `https://`) in author-written Markdown pages. Relative links, anchor links, and `mailto:` links are unaffected. No new runtime dependency required. (#50)
+- **Comprehensive translation documentation** — New `docs/pages/translation.rst` documents all supported `lang.yaml` keys, usage examples, and how to add new language strings. (#41)
+- **LISTOFREFERENCES embed documentation** — `docs/pages/components.rst` documents the inline include syntax and `embed` parameter with examples. (#49)
+
+### Changed
+- **Infobox marginals refactored** — `InfoboxPlugin` now passes the full data dict to the template for dynamic iteration; the `lang` variable is also passed for translation support. (#43)
+- **`render_template()` updated** — `AbstractPlugin.render_template()` now calls `_inline_replace()` on Markdown output so that inline references inside plugin body text are resolved correctly. (#45)
+- **External link attributes standardised across templates** — `nav.html`, `author_aside.html`, `listofreferences.html`, `infobox_aside.html`, and `report.html` all now consistently carry `target="_blank" rel="noreferrer noopener"` on external links and use properly quoted `href` attributes. (#50)
+- **Typographic improvements** — User-facing default strings use typographically correct apostrophes (U+2019) and quotation marks. (#41)
+
+### Fixed
+- **Collapsing marginals beside list elements** — Corrected a layout bug where marginal elements adjacent to list items collapsed unexpectedly. (#39)
+- **`TypeError` in `YamlPlugin.process()`** — Calling `process()` with an empty config string no longer raises `TypeError: argument of type 'NoneType' is not iterable`. (#47)
+- **`TypeError` for `None` values in infobox template** — Added `{% if link %}`, `{% if data %}`, `{% if l %}`, and `l is string` guards so `None` values and non-string elements are skipped gracefully. (#43)
+- **Hardcoded German strings removed from templates** — `quote.html`, `quote_aside.html`, `variable_aside.html`, and `author_aside.html` replaced hard-coded "Übersetzung", "Originalversion", and "TEILEN" with `lang.get()` calls with English fallbacks. (#41, #45)
+- **`figure_aside.html` lang key corrected** — Renamed `downloadData` → `download_data` to match the documented key name. (#41, #45)
+- **Duplicate `{% if author %}` block removed** — `video_aside.html` had a redundant conditional block that has been cleaned up. (#45)
+
 ## [1.0.0] - 2025-10-01
 
 This marks the first stable release of Graphite Paper. The framework has been in active development and production use since 2017, powering numerous academic and policy publications.
@@ -128,5 +154,6 @@ Graphite Paper follows [Semantic Versioning](https://semver.org/):
 - [GitHub Repository](https://github.com/impactdistillery/graphite-paper)
 - [Academic Publication - Theoretical Basis](https://2017.xcoax.org/pdf/xCoAx2017-Hebing.pdf)
 
+[1.1.0]: https://github.com/impactdistillery/graphite-paper/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/impactdistillery/graphite-paper/compare/v0.0.6...v1.0.0
 [0.0.6]: https://github.com/impactdistillery/graphite-paper/releases/tag/v0.0.6
