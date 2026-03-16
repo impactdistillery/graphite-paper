@@ -17,7 +17,7 @@
   {% if l %}
   <aside class="ms-aside-link">
     {% if l is string and l.startswith('http') and not l.startswith('[') %}
-      <p><a href="{{ l }}">{{ l }}</a></p>
+      <p><a href="{{ l }}" target="_blank" rel="noreferrer noopener">{{ l }}</a></p>
     {% else %}
       {{ l | markdown | safe }}
     {% endif %}

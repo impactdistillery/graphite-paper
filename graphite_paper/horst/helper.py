@@ -2,13 +2,42 @@ import os, glob
 from xml.etree import ElementTree
 import yaml
 from markdown import markdown
+from markdown.extensions import Extension
+from markdown.treeprocessors import Treeprocessor
 from jinja2 import PackageLoader, Template, Environment
 from .jinja2 import additional_globals, append_to_last_p
+
+
+class _ExternalLinkProcessor(Treeprocessor):
+    """Open external links (http/https) in a new tab with security attributes."""
+
+    def run(self, root):
+        for el in root.iter("a"):
+            href = el.get("href", "")
+            if href.startswith("http://") or href.startswith("https://"):
+                el.set("target", "_blank")
+                el.set("rel", "noreferrer noopener")
+
+
+class ExternalLinksExtension(Extension):
+    """Markdown extension that adds target='_blank' and rel='noreferrer noopener'
+    to all external links (http/https) in the rendered output, so user-authored
+    markdown content follows the same external-link standard as the templates."""
+
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(
+            _ExternalLinkProcessor(md), "external_links", 5
+        )
+
 
 def markdown_helper(content):
     return markdown(
         content,
-        extensions=["markdown.extensions.tables", "markdown.extensions.nl2br"],
+        extensions=[
+            "markdown.extensions.tables",
+            "markdown.extensions.nl2br",
+            ExternalLinksExtension(),
+        ],
     )
 
 def read_report_file(report, file_name):

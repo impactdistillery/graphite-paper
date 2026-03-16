@@ -29,20 +29,20 @@
               <ul class="ms-nav-subnav">
                 {% for p in meta.further_publications %}
                   <li>
-                    <a href={{ p.url }} target="_blank">{{ p.label }}</a>
+                    <a href="{{ p.url }}" target="_blank" rel="noreferrer noopener">{{ p.label }}</a>
                   </li>
                 {% endfor %}
               </ul>
             {% else %}
               <ul class="ms-nav-subnav">
                 <li>
-                  <a href="https://www.impactdistillery.com/graphite/lrnlab-agile-en/" target="_blank">Agility. A whitepaper by LRN LAB</a>
+                  <a href="https://www.impactdistillery.com/graphite/lrnlab-agile-en/" target="_blank" rel="noreferrer noopener">Agility. A whitepaper by LRN LAB</a>
                 </li>
                 <li>
-                  <a href="https://graphite.page/policy-brief-values/" target="_blank">Freedom of Expression in the Digital Public Sphere</a>
+                  <a href="https://graphite.page/policy-brief-values/" target="_blank" rel="noreferrer noopener">Freedom of Expression in the Digital Public Sphere</a>
                 </li>
                 <li>
-                  <a href="https://preview.graphite.page/fair-targeted-ads/" target="_blank">Increasing fairness in targeted advertising</a>
+                  <a href="https://preview.graphite.page/fair-targeted-ads/" target="_blank" rel="noreferrer noopener">Increasing fairness in targeted advertising</a>
                 </li>
               </ul>
             {% endif %}
@@ -57,7 +57,7 @@
               <ul class="ms-nav-subnav">
                 {% for l in meta.further_links %}
                   <li>
-                    <a href={{ l.url }} target="_blank">{{ l.label }}</a>
+                    <a href="{{ l.url }}" target="_blank" rel="noreferrer noopener">{{ l.label }}</a>
                   </li>
                 {% endfor %}
               </ul>
@@ -65,10 +65,10 @@
             {% else %}
               <ul class="ms-nav-subnav">
                 <li>
-                  <a href="https://www.impactdistillery.com/graphite" target="_blank">Graphite project website</a>
+                  <a href="https://www.impactdistillery.com/graphite" target="_blank" rel="noreferrer noopener">Graphite project website</a>
                 </li>
                 <li>
-                  <a href="https://pypi.org/project/graphite-paper" target="_blank">graphite-paper on PyPI</a>
+                  <a href="https://pypi.org/project/graphite-paper" target="_blank" rel="noreferrer noopener">graphite-paper on PyPI</a>
                 </li>
               </ul>
             {% endif %}

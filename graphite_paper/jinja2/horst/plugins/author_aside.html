@@ -9,7 +9,7 @@
 {% if website %}
 <aside class="ms-aside-link">
   <p>
-    <a href={{ website }} target="_blank">
+    <a href="{{ website }}" target="_blank" rel="noreferrer noopener">
        {{ lang.get("visit_website", "Visit website") }}
     </a>
   </p>
@@ -18,7 +18,7 @@
 {% if twitterName %}
 <aside class="ms-aside-twitter">
   <p>
-    <a href="https://twitter.com/{{ twitterName }}" target="_blank">
+    <a href="https://twitter.com/{{ twitterName }}" target="_blank" rel="noreferrer noopener">
        <span class="grey">@&thinsp;</span>{{ twitterName }}
     </a>
   </p>
@@ -26,7 +26,7 @@
 {% endif %}
 {% if linkedinName %}
 <aside class="ms-aside-linkedin">
-  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank">
+  <p><a href="https://www.linkedin.com/in/{{ linkedinName }}" target="_blank" rel="noreferrer noopener">
        <span class="grey">in&thinsp;/&thinsp;</span>{{ linkedinName }}
     </a></p>
 </aside>
